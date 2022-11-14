@@ -9,6 +9,18 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 
 const filename = (ext) => isDev ? `[name].bundle.${ext}` : `[name].[hash].${ext}`;
+const cssLoaders = (extraLoader) => {
+    const loaders = [
+        MiniCssExtractPlugin.loader,
+        'css-loader'
+    ]; //from right to left
+
+    if (extraLoader) {
+        loaders.push(extraLoader);
+    }
+
+    return loaders;
+}
 
 const optimization = () => {
     const config = {
@@ -76,18 +88,11 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                use: [
-                        MiniCssExtractPlugin.loader,
-                        'css-loader'
-                    ] //from right to left
+                use: cssLoaders()
             },
             {
-                test: /\..s?css$/,
-                use: [
-                    "style-loader", //// Creates `style` nodes from JS strings
-                    "css-loader",   //// Translates CSS into CommonJS
-                    "sass-loader"   //// Compiles Sass to CSS
-                ]
+                test: /\.s[ac]ss$/,
+                use: cssLoaders("sass-loader" )
             },
             {
                 test: /\.(png|jpe?g|gif)$/i,
@@ -97,6 +102,16 @@ module.exports = {
                         }
                     ],
             },
+            {
+                test:   /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            }
 /*            {
                 test: /\.(ttf|eot|woff|woff2)$/,
                 use: ['file-loader'],
