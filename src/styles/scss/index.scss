@@ -1,0 +1,38 @@
+@import "./global_styles/_fonts.scss";
+@import "./global_styles/_variables.scss";
+@import "./global_styles/_mixins.scss";
+
+///////STYLES///////
+
+body {
+  font-family: "Roboto Regular", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /**** user-select: none; *****/
+  @include transition();
+}
+/*************TOP BORDER BODY****************/
+body:before {
+  content: "";
+  position: fixed;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  z-index: 100;
+  @include box-shadow(0, 10px);
+}
+/*****************END TOP BORDER BODY************/
+
+#root {
+  max-width: $maxWidth;
+  background-color: $white;
+  margin: 0 auto;
+  padding: 20px;
+
+  @media screen and (max-width: 720px) {
+    padding: 5px;
+  }
+}
+
+
