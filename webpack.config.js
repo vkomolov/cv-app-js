@@ -21,6 +21,18 @@ const cssLoaders = (extraLoader) => {
 
     return loaders;
 }
+const babelOption = preset => {
+    const options = {
+        presets: [
+            '@babel/preset-env'
+        ],
+    }
+    if (preset) {
+        options.presets.push(preset);
+    }
+
+    return options;
+}
 
 const optimization = () => {
     const config = {
@@ -108,10 +120,36 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env']
+                        presets: [
+                            babelOption()
+                        ],
                     }
                 }
-            }
+            },
+/*            {
+                test:   /\.ts$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            babelOption('@babel/preset-typescript')
+                        ],
+                    }
+                }
+            },*/
+/*            {
+                test:   /\.jsx$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            babelOption('@babel/preset-react')
+                        ],
+                    }
+                }
+            },*/
 /*            {
                 test: /\.(ttf|eot|woff|woff2)$/,
                 use: ['file-loader'],

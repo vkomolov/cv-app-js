@@ -9,7 +9,6 @@ log(root);
 
 log(cvJson, "JSON: ");
 
-
 //dev
 function log(it, comments='value: ') {
     console.log(comments, it);
