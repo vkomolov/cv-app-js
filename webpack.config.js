@@ -8,6 +8,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 
+const filename = (ext) => isDev ? `[name].bundle.${ext}` : `[name].[hash].${ext}`;
+
 const optimization = () => {
     const config = {
         splitChunks: {
@@ -32,7 +34,7 @@ module.exports = {
     },
     output: {
         /*filename: '[name].bundle.js',*/
-        filename: '[name].[hash].js',
+        filename: filename('js'),
         path: path.resolve(__dirname, 'dist')
     },
     resolve: {
@@ -66,7 +68,7 @@ module.exports = {
             ]
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].[hash].css'
+            filename: filename('css')
         }),
 
     ],
