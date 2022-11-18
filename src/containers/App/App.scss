@@ -1,0 +1,7 @@
+@import "../../styles/scss/global_styles/variables";
+@import "../../styles/scss/global_styles/mixins";
+
+.totalWrapper {
+  width: 100%;
+  @include flex-box($flex-box-row-top...);
+}

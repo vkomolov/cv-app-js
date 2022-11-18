@@ -8,7 +8,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 
-const filename = (ext) => isDev ? `[name].bundle.${ext}` : `[name].[hash].${ext}`;
+
+const filename = (ext) => isDev ? `[name].bundle.${ext}` : `[name].[fullhash].${ext}`;
 const cssLoaders = (extraLoader) => {
     const loaders = [
         MiniCssExtractPlugin.loader,
@@ -20,26 +21,26 @@ const cssLoaders = (extraLoader) => {
     }
 
     return loaders;
-}
+};
 const babelOption = preset => {
     const options = {
         presets: [
             '@babel/preset-env'
         ],
-    }
+    };
     if (preset) {
         options.presets.push(preset);
     }
 
     return options;
-}
+};
 
 const optimization = () => {
     const config = {
         splitChunks: {
             chunks: "all"
         }
-    }
+    };
     if (!isDev) {
         config.minimizer = [
             new CssMinimizerPlugin(),
@@ -47,7 +48,7 @@ const optimization = () => {
         ]
     }
     return config;
-}
+};
 
 
 module.exports = {
@@ -94,7 +95,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: filename('css')
         }),
-
     ],
     module: {
         rules: [
@@ -164,4 +164,4 @@ module.exports = {
             }*/
         ]
     }
-}
+};

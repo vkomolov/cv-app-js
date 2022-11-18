@@ -1,18 +1,24 @@
-This project was made with [Create React App](https://github.com/facebook/create-react-app).
+This cv app is made as a trial version to render the page
+dynamically on the Client from the simple JSON file, which is fetched 
+from the server, when the empty page is already rendered.
+<br>We`ll try to do without React, but follow some of the principles 
+and features of the page formation and operations with the data.
+<br>Resembling React, we`ll use Classes, which shall comprise
+the logic and the markup/styles of the App.
+<br>Each Class can return the HTMLElement as a component | container.
+<br>Finally, bundled in the App container, which will be appended in to 
+the '#root' DOM Element;
+
 
 ## Task: 
 - No hardcoded names and elements UI: 
 All UI elements (lists, paragraphs, filters) and the content 
 should be rendered according to the JSON data;
 The initial render of the App is empty with the only 'loading' icon;
-- to realise the CV project on React with the State operations;
-- to temporary avoid real server fetching operations; To prepare the 
-structured JSON file to be fetched from /build;
+- to temporary avoid real server fetching operations;
 - to set the localStorage with JSON data for the future sessions;
 - to renew the localStorage, if the creation date of the localStorage
- is more than 1 day;
-- to set the State data with the initial localStorage data;
-  All components should take the data only from the State;
+ is more than 1 day;  
 - to fix the height of the App with the scroll ability, if 
 the inside data is overflows the fixed height.
 - on the Component mount of the App - to check for the localStorage data 
@@ -32,7 +38,7 @@ necessary;
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm run start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -40,10 +46,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test`
+### `npm run dev`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
 
 ### `npm run build`
 
@@ -55,42 +60,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### `npm run clean`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Note: this is a one-way operation. Once you `clean`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
