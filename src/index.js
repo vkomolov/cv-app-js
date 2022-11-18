@@ -3,11 +3,9 @@ import "./styles/scss/index.scss";
 
 import App from "./containers/App/App";
 
-import cvJson from "./assets/json/cv.json";
-log(cvJson, "JSON: ");
-
 App.attachToID('root');
-App.fetchData('./assets/json/cv.json');
+App.getAndRenderData('./assets/json/cv');
+
 
 
 ////  dev  /////////////////////////////

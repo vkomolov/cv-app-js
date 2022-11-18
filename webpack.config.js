@@ -77,7 +77,7 @@ module.exports = {
     },
     plugins: [
         new HTMLWebpackPlugin({
-            title: "Webpack Trial",     //default title, will be overwritten
+            title: "cv app VKomolov",  //default title, will be overwritten
             template: './index.html',
             minify: {
                 collapseWhitespace: !isDev,
@@ -89,6 +89,10 @@ module.exports = {
                 {
                     from: path.resolve(__dirname, 'src/assets/img/cv.ico'),
                     to: path.resolve(__dirname, 'dist/cv.ico')
+                },
+                {
+                    from: path.resolve(__dirname, 'src/assets/json/cv.json'),
+                    to: path.resolve(__dirname, 'dist/assets/json/cv.json')
                 }
             ]
         }),

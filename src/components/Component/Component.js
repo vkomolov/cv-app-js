@@ -18,6 +18,9 @@ export default class Component {
         if ('innerHTML' in props) {
             this.htmlElem.innerHTML = props['innerHTML'];
         }
+
+        this.error = [];
+        this.data = null;   //will be overwritten by getAndRenderData...
     }
 
     getHTMLElem () {
@@ -66,6 +69,10 @@ export default class Component {
 
     get innerHTML () {
         return this.htmlElem.innerHTML;
+    }
+
+    render(data) {
+        return this.getHTMLElem();
     }
 }
 
