@@ -4,7 +4,7 @@ import Component from "../../components/Component/Component";
 
 const AsideBar = new Component({
     htmlTagName: "div",
-    class: "asideBar",
+    className: "asideBar",
     innerHTML: "Hello from ASIDEBAR!!!"
 });
 

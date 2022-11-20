@@ -1,11 +1,26 @@
+'use strict';
+
 import "./styles/normalize.css";
 import "./styles/scss/index.scss";
 
 import App from "./containers/App/App";
+import AlertBlock from "./components/AlertBlock/AlertBlock";
 
-App.attachToID('root');
-App.getAndRenderData('./assets/json/cv');
+const rootApp = new App({
+    htmlTagName: "div",
+    className: "totalWrapper",
+    id: "app",
+    filterOption: [
+        "personal",
+        "experience",
+        "education"
+    ],
+});
+rootApp.attachToID('root');
+rootApp.getAndRenderData('./assets/json/cv');
 
+
+//AlertBlock.attachToID('root');
 
 
 ////  dev  /////////////////////////////

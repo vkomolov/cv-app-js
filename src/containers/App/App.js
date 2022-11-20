@@ -6,43 +6,56 @@ import { getAndStore } from "../../utils/services/userService"
 import AsideBar from "../AsideBar/AsideBar";
 import ContentBar from "../ContentBar/ContentBar";
 
-/**@description
- * As App will be the only object, we do not need a class-factory which extends Component class...
- *
- * **/
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.filter = null;     //will be overwritten by props 'filterOption'
 
-const App = new Component({
-    htmlTagName: "div",
-    class: "totalWrapper",
-    id: "app"
-});
+        /**@description Array 'filterOption' is a list of possible 'filters' which can be chosen
+         *
+         * **/
+        if ("filterOption" in props && Array.isArray(props["filterOption"])) {
+            log('filterOption exists');
+            this.filterOption = [...props.filterOption];
+            this.filter = this.filterOption[0];
+        } else {
+            console.log('App has not found "filterOption" in given props to the constructor');
+            throw new Error('App has not found "filterOption" in given props')
+        }
+    }
 
-/**@description: hiding the method from being visible when enumerating the object`s properties...
- * As a rule the methods are kept in the prototype, when creating with 'new'...
- * As 'App' is the special, bundling 'new' object, which is constructed by the general 'Component',
- * I decided not to overload the general constructor with some special methods, addressed directly to 'App', and not
- * to add additional class for the single object 'App'... so, I attached this method directly to the object 'App',
- * but hided from being enumerated in the list with other properties...
- * **/
+    /**@description making setter in order to callback on changing value, as on event...
+     *'this.filter' initially has null value... so, if 'this.filter' == null, we can init
+     * **/
+    set (filter, value) {
+        if (this.filterOption && this.filterOption.includes(filter)) {
+            this[filter] = value;
 
-Object.defineProperty(App, 'getAndRenderData', {
-    enumerable: false,
-    configurable: false,
-    writable: false,
-    value: function (dataPath) {   //writing to the Prototype
+            log('filter is changed on: ' + this.filter);
+        } else {
+            console.log(`the filter ${filter} is not in option...`);
+            throw new Error(`the filter ${filter} is not in option...`);
+        }
+    }
+
+    get (filter) {
+        return this[filter];
+    }
+
+    /**@description:
+     *
+     *
+     */
+    getAndRenderData(dataPath) {
         getAndStore(dataPath)
             .then(data => {
                 this.data = data;
                 return this.data;
             }).then(data => {
             this.appendKids(AsideBar.render(data), ContentBar.render(data));
-        })
-            .catch(e => {
-                console.error(e);
-                console.log(error.stack);
-            })
+            });
     }
-});
+}
 
 export default App;
 

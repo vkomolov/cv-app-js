@@ -1,9 +1,10 @@
 import "./ContentBar.scss";
 import Component from "../../components/Component/Component";
 
+
 const ContentBar = new Component({
     htmlTagName: "div",
-    class: "contentBar",
+    className: "contentBar",
     innerHTML: "Hello from CONTENTBAR!!!"
 });
 

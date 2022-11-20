@@ -1,0 +1,29 @@
+@import "../../styles/scss/global_styles/variables";
+@import "../../styles/scss/global_styles/mixins";
+
+#alert-block {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  @include flex-box($flex-box-row-center...);
+
+  img {
+  }
+
+  span {
+    display: block;
+  }
+
+  span:nth-child(1) {
+    color: red;
+  }
+
+  span:nth-child(2) {
+    color:blue;
+  }
+
+}
