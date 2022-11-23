@@ -19,9 +19,10 @@ class App extends Component {
             ContentBar
         ];
 
-        this._kids.forEach(component => {
-            this.appendKids(component.getHTMLElem());
-        });
+        //todo error status
+        this._error = [];
+
+        this._kids.forEach(component => this._htmlElem.append(component.getHTMLElem()));
 
         /**@description Array 'filterOption' is a list of possible 'filters' which can be chosen
          *
@@ -32,21 +33,25 @@ class App extends Component {
             log(`current filter inside constructor is: ${this.filter}`);
         } else {
             console.log('App has not found "filterOption" in given props to the constructor');
-           this.error.push(new Error('App has not found "filterOption" in given props'));
+            this.dispatchError(new Error('App has not found "filterOption" in given props'));
         }
     }
 
-    getReadyData() {
-        if (this._data && this._data[this._filter]) {
-            const { fullName, photo, ...restData } = this._data;
+    getReadyData(data) {
+        if (data[this._filter]) {
+            const { fullName, photo, ...restData } = data;
 
             return {
                 fullName,
                 photo,
                 data: restData[this._filter],
+                setFilter: this.setFilter,
+                dispatchError: this.dispatchError,
             };
+        } else {
+            console.log(`no property ${this._filter} in the given data...`);
+            this.dispatchError(new Error(`no property ${this._filter} in the given data...`));
         }
-        return null;
     }
 
 /**@description setFilter uses 'setter' and will be sent as the callback to the children **/
@@ -54,6 +59,13 @@ class App extends Component {
         log('working callback "setFilter" with value: ' + value);
         this.filter = value;    //switching to the setter
         log('filter from setFilter is changed on: ' + this._filter);
+    }
+
+    dispatchError (error) {
+        if (error.constructor.name === 'Error') {
+            this._error.push(error);
+            log('error dispatched...');
+        }
     }
 
     get filter () {
@@ -69,12 +81,12 @@ class App extends Component {
             this._filter = value;
             log(this._filter, 'setting filter with value: ');
 
-            this._kids.forEach(component => component.renderData(this.getReadyData()));
+            this._kids.forEach(component => component.renderData(this.getReadyData(this._data)));
 
 
         } else {
             console.log(`the filter ${value} is not in option...`);
-            this.error.push(new Error(`the filter ${value} is not in option...`));
+            this.dispatchError(new Error(`the filter ${value} is not in option...`));
         }
     }
 
@@ -88,8 +100,8 @@ class App extends Component {
                 this._data = data;
                 return this._data;
             }).then(data => {
-            this._kids.forEach(component => component.renderData(this.getReadyData()));
-            });
+            this._kids.forEach(component => component.renderData(this.getReadyData(data)));
+            }).catch(e => this.dispatchError(e));
     }
 }
 

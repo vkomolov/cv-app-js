@@ -9,8 +9,17 @@ const ContentBar = new Component({
     innerHTML: "Hello from CONTENTBAR!!!"
 });
 
-ContentBar.renderData = function (data) {
-    log(data, 'received to ContentBar: ');
+ContentBar.renderData = function (innData) {
+    log(innData, 'received to ContentBar: ');
+
+    if (innData['data'] && 'content' in innData['data']) {
+        log(innData['data']['content'], 'content data');
+
+    } else {
+        console.log('"content" prop is not found in data...', innData);
+        innData.dispatchError(new Error('"aside" prop is not found in data...'));
+    }
+
     return this.getHTMLElem();
 };
 

@@ -20,9 +20,6 @@ export default class Component {
         if ("innerHTML" in props) {
             this[Symbol.for("setInnerHTML")](props["innerHTML"]);
         }
-
-        //todo error status
-        this._error = [];
     }
 
     getHTMLElem () {
@@ -30,16 +27,8 @@ export default class Component {
     }
 
     appendKids (...children) {
-        children.forEach(elem => {
-/*            /!** if element is already appended... **!/
-            if (elem.parentNode) {
-                /!** if element is appended to this._html element **!/
-                elem.parentNode.removeChild(elem);
-                log('the given kid was already appended, removing from DOM...');
-            }*/
-            this._htmlElem.appendChild(elem);
+        this._htmlElem.append(...children);
             log('new kid is appended...');
-        });
     }
 
 /**
@@ -58,7 +47,7 @@ export default class Component {
 
             //HTMLElement has the 'dataset' property, so: if the data is a node element, then we append it...
         } else if (data.nodeType === 1) { //if it is HTMLElement...
-            this._htmlElem.appendChild(data);
+            this._htmlElem.append(data);
 
             //if data is array, then recursive use of the function
         } else if (Array.isArray(data) && data.length) {

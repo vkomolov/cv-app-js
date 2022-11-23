@@ -20,7 +20,7 @@ const rootApp = new App({
 log(rootApp, 'rootApp:');
 
 const root = document.getElementById('root');
-root.appendChild(rootApp.getHTMLElem());
+root.append(rootApp.getHTMLElem());
 rootApp.getAndRenderData('./assets/json/cv');
 //rootApp.setFilter('experience');
 //rootApp.filter = 'experience';
