@@ -16,8 +16,16 @@ const rootApp = new App({
         "education"
     ],
 });
-rootApp.attachToID('root');
+
+log(rootApp, 'rootApp:');
+
+const root = document.getElementById('root');
+root.appendChild(rootApp.getHTMLElem());
 rootApp.getAndRenderData('./assets/json/cv');
+//rootApp.setFilter('experience');
+//rootApp.filter = 'experience';
+//log(rootApp.filter, 'rootApp.filter');
+
 
 
 //AlertBlock.attachToID('root');

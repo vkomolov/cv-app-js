@@ -1,16 +1,16 @@
 This cv app is made as a trial version to render the page
 dynamically on the Client from the simple JSON file, which is fetched 
 from the server, when the empty page is already rendered.
-<br>We`ll try to do without React, but follow some of the principles 
-and features of the page formation and operations with the data.
-<br>Resembling React, we`ll use Classes, which shall comprise
-the logic and the markup/styles of the App.
-<br>Each Class can return the HTMLElement as a component | container.
-<br>Finally, bundled in the App container, which will be appended in to 
-the '#root' DOM Element;
 
 
 ## Task: 
+- To avoid using React, but follow the principles 
+and features of the page formation and operations with the data.
+- Resembling React, to implement Classes, which shall comprise
+the logic and the markup/styles of the App.
+- Each Class can return the HTMLElement as a component | container.
+- Finally, bundled in the App container, which will be appended in to 
+the '#root' DOM Element;
 - No hardcoded names and elements UI: 
 All UI elements (lists, paragraphs, filters) and the content 
 should be rendered according to the JSON data;

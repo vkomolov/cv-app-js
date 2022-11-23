@@ -1,18 +1,20 @@
+'use strict';
+
 export default class Component {
     constructor ({htmlTagName, ...props}) {
-        this.htmlElem = document.createElement(htmlTagName);
+        this._htmlElem = document.createElement(htmlTagName);
         if ("className" in props) {
-            this.htmlElem.classList.add(props["className"]);
+            this._htmlElem.classList.add(props["className"]);
         }
         if ("id" in props) {
-            this.htmlElem.id = props["id"];
+            this._htmlElem.id = props["id"];
         }
         //dataParams for writing dataset in props
         //props['dataParams'] is Array
         if ("dataParams" in props) {
             for (let dataSetPair of props["dataParams"]) {
                 let [propName, propVal] = dataSetPair;
-                this.htmlElem.dataset[propName] = propVal;
+                this._htmlElem.dataset[propName] = propVal;
             }
         }
         if ("innerHTML" in props) {
@@ -20,28 +22,24 @@ export default class Component {
         }
 
         //todo error status
-        this.error = [];
-        this.data = null;   //will be overwritten by getAndRenderData...
+        this._error = [];
     }
 
     getHTMLElem () {
-        return this.htmlElem;
-    }
-
-    attachToID (rootId) {
-        let rootEl = document.getElementById(rootId);
-        if (rootEl && this.rootElem !== rootEl) {
-            this.rootElem = rootEl;
-            this.rootElem.appendChild(this.htmlElem);
-        }
+        return this._htmlElem;
     }
 
     appendKids (...children) {
-        children.forEach((elem) => {
-            if ('dataset' in elem) {    //is the element has dataset property, so HTMLElement
-                this.htmlElem.appendChild(elem);
-            }
-        })
+        children.forEach(elem => {
+/*            /!** if element is already appended... **!/
+            if (elem.parentNode) {
+                /!** if element is appended to this._html element **!/
+                elem.parentNode.removeChild(elem);
+                log('the given kid was already appended, removing from DOM...');
+            }*/
+            this._htmlElem.appendChild(elem);
+            log('new kid is appended...');
+        });
     }
 
 /**
@@ -55,12 +53,12 @@ export default class Component {
  * property 'this.htmlElem', which is HTMLElement...
  * **/
     [Symbol.for("setInnerHTML")](data) {
-        if (typeof data !== "array" && typeof data !== "object") {
-            this.htmlElem.innerHTML = data; //can be string, number, bull, null
+        if (typeof data === "string" || typeof data === "number") {
+            this._htmlElem.innerHTML = data; //can be string, number, bull, null
 
             //HTMLElement has the 'dataset' property, so: if the data is a node element, then we append it...
-        } else if ("dataset" in data) { //if it is HTMLElement...
-            this.htmlElem.appendChild(data);
+        } else if (data.nodeType === 1) { //if it is HTMLElement...
+            this._htmlElem.appendChild(data);
 
             //if data is array, then recursive use of the function
         } else if (Array.isArray(data) && data.length) {
@@ -79,11 +77,7 @@ export default class Component {
     }
 
     get innerHTML () {
-        return this.htmlElem.innerHTML;
-    }
-
-    render(data) {
-        return this.getHTMLElem();
+        return this._htmlElem.innerHTML;
     }
 }
 
