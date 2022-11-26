@@ -1,19 +1,19 @@
 'use strict';
 
-import "./styles/normalize.css";
-import "./styles/scss/index.scss";
+import './styles/normalize.css';
+import './styles/scss/index.scss';
 
-import App from "./containers/App/App";
-import AlertBlock from "./components/AlertBlock/AlertBlock";
+import App from './containers/App/App';
+import AlertBlock from './components/AlertBlock/AlertBlock';
 
 const rootApp = new App({
-    htmlTagName: "div",
-    className: "totalWrapper",
-    id: "app",
+    htmlTagName: 'div',
+    className: 'totalWrapper',
+    id: 'app',
     filterOption: [
-        "personal",
-        "experience",
-        "education"
+        'personal',
+        'experience',
+        'education'
     ],
 });
 
@@ -25,7 +25,6 @@ rootApp.getAndRenderData('./assets/json/cv');
 //rootApp.setFilter('experience');
 //rootApp.filter = 'experience';
 //log(rootApp.filter, 'rootApp.filter');
-
 
 
 //AlertBlock.attachToID('root');

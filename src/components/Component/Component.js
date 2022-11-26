@@ -26,11 +26,6 @@ export default class Component {
         return this._htmlElem;
     }
 
-    appendKids (...children) {
-        this._htmlElem.append(...children);
-            log('new kid is appended...');
-    }
-
 /**
  * @description:
  * - the main function is hidden with [Symbol.for("setInnerHTML")] from being enumerated

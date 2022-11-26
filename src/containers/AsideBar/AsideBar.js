@@ -1,28 +1,16 @@
 'use strict';
 
 import "./AsideBar.scss";
-import Component from "../../components/Component/Component";
+import Container from "../../containers/Container/Container";
 
 
-const AsideBar = new Component({
+const AsideBar = new Container({
     htmlTagName: "div",
     className: "asideBar",
-    innerHTML: "Hello from ASIDEBAR!!!"
+    innerHTML: "Hello from ASIDEBAR!!!",
+    dataName: 'aside',
 });
 
-AsideBar.renderData = function (innData) {
-    log(innData, 'received to AsideBar: ');
-
-    if (innData['data'] && 'aside' in innData['data']) {
-        log(innData['data']['aside'], 'aside data');
-
-    } else {
-        console.log('"aside" prop is not found in data...', data);
-        innData.dispatchError(new Error('"aside" prop is not found in data...'));
-    }
-
-    return this.getHTMLElem();
-};
 
 export default AsideBar;
 

@@ -1,27 +1,14 @@
 'use strict';
 
 import "./ContentBar.scss";
-import Component from "../../components/Component/Component";
+import Container from "../../containers/Container/Container";
 
-const ContentBar = new Component({
+const ContentBar = new Container({
     htmlTagName: "div",
     className: "contentBar",
-    innerHTML: "Hello from CONTENTBAR!!!"
+    innerHTML: "Hello from CONTENTBAR!!!",
+    dataName: 'content',
 });
-
-ContentBar.renderData = function (innData) {
-    log(innData, 'received to ContentBar: ');
-
-    if (innData['data'] && 'content' in innData['data']) {
-        log(innData['data']['content'], 'content data');
-
-    } else {
-        console.log('"content" prop is not found in data...', innData);
-        innData.dispatchError(new Error('"aside" prop is not found in data...'));
-    }
-
-    return this.getHTMLElem();
-};
 
 export default ContentBar;
 
