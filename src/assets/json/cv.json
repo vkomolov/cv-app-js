@@ -1,6 +1,6 @@
 {
   "fullName": "Vadim Komolov",
-  "photo": "img/vk.png",
+  "photoUrl": "./assets/img/vk.png",
   "personal": {
     "aside": {
       "details": [

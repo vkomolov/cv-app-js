@@ -1,15 +1,13 @@
-@import "../../styles/scss/global_styles/variables";
-@import "../../styles/scss/global_styles/mixins";
-@import "../../styles/scss/global_styles/animations";
-//@import "../../styles/scss/global_styles/fonts";
+@import "../../styles/scss/global_styles/_variables";
+@import "../../styles/scss/global_styles/_mixins";
+@import "../../styles/scss/global_styles/_animations";
 
 .contentBar {
   flex-grow: 1;
   flex-basis: 450px;
   min-height: 1130px;
   color: $blue;
-  padding: 5px 25px;
-  padding-right: 0;
+  padding: 5px 0 5px 25px;
   opacity: 0;
   animation: fadeIn .8s ease forwards;
 

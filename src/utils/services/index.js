@@ -34,25 +34,18 @@ export function setLocalStorage( name='localData', data ) {
 	localStorage.setItem(name, JSON.stringify( dataWithDate ));
 }
 
-/**@description it promises to get JSON or BLOB response;
- * optional argument 'file' if it is, gives the extension of the file
- * to be requested as blob src;
- * @param {string} source (url and the file name without extension);
- * @param {string} ext extension ('pdf' or 'png' etc... as blob) optional;
- * @return Promise with the response data in JSON or blob (file), or error
+/**@description
  * */
-export function getAxios(source, ext='') {
-	let extension = ext.length ? `.${ext}` : '.json';
-	let responseType = ext.length ? 'blob' : 'json';
+export function getAxios(url, ext='json') {
 	let params = {
-		url: `${source}${extension}`,
+		url,
 		method: 'GET',
-		responseType,
+		responseType: ext,
 	};
 	
 	return axios(params)
 		.then(resp => {
-			if (responseType === 'blob') {
+			if (resp.responseType === 'blob') {
 				return readFileAsDataUrl( resp.data );
 			}
 			return  resp.data;

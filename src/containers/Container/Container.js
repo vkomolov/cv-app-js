@@ -11,50 +11,66 @@ export default class Container extends Component {
     constructor(props) {
         super(props);
         this._dataName = props.dataName || null;
-        this._data = null;
         this.dispatchError = null;
         this.setFilter = null;
+        this.filterActive = 'personal'; //will be overwritten
     }
 
-    getReadyData(innData) {
-        /** 'innData' has 'data' Object with the props: 'aside' and 'content' **/
+/*    getReadyData(innData) {
+        /!** 'innData' has 'data' Object with the props: 'aside' and 'content' **!/
         if (innData['data'] && this._dataName in innData['data']) {
 
-            /** taking the data, which corresponds to 'this.dataName' and recompiling the object**/
+            /!** taking the data, which corresponds to 'this.dataName' and recompiling the object**!/
             const {data, ...restData} = innData;
             return {
                 data: data[this._dataName],
                 ...restData
             };
         }
-        /** if it has already received the callback ('dispatchError'), then to dispatch error to App **/
+        /!** if it has already received the callback ('dispatchError'), then to dispatch error to App **!/
         !!this.dispatchError && this.dispatchError(new Error(`${this._dataName} prop is not found in data...`));
 
         console.error(`${this._dataName} prop is not found in data...`, data);
         return null;
-    }
+    }*/
 
-    renderData(data) {
+    renderData(innData) {
+
+        const {dispatchError, setFilter, filterActive, ...data} = innData;
 
         /** switching to dispatchError callback of the App (for emitting new Errors)**/
-        if ('dispatchError' in data) {
-            this.dispatchError = data['dispatchError'];
+        if (dispatchError) {
+            this.dispatchError = dispatchError;
         } else {
             console.error('no "dispatchError" found in data: ');
-            console.error(data);
+            console.error(innData);
         }
 
         /**  **/
-        if ('setFilter' in data) {
-            this.setFilter = data['setFilter'];
+        if (setFilter) {
+            this.setFilter = setFilter;
         } else {
             this.dispatchError && this.dispatchError(new Error('no "dispatchError" found in data: '));
             console.error('no "dispatchError" found in data: ');
-            console.error(data);
+            console.error(innData);
         }
 
-        this._data = this.getReadyData(data);   //data or null
-        log(this._data, `data from ${this._dataName}`);
+        /**  **/
+        if (filterActive) {
+            this.filterActive = filterActive;
+        } else {
+            this.dispatchError && this.dispatchError(new Error('no "filterActive" found in data: '));
+            console.error('no "filterActive" found in data: ');
+            console.error(innData);
+        }
+
+        this.parseData(data['data']);
+    }
+
+
+    parseData(...innData) {
+        console.log('new Container object must have its own "parseData" method. Default method is initialised...')
+        console.log(innData, 'parsed Data: ');
     }
 
 }

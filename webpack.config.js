@@ -60,7 +60,7 @@ module.exports = {
     output: {
         /*filename: '[name].bundle.js',*/
         filename: filename('js'),
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
     },
     resolve: {
         extensions: ['.js', '.css', '.scss'],   //can write filenames without extensions
@@ -72,8 +72,9 @@ module.exports = {
     },
     optimization: optimization(),
     devServer: {
-        port: 4200,
+        port: 9000,
         hot: true,
+        static: path.resolve(__dirname, './dist'),
     },
     plugins: [
         new HTMLWebpackPlugin({
@@ -93,6 +94,10 @@ module.exports = {
                 {
                     from: path.resolve(__dirname, 'src/assets/json/cv.json'),
                     to: path.resolve(__dirname, 'dist/assets/json/cv.json')
+                },
+                {
+                    from: path.resolve(__dirname, 'src/assets/img/vk.png'),
+                    to: path.resolve(__dirname, 'dist/assets/img/vk.png')
                 }
             ]
         }),
@@ -112,11 +117,10 @@ module.exports = {
             },
             {
                 test: /\.(png|jpe?g|gif)$/i,
-                use: [
-                        {
-                            loader: 'file-loader',
-                        }
-                    ],
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]',
+                },
             },
             {
                 test:   /\.js$/,

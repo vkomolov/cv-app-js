@@ -1,0 +1,8 @@
+@import '../../styles/scss/global_styles/_variables';
+@import "../../styles/scss/global_styles/mixins";
+
+.topWrapper {
+  margin: 10px auto;
+  height: 700px;
+  @include scroll-init(5px, $foxyGrey, $blueDark);
+}

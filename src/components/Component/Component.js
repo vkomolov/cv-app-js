@@ -44,8 +44,14 @@ export default class Component {
         } else if (data.nodeType === 1) { //if it is HTMLElement...
             this._htmlElem.append(data);
 
-            //if data is array, then recursive use of the function
-        } else if (Array.isArray(data) && data.length) {
+            /** all ancestors of 'Component', including 'Container' which extends 'Component'
+             * we can check the property of the 'Component' in order to identify the inheritance...
+             * **/
+        } else if (data.getHTMLElem) {
+            this._htmlElem.append(data.getHTMLElem());
+        }
+        //if data is array, then recursive use of the function
+        else if (Array.isArray(data) && data.length) {
             data.forEach(elem => {
                 this[Symbol.for("setInnerHTML")](elem);
             });

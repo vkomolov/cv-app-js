@@ -6,9 +6,12 @@ import Container from "../../containers/Container/Container";
 const ContentBar = new Container({
     htmlTagName: "div",
     className: "contentBar",
-    innerHTML: "Hello from CONTENTBAR!!!",
     dataName: 'content',
 });
+
+ContentBar.parseData = function(innData) {
+
+};
 
 export default ContentBar;
 

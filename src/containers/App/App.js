@@ -1,6 +1,7 @@
 'use strict';
 
 import Component from "../../components/Component/Component";
+
 import "./App.scss";
 import { getAndStore } from "../../utils/services/userService";
 
@@ -39,21 +40,32 @@ class App extends Component {
         }
     }
 
-    filterData(data) {
-        if (data[this._filter]) {
-            const { fullName, photo, ...restData } = data;
+    prepareData(data) {
+
+        log(data, 'prepareData incoming data');
+
+        return {
+            data,
+            filterActive: this._filter,
+            setFilter: this.setFilter,
+            dispatchError: this.dispatchError,
+        };
+
+        /*if (data[this._filter]) {
+            const { fullName, photoUrl, ...restData } = data;
 
             return {
                 fullName,
-                photo,
-                data: restData[this._filter],
+                photoUrl,
+                data: restData,
+                filterActive: this._filter,
                 setFilter: this.setFilter,
                 dispatchError: this.dispatchError,
             };
         } else {
             console.log(`no property ${this._filter} in the given data...`);
             this.dispatchError(new Error(`no property ${this._filter} in the given data...`));
-        }
+        }*/
     }
 
 /**@description setFilter uses 'setter' and will be sent as the callback to the children **/
@@ -79,7 +91,9 @@ class App extends Component {
         if (this.filterOption && this.filterOption.includes(value)) {
             this._filter = value;
 
-            this._kids.forEach(component => component.renderData(this.filterData(this._data)));
+            if (this._data) {
+                this._kids.forEach(component => component.renderData(this.prepareData(this._data)));
+            }
 
         } else {
             console.log(`the filter ${value} is not in option...`);
@@ -98,7 +112,9 @@ class App extends Component {
                 return this._data;
             }).then(data => {
 
-            this._kids.forEach(container => container.renderData(this.filterData(data)));
+                log(data, 'data before container.renderData(data)');
+
+            this._kids.forEach(container => container.renderData(this.prepareData(data)));
 
             }).catch(e => this.dispatchError(e));
     }
