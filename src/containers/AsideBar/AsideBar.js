@@ -17,17 +17,9 @@ const AsideBar = new Container({
 });
 
 AsideBar.parseData = function(innData) {
-/*    let fullName,
-        imageContainer,
-        sectionList,
-        sections,
-        asideContent;*/
-
-log(innData, 'innData in the AsideBar');
-
     const {fullName, photoUrl, ...data} = innData;
 
-    log(data, 'data from the AsideBAr');
+    log(data, 'data in the AsideBAr');
 
     const headingFullName = new Component({
         htmlTagName: 'h1',
@@ -36,14 +28,11 @@ log(innData, 'innData in the AsideBar');
 
     const image = new Image();
     image.src = photoUrl;
-
     const ImageContainer = new Component({
         htmlTagName: 'div',
         className: 'imageContainer',
         innerHTML: image,
     });
-
-    log(ImageContainer, 'ImageContainer');
 
     /**@description
      *
@@ -53,7 +42,9 @@ log(innData, 'innData in the AsideBar');
         className: 'sectionList',
     });
 
-    this.innerHTML = [headingFullName, ImageContainer];
+
+
+    this.innerHTML = [headingFullName, ImageContainer, sectionList];
 };
 
 

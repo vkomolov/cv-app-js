@@ -17,16 +17,9 @@ const rootApp = new App({
     ],
 });
 
-log(rootApp, 'rootApp:');
-
 const root = document.getElementById('root');
 root.append(rootApp.getHTMLElem());
 rootApp.getAndRenderData('./assets/json/cv.json');
-
-//rootApp.setFilter('experience');
-//rootApp.filter = 'experience';
-//log(rootApp.filter, 'rootApp.filter');
-
 
 //AlertBlock.attachToID('root');
 

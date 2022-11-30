@@ -41,31 +41,12 @@ class App extends Component {
     }
 
     prepareData(data) {
-
-        log(data, 'prepareData incoming data');
-
         return {
             data,
             filterActive: this._filter,
             setFilter: this.setFilter,
             dispatchError: this.dispatchError,
         };
-
-        /*if (data[this._filter]) {
-            const { fullName, photoUrl, ...restData } = data;
-
-            return {
-                fullName,
-                photoUrl,
-                data: restData,
-                filterActive: this._filter,
-                setFilter: this.setFilter,
-                dispatchError: this.dispatchError,
-            };
-        } else {
-            console.log(`no property ${this._filter} in the given data...`);
-            this.dispatchError(new Error(`no property ${this._filter} in the given data...`));
-        }*/
     }
 
 /**@description setFilter uses 'setter' and will be sent as the callback to the children **/
@@ -111,11 +92,7 @@ class App extends Component {
                 this._data = data;
                 return this._data;
             }).then(data => {
-
-                log(data, 'data before container.renderData(data)');
-
             this._kids.forEach(container => container.renderData(this.prepareData(data)));
-
             }).catch(e => this.dispatchError(e));
     }
 }
