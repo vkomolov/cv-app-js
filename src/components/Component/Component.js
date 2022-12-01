@@ -40,7 +40,6 @@ export default class Component {
         }
 
         if ('innerHTML' in props) {
-            log('working innerHTML in Constructor of Component');
             /**
              * switching to hidden function with 'false', for rewriting innerHTML
              * **/

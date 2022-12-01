@@ -42,8 +42,8 @@ class App extends Component {
         return {
             data,
             filterActive: this._filter,
-            setFilter: this.setFilter,
-            dispatchError: this.dispatchError,
+            setFilter: this.setFilter.bind(this),
+            dispatchError: this.dispatchError.bind(this),
         };
     }
 

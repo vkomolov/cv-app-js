@@ -23,7 +23,7 @@ AsideBar.parseData = function(innData) {
     let ImageContainer;
     let sectionList;
 
-    log(data, 'data in the AsideBAr');
+    //log(data, 'data in the AsideBAr');
     //log(this._htmlElem, 'this._htmlElem: ');
 
     headingFullName = new Component({
@@ -55,41 +55,44 @@ AsideBar.parseData = function(innData) {
         },
     });
 
-
-
-    ///////// VER ///////////
-/*    Object.keys(data).forEach(key => {
-
-        let specClass = key === this.filterActive
-            ? 'sectionName specClass'
-            : 'sectionName toBeHovered';
-
-        let li = document.createElement('li');
-        li.className = specClass;
-        li.innerText = key;
-
-        sectionList.append(li);
-    });*/
-
     /////////////// VER //////////////
     Object.keys(data).forEach(key => {
         let specClass = key === this.filterActive
             ? 'sectionName specClass'
             : 'sectionName toBeHovered';
 
-        let li = new Component({
+/*        let li = new Component({
             htmlTagName: 'li',
             attr: {
                 className: specClass,
             },
             innerHTML: key,
-        });
+        });*/
 
-        sectionList.append(li);
+        sectionList.append(new Component({
+            htmlTagName: 'li',
+            attr: {
+                className: specClass,
+                dataParams: [
+                    ['section', key]
+                ],
+            },
+            innerHTML: key,
+        }));
     });
 
-    this.append(headingFullName, ImageContainer, sectionList);
+    sectionList.getHTMLElem().addEventListener('click', (e) => {
+        let target = e.target;
+        log(target.dataset.section, 'target.dataset.section');
+
+        this.setFilter(target.dataset.section);
+    });
+
+    //this.append(headingFullName, ImageContainer, sectionList);
+    this.innerHTML = [headingFullName, ImageContainer, sectionList];
 };
+
+log(AsideBar, 'AsideBar');
 
 export default AsideBar;
 
