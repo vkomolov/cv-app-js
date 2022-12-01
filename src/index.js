@@ -8,8 +8,10 @@ import AlertBlock from './components/AlertBlock/AlertBlock';
 
 const rootApp = new App({
     htmlTagName: 'div',
-    className: 'totalWrapper',
-    id: 'app',
+    attr: {
+        className: 'totalWrapper',
+        id: 'app',
+    },
     filterOption: [
         'personal',
         'experience',

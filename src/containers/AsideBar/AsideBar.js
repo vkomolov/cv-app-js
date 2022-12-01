@@ -1,7 +1,5 @@
 'use strict';
 
-//import {getAxios} from '../../utils/services/index'
-
 import "./AsideBar.scss";
 import Container from "../../containers/Container/Container";
 import Component from "../../components/Component/Component";
@@ -12,44 +10,86 @@ import Component from "../../components/Component/Component";
  * **/
 const AsideBar = new Container({
     htmlTagName: "div",
-    className: "asideBar",
-    dataName: 'aside',
+    attr: {
+        className: "asideBar",
+    },
+    _dataName: 'aside',
 });
 
 AsideBar.parseData = function(innData) {
     const {fullName, photoUrl, ...data} = innData;
+    let headingFullName;
+    let image;
+    let ImageContainer;
+    let sectionList;
 
     log(data, 'data in the AsideBAr');
+    //log(this._htmlElem, 'this._htmlElem: ');
 
-    const headingFullName = new Component({
+    headingFullName = new Component({
         htmlTagName: 'h1',
         innerHTML: fullName,
     });
 
-    const image = new Image();
+    image = new Image();
     image.src = photoUrl;
-    const ImageContainer = new Component({
+
+    //log(image, 'image');    //<img src="./assets/img/vk.png">
+    //log(image.nodeType, 'image.nodeType: ');    //1
+
+    ImageContainer = new Component({
         htmlTagName: 'div',
-        className: 'imageContainer',
+        attr: {
+            className: 'imageContainer',
+        },
         innerHTML: image,
     });
 
     /**@description
      *
      * **/
-    const sectionList = new Component({
+    sectionList = new Component({
         htmlTagName: 'ul',
-        className: 'sectionList',
+        attr: {
+            className: 'sectionList',
+        },
     });
 
 
 
-    this.innerHTML = [headingFullName, ImageContainer, sectionList];
+    ///////// VER ///////////
+/*    Object.keys(data).forEach(key => {
+
+        let specClass = key === this.filterActive
+            ? 'sectionName specClass'
+            : 'sectionName toBeHovered';
+
+        let li = document.createElement('li');
+        li.className = specClass;
+        li.innerText = key;
+
+        sectionList.append(li);
+    });*/
+
+    /////////////// VER //////////////
+    Object.keys(data).forEach(key => {
+        let specClass = key === this.filterActive
+            ? 'sectionName specClass'
+            : 'sectionName toBeHovered';
+
+        let li = new Component({
+            htmlTagName: 'li',
+            attr: {
+                className: specClass,
+            },
+            innerHTML: key,
+        });
+
+        sectionList.append(li);
+    });
+
+    this.append(headingFullName, ImageContainer, sectionList);
 };
-
-
-
-
 
 export default AsideBar;
 

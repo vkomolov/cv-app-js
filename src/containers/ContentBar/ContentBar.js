@@ -5,13 +5,15 @@ import Container from "../../containers/Container/Container";
 
 const ContentBar = new Container({
     htmlTagName: "div",
-    className: "contentBar",
+    attr: {
+        className: "contentBar",
+    },
     dataName: 'content',
 });
 
-ContentBar.parseData = function(innData) {
+/*ContentBar.parseData = function(innData) {
 
-};
+};*/
 
 export default ContentBar;
 

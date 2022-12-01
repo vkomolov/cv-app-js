@@ -1,5 +1,4 @@
 'use strict';
-
 import Component from "../../components/Component/Component";
 
 import "./App.scss";
@@ -12,7 +11,6 @@ import ContentBar from "../ContentBar/ContentBar";
 class App extends Component {
     constructor(props) {
         super(props);
-
         this._filter = null;     //will be overwritten by props 'filterOption'
         this._data = null;       //will be overwritten by this.getAndRenderData
         this._kids = [
@@ -20,12 +18,11 @@ class App extends Component {
             ContentBar
         ];
 
-        //todo error status
-        this._error = [];
-
-        /**TODO: to decide, should the containers start before the data is fetched...**/
-        this._kids.forEach(component => this._htmlElem.append(component.getHTMLElem()));
-
+        /**TODO: to decide, should the containers start before the data is fetched...
+         * TODO: error status
+         * */
+        //appending children...
+        this.append(...this._kids);
 
         /**@description Array 'filterOption' is a list of possible 'filters' which can be chosen
          *
@@ -33,12 +30,13 @@ class App extends Component {
         if ("filterOption" in props && Array.isArray(props["filterOption"])) {
             this.filterOption = [...props.filterOption];
             this._filter = this.filterOption[0];     //avoiding setter 'filter'
-
-        } else {
-            console.log('App has not found "filterOption" in given props to the constructor');
+        }
+        else {
+            console.error('App has not found "filterOption" in given props to the constructor');
             this.dispatchError(new Error('App has not found "filterOption" in given props'));
         }
     }
+///////////////// END OF CONSTRUCTOR /////////////////
 
     prepareData(data) {
         return {
@@ -54,30 +52,24 @@ class App extends Component {
         this.filter = value;    //switching to the setter (set filter()), not this._filter directly...
     }
 
-    dispatchError (error) {
-        if (error.constructor.name === 'Error') {
-            this._error.push(error);
-            log('error dispatched...');
-        }
-    }
-
     get filter () {
         return this._filter;
     }
 
     /**@description making setter in order to callback on changing value, as on event...
-     *'this.filter' initially has null value... so, if 'this.filter' == null, we can init
+     *
      * **/
     set filter (value) {
         if (this.filterOption && this.filterOption.includes(value)) {
             this._filter = value;
 
+            //on changing filter to rewrite components with the new data
             if (this._data) {
+                /** using the method of the children '.renderData(data) **/
                 this._kids.forEach(component => component.renderData(this.prepareData(this._data)));
             }
-
         } else {
-            console.log(`the filter ${value} is not in option...`);
+            console.error(`the filter ${value} is not in option...`);
             this.dispatchError(new Error(`the filter ${value} is not in option...`));
         }
     }
