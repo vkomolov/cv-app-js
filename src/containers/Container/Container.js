@@ -10,7 +10,7 @@ import Component from "../../components/Component/Component";
 export default class Container extends Component {
     constructor(props) {
         super(props);
-        this._dataName = props.dataName || null;
+        this.dataName = props.dataName || null;
         this.setFilter = null;
         this.filterActive = null;
     }

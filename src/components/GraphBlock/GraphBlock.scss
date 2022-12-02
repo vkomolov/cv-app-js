@@ -1,0 +1,14 @@
+@import '../../styles/scss/global_styles/_variables';
+@import "../../styles/scss/global_styles/mixins";
+
+.graphBlock {
+  height: 10px;
+  background-color: $blueDark;
+
+  .score {
+    width: 0;
+    height: 100%;
+    background-color: $white;
+    @include transition(all, 0.5s);
+  }
+}

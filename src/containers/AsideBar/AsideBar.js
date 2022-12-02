@@ -3,6 +3,7 @@
 import "./AsideBar.scss";
 import Container from "../../containers/Container/Container";
 import Component from "../../components/Component/Component";
+import AsideContent from "../../components/AsideContent/AsideContent";
 
 /**@description
  *
@@ -13,7 +14,7 @@ const AsideBar = new Container({
     attr: {
         className: "asideBar",
     },
-    _dataName: 'aside',
+    dataName: 'aside',
 });
 
 AsideBar.parseData = function(innData) {
@@ -22,6 +23,8 @@ AsideBar.parseData = function(innData) {
     let image;
     let ImageContainer;
     let sectionList;
+    let dataAside;
+    let innerContent;
 
     //log(data, 'data in the AsideBAr');
     //log(this._htmlElem, 'this._htmlElem: ');
@@ -55,19 +58,10 @@ AsideBar.parseData = function(innData) {
         },
     });
 
-    /////////////// VER //////////////
     Object.keys(data).forEach(key => {
         let specClass = key === this.filterActive
             ? 'sectionName specClass'
             : 'sectionName toBeHovered';
-
-/*        let li = new Component({
-            htmlTagName: 'li',
-            attr: {
-                className: specClass,
-            },
-            innerHTML: key,
-        });*/
 
         sectionList.append(new Component({
             htmlTagName: 'li',
@@ -81,18 +75,36 @@ AsideBar.parseData = function(innData) {
         }));
     });
 
+    /**@description
+     * changing filter by clicking 'ul' elements
+     * **/
     sectionList.getHTMLElem().addEventListener('click', (e) => {
         let target = e.target;
         log(target.dataset.section, 'target.dataset.section');
 
+        /**callback to App with changing setter filter and reparsing all the data**/
         this.setFilter(target.dataset.section);
     });
 
+    //log(data, 'data inside parsing data...');
+
+    if (this.filterActive && data[this.filterActive]) {
+        dataAside = data[this.filterActive][this.dataName];
+        log(dataAside, 'dataAside');
+
+        ///<AsideContent { ...{ dataAside }
+        innerContent = AsideContent.renderData(dataAside);
+
+
+    }
+
     //this.append(headingFullName, ImageContainer, sectionList);
-    this.innerHTML = [headingFullName, ImageContainer, sectionList];
+    this.innerHTML = [headingFullName, ImageContainer, sectionList, innerContent];
+
+
 };
 
-log(AsideBar, 'AsideBar');
+//log(AsideBar, 'AsideBar');
 
 export default AsideBar;
 
