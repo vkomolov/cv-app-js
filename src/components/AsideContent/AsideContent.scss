@@ -5,4 +5,9 @@
   margin: 10px auto;
   height: 700px;
   @include scroll-init(5px, $foxyGrey, $blueDark);
+
+  .segment-block {
+    border: 1px dotted red;
+  }
+
 }

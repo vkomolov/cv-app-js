@@ -9,11 +9,12 @@ export default class AsideItem extends Component {
     constructor(props) {
         super(props);
     }
-    //className: topWrapper
     ///////////////// END OF CONSTRUCTOR /////////////////
 
-    renderData(dataItem) {
+    renderData({...dataItem}) {
         const {title, details} = dataItem;
+
+
         let Heading;
         let Content;
 /** heading of the AsideItem **/
@@ -24,7 +25,10 @@ export default class AsideItem extends Component {
             });
         }
 
+
         if (details && typeof details === 'string') {
+            log(details, 'inside AsideItem details: ');
+
             /** content of the AsideItem **/
             Content = new Component({
                 htmlTagName: 'span',
@@ -33,20 +37,25 @@ export default class AsideItem extends Component {
                 },
                 innerHTML: details,
             });
-        }
-        else if (Array.isArray(details) && details.length) {
 
-            Content = details.map(dataItem => {
-                let graphBlock = new Component({
+            log(Content, 'resulting Content for Aside Item with details "string": ');
+        }
+
+        //content with the graphElem
+        else if (Array.isArray(details) && details.length) {
+            Content = details.map(graphData => {
+                let GraphSection = new Component({
                     htmlTagName: 'div',
                     attr: {
-                        className: 'graphBlock',
+                        className: 'graph-section',
                     }
                 });
-
-                let {title, details} = dataItem;
+                let {title, details} = graphData;
                 let Subheading;
-                let GraphHtml;
+                let GraphItem;
+
+                //log(title, 'title in GraphData');
+                //log(details, 'details in GraphData');
 
                 if (title && typeof title === 'string') {
                     Subheading = new Component({
@@ -59,30 +68,30 @@ export default class AsideItem extends Component {
                 }
 
                 if (details && parseInt(details)) {
-                    let GraphItem = new GraphBlock({
+                    log(details, 'details in subDetails');
+
+                    GraphItem = new GraphBlock({
                         htmlTagName: 'div',
                         attr: {
                             className: 'graphBlock',
                         }
                     });
-                    GraphHtml = GraphItem.renderData(details);
                 }
 
-                graphBlock.append(Subheading, GraphHtml);
+                GraphSection.innerHTML = [Subheading, GraphItem.renderData(details)];
 
-                return graphBlock;
+                return GraphSection.getHTMLElem();
             });
-
-            this.append(Heading, Content);
         }
+
+        //switching setter on innerHTML, inherited from Component
+        this.innerHTML = [Heading, Content];
+
         return this.getHTMLElem();
     }
 }
 
-
-/*const AsideItem = new Component({
-    htmlTagName: 'div',
-    attr: {
-        className: 'topWrapper'
-    }
-});*/
+////  dev  /////////////////////////////
+function log(it, comments='value: ') {
+    console.log(comments, it);
+}

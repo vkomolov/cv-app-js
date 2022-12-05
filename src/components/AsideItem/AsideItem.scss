@@ -2,10 +2,10 @@
 @import "../../styles/scss/global_styles/mixins";
 
 
-.topWrapper {
-  width: 200px;
+.aside-item-wrapper {
+  //width: 200px;
   text-align: left;
-  margin: 0 auto;
+  padding: 0 3px;
 
   h3 {
     color: $foxyGrey;
@@ -27,7 +27,12 @@
     display: block;
   }
 
-  .graphBlock {
+  .graph-section {
+    border: 2px dotted green;
+  }
+
+  .graph-wrapper {
 
   }
+
 }

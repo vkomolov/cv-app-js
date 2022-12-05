@@ -29,6 +29,7 @@ AsideBar.parseData = function(innData) {
     //log(data, 'data in the AsideBAr');
     //log(this._htmlElem, 'this._htmlElem: ');
 
+    /** heading **/
     headingFullName = new Component({
         htmlTagName: 'h1',
         innerHTML: fullName,
@@ -93,13 +94,18 @@ AsideBar.parseData = function(innData) {
         log(dataAside, 'dataAside');
 
         ///<AsideContent { ...{ dataAside }
-        innerContent = AsideContent.renderData(dataAside);
+        ///innerContent = AsideContent.renderData(dataAside);
 
 
     }
 
-    //this.append(headingFullName, ImageContainer, sectionList);
-    this.innerHTML = [headingFullName, ImageContainer, sectionList, innerContent];
+    //this.append(headingFullName, ImageContainer, sectionList, AsideContent.renderData(dataAside));
+    this.innerHTML = [
+        headingFullName,
+        ImageContainer,
+        sectionList,
+        AsideContent.renderData(dataAside)
+    ];
 
 
 };

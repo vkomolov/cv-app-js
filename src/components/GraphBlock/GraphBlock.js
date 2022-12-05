@@ -10,6 +10,8 @@ export default class GraphBlock extends Component {
     ///////////////// END OF CONSTRUCTOR /////////////////
 
     renderData(score) {
+        /////
+
         const indicator = new Component({
             htmlTagName: 'div',
             attr: {
@@ -29,8 +31,10 @@ export default class GraphBlock extends Component {
         }
         else {
             this.dispatchError(new Error('Graphblock has received not proper "score"... must be parsed to string'));
-            console.error('Graphblock has received not proper "score"... must be parsed to string... instead: ', score)
+            document.console.error('Graphblock has received not proper "score"... must be parsed to string... instead: ', score)
         }
+
+        /////////
     };
 }
 
@@ -76,5 +80,5 @@ export default GraphBlock;*/
 
 ////  dev  /////////////////////////////
 function log(it, comments='value: ') {
-    console.log(comments, it);
+    document.console.log(comments, it);
 }

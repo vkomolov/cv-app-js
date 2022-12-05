@@ -28,5 +28,5 @@ rootApp.getAndRenderData('./assets/json/cv.json');
 
 ////  dev  /////////////////////////////
 function log(it, comments='value: ') {
-    console.log(comments, it);
+    document.console.log(comments, it);
 }

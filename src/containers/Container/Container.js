@@ -17,7 +17,7 @@ export default class Container extends Component {
     ///////////////// END OF CONSTRUCTOR /////////////////
 
     renderData(innData) {
-        const {dispatchError, setFilter, filterActive, ...data} = innData;
+        const {dispatchError, setFilter, filterActive, ...restData} = innData;
 
         /** switching to dispatchError callback of the App (for emitting new Errors)**/
         if (typeof dispatchError === 'function') {
@@ -25,7 +25,6 @@ export default class Container extends Component {
         } else {
             console.error('no "dispatchError" found in data: ', innData);
             /**using method 'dispatchError' by default from the Component**/
-            this.dispatchError(new Error('no "dispatchError" found in data'));
         }
 
         /**  **/
@@ -46,8 +45,11 @@ export default class Container extends Component {
         }
 
         if (!this._error.length) {
-            this.parseData(data['data']);
+            this.parseData(restData['data']);
+            log(restData, 'parsing data: ');
+            log(restData['data'], 'parsing data["data"]: ');
         } else {
+            /**TODO: to realise errors**/
             console.error('errors in container obj: ');
             console.error(this._error);
         }
@@ -56,6 +58,8 @@ export default class Container extends Component {
     parseData(innData) {
         console.log('new Container object must have its own "parseData" method. Default method is initialised...')
         console.log(innData, 'Data for parsing:  ');
+
+        return this.getHTMLElem();
     }
 
 }

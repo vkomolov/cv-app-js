@@ -10,7 +10,7 @@ export default class Component {
         if (typeof htmlTagName === 'string') {
             this._htmlElem = document.createElement(htmlTagName);
         } else {
-            this.error.push(new Error('htmlTagName must be of type "string"...'));
+            this.dispatchError(new Error('htmlTagName must be of type "string"...'));
         }
 
         if ('attr' in props) {
@@ -51,7 +51,7 @@ export default class Component {
     dispatchError (error) {
         if (error.constructor.name === 'Error') {
             this._error.push(error);
-            console.error('error dispatched...', error.message);
+            document.console.error('error dispatched...', error.message);
         }
     }
 
@@ -73,18 +73,8 @@ export default class Component {
         data.forEach(elem => {
             this[Symbol.for("setInnerHTML")](elem, true);
         });
+    }
 
-        //gives possibility to append a set of elements or nodes...
-        //this._htmlElem.append(...data);
-    }
-    else if (typeof data === "string" || typeof data === "number" || data.nodeType === 1) {
-        if (toAppend) {
-            this._htmlElem.append(data);
-        } else {
-            this._htmlElem.innerHTML = '';
-            this._htmlElem.append(data);
-        }
-    }
     /** all ancestors of 'Component', including 'Container', which extends 'Component',
      * has the property of the 'Component': 'obj.getHTMLElem'
      * **/
@@ -96,9 +86,13 @@ export default class Component {
             this._htmlElem.append(data.getHTMLElem());
         }
     }
-    else {
-        this.dispatchError(new Error('the given data does not correspond the type...'));
-        console.error('the given data does not correspond the type...');
+    else  {
+        if (toAppend) {
+            this._htmlElem.append(data);
+        } else {
+            this._htmlElem.innerHTML = '';
+            this._htmlElem.append(data);
+        }
     }
  }
 

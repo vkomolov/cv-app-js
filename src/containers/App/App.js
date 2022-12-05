@@ -1,7 +1,7 @@
 'use strict';
 import Component from "../../components/Component/Component";
 
-import "./App.scss";
+import './App.scss';
 import { getAndStore } from "../../utils/services/userService";
 
 /** components **/
@@ -12,16 +12,14 @@ class App extends Component {
     constructor(props) {
         super(props);
         this._filter = null;     //will be overwritten by props 'filterOption'
-        this._data = null;       //will be overwritten by this.getAndRenderData
-        this._kids = [
-            AsideBar,
-            ContentBar
-        ];
+        this._data = null;
+        this._kids = [AsideBar, ContentBar];
+        //will be overwritten by this.getAndRenderData
 
         /**TODO: to decide, should the containers start before the data is fetched...
          * TODO: error status
          * */
-        //appending children...
+        //appending children... with 'Component.append(...elems)
         this.append(...this._kids);
 
         /**@description Array 'filterOption' is a list of possible 'filters' which can be chosen
@@ -32,7 +30,7 @@ class App extends Component {
             this._filter = this.filterOption[0];     //avoiding setter 'filter'
         }
         else {
-            console.error('App has not found "filterOption" in given props to the constructor');
+            document.console.error('App has not found "filterOption" in given props to the constructor');
             this.dispatchError(new Error('App has not found "filterOption" in given props'));
         }
     }
@@ -64,12 +62,9 @@ class App extends Component {
             this._filter = value;
 
             //on changing filter to rewrite components with the new data
-            if (this._data) {
-                /** using the method of the children '.renderData(data) **/
-                this._kids.forEach(component => component.renderData(this.prepareData(this._data)));
-            }
+            this.append(...this._kids.map(kid => kid.renderData(this.prepareData(this._data))));
         } else {
-            console.error(`the filter ${value} is not in option...`);
+            document.console.error(`the filter ${value} is not in option...`);
             this.dispatchError(new Error(`the filter ${value} is not in option...`));
         }
     }
@@ -82,10 +77,9 @@ class App extends Component {
         getAndStore(dataPath)
             .then(data => {
                 this._data = data;
-                return this._data;
-            }).then(data => {
-            this._kids.forEach(container => container.renderData(this.prepareData(data)));
-            }).catch(e => this.dispatchError(e));
+                this.append(...this._kids.map(kid => kid.renderData(this.prepareData(this._data))));
+            })
+            .catch(e => this.dispatchError(e));
     }
 }
 
@@ -93,5 +87,5 @@ export default App;
 
 ///////////////// dev
 function log(it, comments = "value: ") {
-    console.log(comments, it);
+    document.console.log(comments, it);
 }

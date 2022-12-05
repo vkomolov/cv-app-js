@@ -11,29 +11,40 @@ const AsideContent = new Component({
     },
 });
 
-AsideContent.renderData = function (data) {
+AsideContent.renderData = function (dataAside) {
     /** to filter from possible not array data... **/
-    const keysArr = Object.keys(data).filter(key => {
-        return Array.isArray(data[key]);
+    const keysArr = Object.keys(dataAside).filter(key => {
+        return Array.isArray(dataAside[key]);
     });
 
     log(keysArr, 'keysArr inside AsideContent: ');
-    const asideContentArr = keysArr.map(key => {
-        return data[key].map(dataItem => {
-            let AsideElem = new AsideItem({
+
+    /////////// ver ///////
+    keysArr.forEach(key => {
+
+        let AsideSegment = new Component ({
+            htmlTagName: 'div',
+            attr: {
+                className: 'segment-block',
+            }
+        });
+        AsideSegment.segmentName = key;
+
+        dataAside[key].forEach(dataItem => {
+            let newAsideItem = new AsideItem({
                 htmlTagName: 'div',
                 attr: {
-                    className: 'topWrapper'
-                },
+                    className: 'aside-item-wrapper',
+                }
             });
 
-            return AsideElem.renderData(dataItem);
+            AsideSegment.append(newAsideItem.renderData(dataItem));
         });
+
+        this.append(AsideSegment);
     });
 
-    this.append(...asideContentArr);
-
-    return AsideContent.getHTMLElem();
+    return this.getHTMLElem();
 };
 
 export default AsideContent;
