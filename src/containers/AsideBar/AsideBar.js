@@ -17,8 +17,6 @@ const AsideBar = new Component({
 AsideBar.dataName = 'aside';
 
 AsideBar.renderData = function (innData) {
-    //log(innData, 'innData: ');
-
     const {dispatchError, setFilter, filterActive, data} = innData;
     const {fullName, photoUrl, ...innerData} = data;
 
@@ -32,9 +30,6 @@ AsideBar.renderData = function (innData) {
     let SectionList;
     /** prepared data for sending to the children **/
     let dataAside;
-
-    //log(innerData, 'innerData');
-
 
     HeadingFullName = new Component({
         htmlTagName: 'h1',
@@ -84,7 +79,6 @@ AsideBar.renderData = function (innData) {
      * **/
     SectionList.getHTMLElem().addEventListener('click', (e) => {
         let target = e.target;
-        log(target.dataset.section, 'target.dataset.section');
 
         /**callback to App with changing setter filter and rerendering all the data**/
         setFilter(target.dataset.section);
@@ -92,14 +86,6 @@ AsideBar.renderData = function (innData) {
 
     if (filterActive && innerData[filterActive]) {
         dataAside = innerData[filterActive][this.dataName];
-        log(dataAside, 'dataAside');
-
-/*        this.innerHTML = [
-            HeadingFullName,
-            ImageContainer,
-            SectionList,
-            AsideContent.renderData(dataAside)
-        ];*/
 
      this.setInnerHTML(HeadingFullName, ImageContainer, SectionList, AsideContent.renderData(dataAside));
 
@@ -107,101 +93,6 @@ AsideBar.renderData = function (innData) {
         dispatchError(new Error(`filter ${filterActive} is not in the list of filters`));
     }
 };
-
-/*AsideBar.parseData = function(innData) {
-    const {fullName, photoUrl, ...data} = innData;
-    let headingFullName;
-    let image;
-    let ImageContainer;
-    let sectionList;
-    let dataAside;
-    let innerContent;
-
-    //log(data, 'data in the AsideBAr');
-    //log(this._htmlElem, 'this._htmlElem: ');
-
-    /!** heading **!/
-    headingFullName = new Component({
-        htmlTagName: 'h1',
-        innerHTML: fullName,
-    });
-
-    image = new Image();
-    image.src = photoUrl;
-
-    //log(image, 'image');    //<img src="./assets/img/vk.png">
-    //log(image.nodeType, 'image.nodeType: ');    //1
-
-    ImageContainer = new Component({
-        htmlTagName: 'div',
-        attr: {
-            className: 'imageContainer',
-        },
-        innerHTML: image,
-    });
-
-    /!**@description
-     *
-     * **!/
-    sectionList = new Component({
-        htmlTagName: 'ul',
-        attr: {
-            className: 'sectionList',
-        },
-    });
-
-    Object.keys(data).forEach(key => {
-        let specClass = key === this.filterActive
-            ? 'sectionName specClass'
-            : 'sectionName toBeHovered';
-
-        sectionList.append(new Component({
-            htmlTagName: 'li',
-            attr: {
-                className: specClass,
-                dataParams: [
-                    ['section', key]
-                ],
-            },
-            innerHTML: key,
-        }));
-    });
-
-    /!**@description
-     * changing filter by clicking 'ul' elements
-     * **!/
-    sectionList.getHTMLElem().addEventListener('click', (e) => {
-        let target = e.target;
-        log(target.dataset.section, 'target.dataset.section');
-
-        /!**callback to App with changing setter filter and reparsing all the data**!/
-        this.setFilter(target.dataset.section);
-    });
-
-    //log(data, 'data inside parsing data...');
-
-    if (this.filterActive && data[this.filterActive]) {
-        dataAside = data[this.filterActive][this.dataName];
-        log(dataAside, 'dataAside');
-
-        ///<AsideContent { ...{ dataAside }
-        ///innerContent = AsideContent.renderData(dataAside);
-
-
-    }
-
-    //this.append(headingFullName, ImageContainer, sectionList, AsideContent.renderData(dataAside));
-    this.innerHTML = [
-        headingFullName,
-        ImageContainer,
-        sectionList,
-        AsideContent.renderData(dataAside)
-    ];
-
-
-};*/
-
-log(AsideBar, 'AsideBar');
 
 export default AsideBar;
 

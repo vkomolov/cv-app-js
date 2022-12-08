@@ -25,10 +25,7 @@ export default class AsideItem extends Component {
             });
         }
 
-
         if (details && typeof details === 'string') {
-            log(details, 'string inside AsideItem details: ');
-
             /** content of the AsideItem **/
             Content.push(new Component({
                 htmlTagName: 'span',
@@ -37,10 +34,7 @@ export default class AsideItem extends Component {
                 },
                 innerHTML: details,
             }));
-
-            log(Content, 'resulting Content for Aside Item with details "string": ');
         }
-
         //content with the graphElem
         else if (Array.isArray(details) && details.length) {
             Content = details.map(graphData => {
@@ -68,8 +62,6 @@ export default class AsideItem extends Component {
                 }
 
                 if (details && parseInt(details)) {
-                    log(details, 'details in subDetails');
-
                     GraphItem = new GraphBlock({
                         htmlTagName: 'div',
                         attr: {
@@ -77,14 +69,11 @@ export default class AsideItem extends Component {
                         }
                     });
                 }
-
                 GraphSection.setInnerHTML(Subheading, GraphItem.renderData(details));
 
                 return GraphSection.getHTMLElem();
             });
         }
-
-        //switching setter on innerHTML, inherited from Component
         this.setInnerHTML(Heading, ...Content);
 
         return this.getHTMLElem();

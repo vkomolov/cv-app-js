@@ -17,8 +17,6 @@ AsideContent.renderData = function (dataAside) {
         return Array.isArray(dataAside[key]);
     });
 
-    //log(keysArr, 'keysArr inside AsideContent: ');
-
     this.setInnerHTML(...keysArr.map(key => {
         let AsideSegment = new Component ({
             htmlTagName: 'div',
@@ -41,30 +39,6 @@ AsideContent.renderData = function (dataAside) {
 
         return AsideSegment.getHTMLElem();
     }));
-
-/*    this._htmlElem.innerHTML = keysArr.map(key => {
-
-        let AsideSegment = new Component ({
-            htmlTagName: 'div',
-            attr: {
-                className: 'segment-block',
-            }
-        });
-        AsideSegment.segmentName = key;
-
-        AsideSegment.innerHTML = dataAside[key].map(dataItem => {
-            let newAsideItem = new AsideItem({
-                htmlTagName: 'div',
-                attr: {
-                    className: 'aside-item-wrapper',
-                }
-            });
-
-            return newAsideItem.renderData(dataItem);
-        });
-
-        return AsideSegment.getHTMLElem();
-    });*/
 
     return this.getHTMLElem();
 };

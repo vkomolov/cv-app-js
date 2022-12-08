@@ -20,7 +20,7 @@ class App extends Component {
         this._kids = [AsideBar, ContentBar];
         //will be overwritten by this.getAndRenderData
         this._data = null;
-        //will collect errors from the components
+        //todo: to realize the _error control
         this._error = [];
 
         /**@description Array 'filterOption' is a list of possible 'filters' which can be chosen
@@ -62,18 +62,14 @@ class App extends Component {
         if (this._filterOption && this._filterOption.includes(value)) {
             this._filter = value;
 
-            //on changing filter to rewrite components with the new data
-            //this.append(...this._kids.map(kid => kid.renderData(this.prepareData(data))));
-
             if (this._data) {
                 this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
             } else {
                 document.console.error(`the data is empty:  ${this._data}`);
                 this.dispatchError(new Error(`the data is empty:  ${this._data}`));
             }
-
-            //this.innerHTML = this._kids.map(kid => kid.renderData(this.prepareData(this._data)));
-        } else {
+        }
+        else {
             document.console.error(`the filter ${value} is not in option...`);
             this.dispatchError(new Error(`the filter ${value} is not in option...`));
         }
