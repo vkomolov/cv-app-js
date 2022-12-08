@@ -1,15 +1,19 @@
 'use strict';
 
 import "./ContentBar.scss";
-import Container from "../../containers/Container/Container";
+import Component from "../../components/Component/Component";
 
-const ContentBar = new Container({
+const ContentBar = new Component({
     htmlTagName: "div",
     attr: {
         className: "contentBar",
     },
     dataName: 'content',
 });
+
+ContentBar.renderData = function(data) {
+    return this.getHTMLElem();
+}
 
 /*ContentBar.parseData = function(innData) {
 

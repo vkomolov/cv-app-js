@@ -7,32 +7,33 @@ import { getAndStore } from "../../utils/services/userService";
 /** components **/
 import AsideBar from "../AsideBar/AsideBar";
 import ContentBar from "../ContentBar/ContentBar";
+const filterOption = [
+    'personal',
+    'experience',
+    'education'
+];
 
 class App extends Component {
     constructor(props) {
         super(props);
         this._filter = null;     //will be overwritten by props 'filterOption'
-        this._data = null;
         this._kids = [AsideBar, ContentBar];
         //will be overwritten by this.getAndRenderData
-
-        /**TODO: to decide, should the containers start before the data is fetched...
-         * TODO: error status
-         * */
-        //appending children... with 'Component.append(...elems)
-        this.append(...this._kids);
+        this._data = null;
+        //will collect errors from the components
+        this._error = [];
 
         /**@description Array 'filterOption' is a list of possible 'filters' which can be chosen
          *
          * **/
-        if ("filterOption" in props && Array.isArray(props["filterOption"])) {
-            this.filterOption = [...props.filterOption];
-            this._filter = this.filterOption[0];     //avoiding setter 'filter'
-        }
-        else {
-            document.console.error('App has not found "filterOption" in given props to the constructor');
-            this.dispatchError(new Error('App has not found "filterOption" in given props'));
-        }
+        this._filterOption = filterOption;
+        this._filter = this._filterOption[0];
+
+            /**TODO: to decide, should the containers start before the data is fetched...
+             * TODO: error status
+             * */
+            //appending children... with 'Component.append(...elems)
+            this.append(...this._kids);
     }
 ///////////////// END OF CONSTRUCTOR /////////////////
 
@@ -58,14 +59,30 @@ class App extends Component {
      *
      * **/
     set filter (value) {
-        if (this.filterOption && this.filterOption.includes(value)) {
+        if (this._filterOption && this._filterOption.includes(value)) {
             this._filter = value;
 
             //on changing filter to rewrite components with the new data
-            this.append(...this._kids.map(kid => kid.renderData(this.prepareData(this._data))));
+            //this.append(...this._kids.map(kid => kid.renderData(this.prepareData(data))));
+
+            if (this._data) {
+                this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
+            } else {
+                document.console.error(`the data is empty:  ${this._data}`);
+                this.dispatchError(new Error(`the data is empty:  ${this._data}`));
+            }
+
+            //this.innerHTML = this._kids.map(kid => kid.renderData(this.prepareData(this._data)));
         } else {
             document.console.error(`the filter ${value} is not in option...`);
             this.dispatchError(new Error(`the filter ${value} is not in option...`));
+        }
+    }
+
+    dispatchError (error) {
+        if (error.constructor.name === 'Error') {
+            this._error.push(error);
+            document.console.error('error dispatched...', error.message);
         }
     }
 
@@ -77,7 +94,7 @@ class App extends Component {
         getAndStore(dataPath)
             .then(data => {
                 this._data = data;
-                this.append(...this._kids.map(kid => kid.renderData(this.prepareData(this._data))));
+                this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
             })
             .catch(e => this.dispatchError(e));
     }
@@ -86,6 +103,6 @@ class App extends Component {
 export default App;
 
 ///////////////// dev
-function log(it, comments = "value: ") {
-    document.console.log(comments, it);
+function log(it, comments='value: ') {
+    console.log(comments, it);
 }

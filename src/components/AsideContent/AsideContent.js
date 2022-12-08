@@ -17,10 +17,32 @@ AsideContent.renderData = function (dataAside) {
         return Array.isArray(dataAside[key]);
     });
 
-    log(keysArr, 'keysArr inside AsideContent: ');
+    //log(keysArr, 'keysArr inside AsideContent: ');
 
-    /////////// ver ///////
-    keysArr.forEach(key => {
+    this.setInnerHTML(...keysArr.map(key => {
+        let AsideSegment = new Component ({
+            htmlTagName: 'div',
+            attr: {
+                className: 'segment-block',
+            }
+        });
+        AsideSegment.segmentName = key;
+
+        AsideSegment.append(...dataAside[key].map(dataItem => {
+            let newAsideItem = new AsideItem({
+                htmlTagName: 'div',
+                attr: {
+                    className: 'aside-item-wrapper',
+                }
+            });
+
+            return newAsideItem.renderData(dataItem);
+        }));
+
+        return AsideSegment.getHTMLElem();
+    }));
+
+/*    this._htmlElem.innerHTML = keysArr.map(key => {
 
         let AsideSegment = new Component ({
             htmlTagName: 'div',
@@ -30,7 +52,7 @@ AsideContent.renderData = function (dataAside) {
         });
         AsideSegment.segmentName = key;
 
-        dataAside[key].forEach(dataItem => {
+        AsideSegment.innerHTML = dataAside[key].map(dataItem => {
             let newAsideItem = new AsideItem({
                 htmlTagName: 'div',
                 attr: {
@@ -38,11 +60,11 @@ AsideContent.renderData = function (dataAside) {
                 }
             });
 
-            AsideSegment.append(newAsideItem.renderData(dataItem));
+            return newAsideItem.renderData(dataItem);
         });
 
-        this.append(AsideSegment);
-    });
+        return AsideSegment.getHTMLElem();
+    });*/
 
     return this.getHTMLElem();
 };

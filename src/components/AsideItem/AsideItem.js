@@ -5,6 +5,8 @@ import "./AsideItem.scss";
 import GraphBlock from "../GraphBlock/GraphBlock";
 import Component from "../Component/Component";
 
+/**will be multiples samples for AsideContent**/
+
 export default class AsideItem extends Component {
     constructor(props) {
         super(props);
@@ -13,10 +15,8 @@ export default class AsideItem extends Component {
 
     renderData({...dataItem}) {
         const {title, details} = dataItem;
-
-
         let Heading;
-        let Content;
+        let Content = [];
 /** heading of the AsideItem **/
         if (title && typeof title === 'string') {
             Heading = new Component({
@@ -27,16 +27,16 @@ export default class AsideItem extends Component {
 
 
         if (details && typeof details === 'string') {
-            log(details, 'inside AsideItem details: ');
+            log(details, 'string inside AsideItem details: ');
 
             /** content of the AsideItem **/
-            Content = new Component({
+            Content.push(new Component({
                 htmlTagName: 'span',
                 attr: {
                     className: 'spanDetails',
                 },
                 innerHTML: details,
-            });
+            }));
 
             log(Content, 'resulting Content for Aside Item with details "string": ');
         }
@@ -78,14 +78,14 @@ export default class AsideItem extends Component {
                     });
                 }
 
-                GraphSection.innerHTML = [Subheading, GraphItem.renderData(details)];
+                GraphSection.setInnerHTML(Subheading, GraphItem.renderData(details));
 
                 return GraphSection.getHTMLElem();
             });
         }
 
         //switching setter on innerHTML, inherited from Component
-        this.innerHTML = [Heading, Content];
+        this.setInnerHTML(Heading, ...Content);
 
         return this.getHTMLElem();
     }

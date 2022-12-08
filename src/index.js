@@ -11,15 +11,11 @@ const rootApp = new App({
     attr: {
         className: 'totalWrapper',
         id: 'app',
-    },
-    filterOption: [
-        'personal',
-        'experience',
-        'education'
-    ],
+    }
 });
 
 const root = document.getElementById('root');
+
 root.append(rootApp.getHTMLElem());
 rootApp.getAndRenderData('./assets/json/cv.json');
 
@@ -28,5 +24,5 @@ rootApp.getAndRenderData('./assets/json/cv.json');
 
 ////  dev  /////////////////////////////
 function log(it, comments='value: ') {
-    document.console.log(comments, it);
+    console.log(comments, it);
 }

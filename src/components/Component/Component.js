@@ -2,15 +2,10 @@
 
 export default class Component {
     constructor ({htmlTagName, ...props}) {
-        /**will be checked before actions
-         * todo: to realise the error control
-         **/
-        this._error = [];
-
         if (typeof htmlTagName === 'string') {
             this._htmlElem = document.createElement(htmlTagName);
         } else {
-            this.dispatchError(new Error('htmlTagName must be of type "string"...'));
+            console.error(new Error('htmlTagName must be of type "string"...'));
         }
 
         if ('attr' in props) {
@@ -43,17 +38,10 @@ export default class Component {
             /**
              * switching to hidden function with 'false', for rewriting innerHTML
              * **/
-            this[Symbol.for('setInnerHTML')](props['innerHTML'], false);
+            this[Symbol.for("appendThis")](props['innerHTML']);
         }
     }
     ///////////////// END OF CONSTRUCTOR /////////////////
-
-    dispatchError (error) {
-        if (error.constructor.name === 'Error') {
-            this._error.push(error);
-            document.console.error('error dispatched...', error.message);
-        }
-    }
 
     getHTMLElem () {
         return this._htmlElem;
@@ -61,59 +49,35 @@ export default class Component {
 
 /**
  * @description:
- * - the main function is hidden with [Symbol.for("setInnerHTML")] from being enumerated
- * with other Prototype methods and being initiated directly...
- * 'toAppend = true' is for appending elements and nodes to the Parent; 'toAppend = false' is for rewriting innerHTML
  **/
- [Symbol.for("setInnerHTML")](data, toAppend = true) {
-    if (Array.isArray(data) && data.length) {
-        if (!toAppend) {
-            this._htmlElem.innerHTML = '';
-        }
-        data.forEach(elem => {
-            this[Symbol.for("setInnerHTML")](elem, true);
-        });
-    }
+ [Symbol.for("appendThis")](elem) {
 
     /** all ancestors of 'Component', including 'Container', which extends 'Component',
      * has the property of the 'Component': 'obj.getHTMLElem'
      * **/
-    else if (data.getHTMLElem) {
-        if (toAppend) {
-            this._htmlElem.append(data.getHTMLElem());
-        } else {
-            this._htmlElem.innerHTML = '';
-            this._htmlElem.append(data.getHTMLElem());
-        }
+    if (elem.getHTMLElem) {
+        this._htmlElem.append(elem.getHTMLElem());
     }
-    else  {
-        if (toAppend) {
-            this._htmlElem.append(data);
-        } else {
-            this._htmlElem.innerHTML = '';
-            this._htmlElem.append(data);
-        }
+    else {
+        this._htmlElem.append(elem);
     }
  }
 
-    /**@Description: Setter/Getter for the innerHTML property of the class Component, which is not DOM Element, but
-     * has the property 'htmlElem', which has the [[prototype]]] of HTMLElement
-     *
-     */
-    set innerHTML (innerHtmlData) {
-        this[Symbol.for("setInnerHTML")](innerHtmlData, false);
-    }
-
-    get innerHTML () {
-        return this._htmlElem.innerHTML;
-    }
-
-    /**@description it can use 'append' method directly to the new Component obj, avoiding append method to the
-     * HTMLElement, which is in the property 'this._htmlElem' of this new Component obj...
+    /**@description
      * **/
+    setInnerHTML(...innerHtmlData) {
+        if (innerHtmlData.length) {
+            this._htmlElem.innerHTML = '';
+            for (let elem of innerHtmlData) {
+                this[Symbol.for("appendThis")](elem);
+            }
+        }
+    }
+
     append(...innerHtmlData) {
-        this[Symbol.for("setInnerHTML")](innerHtmlData, true);
-        //innerHtmlData.forEach(elem => this[Symbol.for("setInnerHTML")](elem, true));
+        for (let elem of innerHtmlData) {
+            this[Symbol.for("appendThis")](elem);
+        }
     }
 }
 
