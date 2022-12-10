@@ -40,7 +40,7 @@
   }
 
   .sectionList {
-
+    padding-inline-start: 25px;
 
     .sectionName {
       @include init-font(20px, 700);

@@ -91,6 +91,13 @@ class App extends Component {
             .then(data => {
                 this._data = data;
                 this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
+
+                this._kids.forEach(kid => {
+                    log(kid.getHTMLElem().clientHeight, 'kid.getHTMLElem().clientHeight');
+                    log(kid.getHTMLElem().height, 'kid.getHTMLElem().height');
+
+                });
+
             })
             .catch(e => this.dispatchError(e));
     }

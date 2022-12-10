@@ -48,9 +48,6 @@ export default class AsideItem extends Component {
                 let Subheading;
                 let GraphItem;
 
-                //log(title, 'title in GraphData');
-                //log(details, 'details in GraphData');
-
                 if (title && typeof title === 'string') {
                     Subheading = new Component({
                         htmlTagName: 'span',

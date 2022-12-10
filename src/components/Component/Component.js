@@ -36,9 +36,14 @@ export default class Component {
 
         if ('innerHTML' in props) {
             /**
-             * switching to hidden function with 'false', for rewriting innerHTML
+             * if the prop is Array, then spreading array
              * **/
-            this[Symbol.for("appendThis")](props['innerHTML']);
+            //this[Symbol.for("appendThis")](props['innerHTML']);
+            if (Array.isArray(props['innerHTML'])) {
+                this.setInnerHTML(...props['innerHTML']);
+            } else {
+                this.setInnerHTML(props['innerHTML']);
+            }
         }
     }
     ///////////////// END OF CONSTRUCTOR /////////////////
@@ -55,11 +60,12 @@ export default class Component {
     /** all ancestors of 'Component', including 'Container', which extends 'Component',
      * has the property of the 'Component': 'obj.getHTMLElem'
      * **/
-    if (elem.getHTMLElem) {
-        this._htmlElem.append(elem.getHTMLElem());
-    }
-    else {
-        this._htmlElem.append(elem);
+    if (elem) {
+        if (elem.getHTMLElem) {
+            this._htmlElem.append(elem.getHTMLElem());
+        } else {
+            this._htmlElem.append(elem);
+        }
     }
  }
 
@@ -69,7 +75,16 @@ export default class Component {
         if (innerHtmlData.length) {
             this._htmlElem.innerHTML = '';
             for (let elem of innerHtmlData) {
-                this[Symbol.for("appendThis")](elem);
+                //elem can be 'null'
+                if (elem) {
+                    if (Array.isArray(elem)) {
+                        this.setInnerHTML(...elem);
+                    }
+                    else {
+                        this[Symbol.for("appendThis")](elem);
+                    }
+
+                }
             }
         }
     }

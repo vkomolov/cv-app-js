@@ -5,7 +5,6 @@
 .contentBar {
   flex-grow: 1;
   flex-basis: 450px;
-  min-height: 1130px;
   color: $blue;
   padding: 5px 0 5px 25px;
   opacity: 0;
@@ -21,7 +20,7 @@
 
   .contentWrapper {
     position: relative; //for loading icon
-    height: 1080px;
+    //height: 1080px;
     @include scroll-init(5px, $blueDark, $foxyGrey);
 
   }
