@@ -6,10 +6,10 @@
       "details": [
         {
           "title": "Citizenship",
-          "details": "Kyiv Ukraine"
+          "details": "Kyiv, Ukraine"
         },
         {
-          "title": "Phone",
+          "title": "Cellular",
           "details": "+(380) 66 350-61-04"
         },
         {
@@ -27,15 +27,15 @@
           "details": [
             {
               "title": "Russian",
-              "details": "100"
+              "details": "95"
             },
             {
               "title": "Ukrainian",
-              "details": "85"
+              "details": "90"
             },
             {
               "title": "English",
-              "details": "85"
+              "details": "80"
             }
           ]
         },
@@ -51,11 +51,11 @@
               "details": "80"
             },
             {
-              "title": "Negotiation",
-              "details": "75"
+              "title": "Will to learn & experience",
+              "details": "90"
             },
             {
-              "title": "Presentation",
+              "title": "Flexibility",
               "details": "85"
             }
           ]
@@ -70,18 +70,13 @@
           "subheading": null,
           "p": [
             "Dear Sirs,",
-            "I have successfully worked in the field of industrial B2B sales for more than 15 years",
-            "Gaining a wealth of knowledge and skills in managing sales, I combined them with my natural inclination to programming.",
-            "The construction of algorithms for performing tasks in programming turned out to resemble the business planning with a clearly defined task weighed. Also, splitting of responsibility and functionality to the elementary components in Business Management has full compliance with the principles of SOLID programming.",
-            "I found, I love coding and ready to devote my future career to App programming.",
-            "As a rule, Developer has an engineering, procedural mindset that does not always keep up with the mindset of the Seller. The Seller is on a constant search for the possible advantages, features of the product and services to be sold.",
-            "Just the Client oriented view to the product concept and the programming skills can produce a very perspective symbiosis.",
-            "Many apps suffer not only adaptability to devices, but also their imbalance in programming, using 'big' for the 'little' or just not fully relevant to the task and possible Customer Priorities.",
-            "In addition, the growing trend in use of different constructors, libraries simplify the web production, but also can restrain freedom and creativity at the same time.",
-            "I learn to feel the balance in usage of different methods when creating an application with a specific purpose and functionality.",
-            "I enjoy and strive for a scalable, polymorphic and maximum adaptive, semantic DRY code, not overloaded with many libraries for a couple of easy methods.",
-            "I am certainly convinced, that my growing skills in programming and my former professional background will generate a productive and significant outcome for the Company I will work for.",
-            "With Respect,",
+            "I have successfully worked in the Sales & Marketing management, structuring, operating & analyzing the massive business data, for more than 15 years.",
+            "Gaining a wealth of knowledge and skills in management and data analysis, I combined them with my natural inclination to programming: creating something from the idea and the algorithm of its realisation...",
+            "In programming the construction of the algorithms for performing tasks turned out to resemble the business management in planning with a clearly defined tasks weighed, splitting of responsibility and functionality to the elementary components.",
+            "It happens that some apps suffer not only adaptability, but also their imbalance in programming, using 'big' for the 'little': overloaded with many libraries for a couple of simple methods...",
+            "Achieving the most efficiency with smallest cost - is a worth challenge...",
+            "Knowing the rules is the vital goal, but to overcome the rules is a thorny and educational path, which bears creativity, originality and natural beauty.",
+            "Sincerely,",
             "Vadim Komolov"
           ]
         }
@@ -93,53 +88,114 @@
       "details": [
         {
           "title": "Achievements",
-          "details": "3M International Sales & Marketing Professional Award. Team & Department Awards on exceptional sales results"
+          "details": "3M International Sales & Marketing Professional Award. Team & Department Awards on exceptional results;"
         }
       ],
       "skills": [
         {
-          "title": "Sales",
+          "title": "Development",
           "details": [
             {
-              "title": "Customer Focus Selling",
+              "title": "HTML",
               "details": "85"
             },
             {
-              "title": "Sales Presentation",
+              "title": "CSS",
               "details": "85"
-            }
-          ]
-        },
-        {
-          "title": "Sales Management",
-          "details": [
+            },
             {
-              "title": "Business Analysis",
+              "title": "SCSS",
               "details": "90"
             },
             {
-              "title": "Sales Team Leading",
+              "title": "styled-components",
               "details": "80"
             },
             {
-              "title": "Distribution management",
+              "title": "Module styling",
+              "details": "85"
+            },
+            {
+              "title": "Javascript",
+              "details": "85"
+            },
+            {
+              "title": "PHP",
+              "details": "80"
+            },
+            {
+              "title": "SQL",
               "details": "85"
             }
           ]
         },
         {
-          "title": "Marketing Management",
+          "title": "Frameworks, Libraries...",
           "details": [
             {
-              "title": "Positioning and Penetration",
+              "title": "React",
+              "details": "85"
+            },
+            {
+              "title": "React Redux",
+              "details": "85"
+            },
+            {
+              "title": "React Router",
+              "details": "80"
+            }
+          ]
+        },
+        {
+          "title": "IDE, API, etc...",
+          "details": [
+            {
+              "title": "XAMPP",
+              "details": "75"
+            },
+            {
+              "title": "PHP Storm, Web Storm",
+              "details": "85"
+            },
+            {
+              "title": "GIT, BitBucket...",
+              "details": "75"
+            },
+            {
+              "title": "Gulp",
               "details": "80"
             },
             {
-              "title": "Product Strategy",
+              "title": "Webpack",
               "details": "80"
             },
             {
-              "title": "Marketing Analysis",
+              "title": "Photoshop, Illustrator",
+              "details": "75"
+            },
+            {
+              "title": "Adobe Indesign",
+              "details": "70"
+            },
+            {
+              "title": "Solid Works",
+              "details": "65"
+            }
+          ]
+        },
+        {
+          "title": "Sales & Marketing Management",
+          "details": [
+            {
+              "title": "Product Management",
+              "details": "80"
+            },
+            {
+              "title": "Structuring and Organizing Data operations",
+              "details": "90"
+            },
+            {
+              "title": "Marketing Mix Analysis, Positioning and Penetration",
               "details": "85"
             }
           ]
@@ -150,7 +206,7 @@
       "title": "Experience",
       "details": [
         {
-          "remark": "Apr 2018 - till present",
+          "remark": "Apr 2020 - till present",
           "subheading": "Outsource",
           "comments": "programming, design, copywriting",
           "li": [
@@ -259,104 +315,6 @@
           "title": "ISO 9000",
           "details": "Corporate Courses"
         }
-      ],
-      "skills": [
-        {
-          "title": "Programming",
-          "details": [
-            {
-              "title": "HTML5",
-              "details": "80"
-            },
-            {
-              "title": "CSS..3",
-              "details": "85"
-            },
-            {
-              "title": "SCSS",
-              "details": "85"
-            },
-            {
-              "title": "styled-components",
-              "details": "80"
-            },
-            {
-              "title": "module styling",
-              "details": "85"
-            },
-            {
-              "title": "Javascript ES-2015..17",
-              "details": "80"
-            },            
-            {
-              "title": "Gulp-4",
-              "details": "80"
-            },
-            {
-              "title": "PHP",
-              "details": "45"
-            },
-            {
-              "title": "SQL",
-              "details": "50"
-            }
-          ]
-        },
-        {
-          "title": "Frameworks, Libraries...",
-          "details": [
-            {
-              "title": "jQuery",
-              "details": "30"
-            },
-            {
-              "title": "Bootstrap",
-              "details": "30"
-            },
-            {
-              "title": "React",
-              "details": "75"
-            },
-            {
-              "title": "React Redux",
-              "details": "75"
-            },
-            {
-              "title": "React Router",
-              "details": "75"
-            }
-          ]
-        },
-        {
-          "title": "IDE, API, etc...",
-          "details": [
-            {
-              "title": "XAMPP",
-              "details": "60"
-            },
-            {
-              "title": "PHP Storm, Web Storm",
-              "details": "85"
-            },
-            {
-              "title": "GIT, BitBucket...",
-              "details": "75"
-            },
-            {
-              "title": "Photoshop, Illustrator",
-              "details": "80"
-            },
-            {
-              "title": "Adobe Indesign",
-              "details": "80"
-            },
-            {
-              "title": "Solid Works",
-              "details": "65"
-            }
-
-          ]
-        }
       ]
     },
     "content": {
@@ -366,9 +324,9 @@
           "remark": "Nov 2017 - Apr 2018",
           "subheading": "PHP Academy ( Deutsche-It-Schule )",
           "li": [
-            "Frontend: HTML..5, CSS..3/SCSS, ES-2015..17, React..16/Redux, Gulp-4/Webpack;",
-            "Backend: PHP(basics), SQL(basics);",
-            "Backend (basics): Node.js, Express, MongoDB, end points...;"
+            "Frontend: HTML, CSS/SCSS, JS, React/Redux/Router;",
+            "Backend: PHP, SQL;",
+            "TODO: Node.js, TypeScript, Next.js, Express, MongoDB, payment attachments;"
           ]
         },
         {
@@ -441,7 +399,7 @@
           "file": [
             {
               "title": "English CV Version",
-              "path": "../cvData/VKomolov_Eng19_CV_JS.pdf"
+              "path": "./assets/pData/VKomolov_Eng22_CV_JS.pdf"
             }
           ]
         }

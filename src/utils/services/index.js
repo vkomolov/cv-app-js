@@ -140,3 +140,23 @@ export function dateFormat(date, delimiter) {
 export function numFormat(num, decimal) {
 	return Math.round(num * decimal)/decimal;
 }
+
+export function equalCols(...elemsArr) {   //for making DOM elems` height to be equal. Put them in array elemsArr
+	let highestCal = 0;
+	for (let i = 0; i < elemsArr.length; i++) {
+	    /**resetting the heights of the elements to 'auto' after rerendering the elements**/
+        elemsArr[i].style.height = 'auto';
+
+		if (elemsArr[i].offsetHeight > highestCal) {
+			highestCal = elemsArr[i].offsetHeight;
+		}
+	}
+	for (let i = 0; i < elemsArr.length; i++) {
+		elemsArr[i].style.height = highestCal + "px";
+	}
+}
+
+///////////////// dev
+function log(it, comments='value: ') {
+	console.log(comments, it);
+}

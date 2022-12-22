@@ -2,11 +2,13 @@
 import Component from "../../components/Component/Component";
 
 import './App.scss';
-import { getAndStore } from "../../utils/services/userService";
+import { getAndStore } from '../../utils/services/userService';
+import { equalCols } from '../../utils/services/index';
 
 /** components **/
 import AsideBar from "../AsideBar/AsideBar";
 import ContentBar from "../ContentBar/ContentBar";
+import AlertBlock from "../../components/AlertBlock/AlertBlock";
 const filterOption = [
     'personal',
     'experience',
@@ -21,7 +23,11 @@ class App extends Component {
         //will be overwritten by this.getAndRenderData
         this._data = null;
         //todo: to realize the _error control
-        this._error = [];
+        this._alert = {
+            type: null,
+            contentArr: null,
+        };
+        this.alert = null; // for the setter 'alert' with the following event
 
         /**@description Array 'filterOption' is a list of possible 'filters' which can be chosen
          *
@@ -64,22 +70,69 @@ class App extends Component {
 
             if (this._data) {
                 this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
+                //this.setInnerHTML(...this._kids);
+                equalCols(...this._kids.map(kid => kid.getHTMLElem()));
             } else {
-                document.console.error(`the data is empty:  ${this._data}`);
+                console.error(`the data is empty:  ${this._data}`);
                 this.dispatchError(new Error(`the data is empty:  ${this._data}`));
             }
         }
         else {
-            document.console.error(`the filter ${value} is not in option...`);
+            console.error(`the filter ${value} is not in option...`);
             this.dispatchError(new Error(`the filter ${value} is not in option...`));
         }
     }
 
-    dispatchError (error) {
-        if (error.constructor.name === 'Error') {
-            this._error.push(error);
-            document.console.error('error dispatched...', error.message);
+    /**@description making setter 'error' in order to callback on changing value, as on event...
+     *
+     * **/
+    set alert (timeStamp) {
+        log(timeStamp, 'working setter alert');
+        log(this._alert, 'rendering this._alert: ');
+
+        if (!this._alert.type) {
+            AlertBlock.getHTMLElem().remove();
+        } else {
+            this.append(AlertBlock.renderData(this._alert));
         }
+    }
+
+    get error () {
+        if (this._alert.type === 'error') {
+            return this._alert.content;
+        }
+        return null;
+    }
+
+    /**@description: callback to children... initiates the setter 'alert' with the following event **/
+    dispatchError (err) {
+        if (err.constructor.name === 'Error') {
+            log(err.constructor.name, 'dispatched error:');
+            if (this._alert.type !== 'error') {
+                this._alert.type = 'error';
+                this._alert.contentArr = [];   //clean
+            }
+
+            this._alert.contentArr.push(err);
+        }
+        this.renderAlert();
+    }
+
+    dispatchAlert (alert) {
+        /**when error it is no other alerts**/
+        if (this._alert.type !== 'error') {
+            if (this._alert.type !== 'alert') {
+                this._alert.type = 'alert';
+                this._alert.contentArr = [];
+            }
+
+            this._alert.contentArr.push(alert);
+            this.renderAlert();
+        }
+    }
+
+    renderAlert() {
+        this.alert = Date.now();  //switching setter 'alert'
     }
 
     /**@description:
@@ -91,13 +144,7 @@ class App extends Component {
             .then(data => {
                 this._data = data;
                 this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
-
-                this._kids.forEach(kid => {
-                    log(kid.getHTMLElem().clientHeight, 'kid.getHTMLElem().clientHeight');
-                    log(kid.getHTMLElem().height, 'kid.getHTMLElem().height');
-
-                });
-
+                equalCols(...this._kids.map(kid => kid.getHTMLElem()));
             })
             .catch(e => this.dispatchError(e));
     }

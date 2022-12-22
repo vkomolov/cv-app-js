@@ -89,6 +89,8 @@ AsideBar.renderData = function (innData) {
 
      this.setInnerHTML(HeadingFullName, ImageContainer, SectionList, AsideContent.renderData(dataAside));
 
+    //dispatchError(new Error(`filter ${filterActive} is not in the list of filters`));
+
     } else {
         dispatchError(new Error(`filter ${filterActive} is not in the list of filters`));
     }

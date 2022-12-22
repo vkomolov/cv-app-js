@@ -4,7 +4,6 @@ import './styles/normalize.css';
 import './styles/scss/index.scss';
 
 import App from './containers/App/App';
-import AlertBlock from './components/AlertBlock/AlertBlock';
 
 const rootApp = new App({
     htmlTagName: 'div',
@@ -17,9 +16,7 @@ const rootApp = new App({
 const root = document.getElementById('root');
 
 root.append(rootApp.getHTMLElem());
-rootApp.getAndRenderData('./assets/json/cv.json');
-
-//AlertBlock.attachToID('root');
+rootApp.getAndRenderData('./assets/pData/cv.json');
 
 
 ////  dev  /////////////////////////////

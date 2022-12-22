@@ -13,14 +13,21 @@ const ContentBar = new Component({
     attr: {
         className: "contentBar",
     },
-    dataName: 'content',
 });
+
+ContentBar.dataName = 'content';
 
 ContentBar.renderData = function(innData) {
     const {dispatchError, filterActive, data} = innData;
-    const contentData = data[filterActive].content;
+    let contentData;
     let HeadingElem;
     let contentArr;
+
+    if (filterActive && data[filterActive]) {
+        contentData = data[filterActive][this.dataName];
+    } else {
+        dispatchError(new Error(`filter ${filterActive} is not in the list of filters`));
+    }
 
     /** heading **/
     if (contentData['title']) {
@@ -48,6 +55,8 @@ ContentBar.renderData = function(innData) {
     if (HeadingElem && contentArr && contentArr.length) {
         this.setInnerHTML(HeadingElem, ...contentArr);
     }
+
+    //dispatchError(new Error(`TESTING AlertBlock from ContentBar...`));
 
     return this.getHTMLElem();
 };

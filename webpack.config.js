@@ -58,7 +58,7 @@ module.exports = {
         main: './index.js'
     },
     output: {
-        /*filename: '[name].bundle.js',*/
+        //filename: '[name].bundle.js',
         filename: filename('js'),
         path: path.resolve(__dirname, 'dist'),
     },
@@ -92,8 +92,8 @@ module.exports = {
                     to: path.resolve(__dirname, 'dist/cv.ico')
                 },
                 {
-                    from: path.resolve(__dirname, 'src/assets/json/cv.json'),
-                    to: path.resolve(__dirname, 'dist/assets/json/cv.json')
+                    from: path.resolve(__dirname, 'src/assets/pData/cv.json'),
+                    to: path.resolve(__dirname, 'dist/assets/pData/cv.json')
                 },
                 {
                     from: path.resolve(__dirname, 'src/assets/img/vk.png'),
