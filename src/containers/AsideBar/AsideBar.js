@@ -17,7 +17,7 @@ const AsideBar = new Component({
 AsideBar.dataName = 'aside';
 
 AsideBar.renderData = function (innData) {
-    const {dispatchError, setFilter, filterActive, data} = innData;
+    const {dispatchAlert, setFilter, filterActive, data} = innData;
     const {fullName, photoUrl, ...innerData} = data;
 
     /** heading **/
@@ -89,10 +89,8 @@ AsideBar.renderData = function (innData) {
 
      this.setInnerHTML(HeadingFullName, ImageContainer, SectionList, AsideContent.renderData(dataAside));
 
-    //dispatchError(new Error(`filter ${filterActive} is not in the list of filters`));
-
     } else {
-        dispatchError(new Error(`filter ${filterActive} is not in the list of filters`));
+        dispatchAlert('error', new Error(`filter ${filterActive} is not in the list of filters`));
     }
 };
 

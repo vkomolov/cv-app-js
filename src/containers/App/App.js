@@ -48,7 +48,7 @@ class App extends Component {
             data,
             filterActive: this._filter,
             setFilter: this.setFilter.bind(this),
-            dispatchError: this.dispatchError.bind(this),
+            dispatchAlert: this.dispatchAlert.bind(this),
         };
     }
 
@@ -70,16 +70,16 @@ class App extends Component {
 
             if (this._data) {
                 this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
-                //this.setInnerHTML(...this._kids);
+                //equalizing the heights of the kids...
                 equalCols(...this._kids.map(kid => kid.getHTMLElem()));
             } else {
                 console.error(`the data is empty:  ${this._data}`);
-                this.dispatchError(new Error(`the data is empty:  ${this._data}`));
+                this.dispatchAlert('error', new Error(`the data is empty:  ${this._data}`));
             }
         }
         else {
             console.error(`the filter ${value} is not in option...`);
-            this.dispatchError(new Error(`the filter ${value} is not in option...`));
+            this.dispatchAlert('error', new Error(`the filter ${value} is not in option...`));
         }
     }
 
@@ -104,31 +104,16 @@ class App extends Component {
         return null;
     }
 
-    /**@description: callback to children... initiates the setter 'alert' with the following event **/
-    dispatchError (err) {
-        if (err.constructor.name === 'Error') {
-            log(err.constructor.name, 'dispatched error:');
-            if (this._alert.type !== 'error') {
-                this._alert.type = 'error';
-                this._alert.contentArr = [];   //clean
-            }
 
-            this._alert.contentArr.push(err);
+
+    dispatchAlert (type, content) {
+        if (this._alert.type !== type) {
+            this._alert.type = type;
+            this._alert.contentArr = [];
         }
+
+        this._alert.contentArr.push(content);
         this.renderAlert();
-    }
-
-    dispatchAlert (alert) {
-        /**when error it is no other alerts**/
-        if (this._alert.type !== 'error') {
-            if (this._alert.type !== 'alert') {
-                this._alert.type = 'alert';
-                this._alert.contentArr = [];
-            }
-
-            this._alert.contentArr.push(alert);
-            this.renderAlert();
-        }
     }
 
     renderAlert() {
@@ -144,9 +129,13 @@ class App extends Component {
             .then(data => {
                 this._data = data;
                 this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
+                //equalizing the heights of the kids...
                 equalCols(...this._kids.map(kid => kid.getHTMLElem()));
             })
-            .catch(e => this.dispatchError(e));
+            .catch(e => {
+                this.dispatchAlert('error', e);
+                console.error(e.message);
+            });
     }
 }
 
