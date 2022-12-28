@@ -82,12 +82,14 @@ AsideBar.renderData = function (innData) {
 
         /**callback to App with changing setter filter and rerendering all the data**/
         setFilter(target.dataset.section);
+
+        log(target.dataset.section, 'target.dataset.section');
     });
 
     if (filterActive && innerData[filterActive]) {
         dataAside = innerData[filterActive][this.dataName];
 
-     this.setInnerHTML(HeadingFullName, ImageContainer, SectionList, AsideContent.renderData(dataAside));
+        this.setInnerHTML(HeadingFullName, ImageContainer, SectionList, AsideContent.renderData(dataAside));
 
     } else {
         dispatchAlert('error', new Error(`filter ${filterActive} is not in the list of filters`));

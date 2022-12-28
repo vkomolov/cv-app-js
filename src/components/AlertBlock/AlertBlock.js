@@ -13,9 +13,9 @@ AlertBlock.renderData = function (innData) {
     log(innData, 'innData inside AlertBlock');
 
     const {type, contentArr} = innData;
-    log(contentArr, 'data inside AlertBlock');
+    //log(contentArr, 'data inside AlertBlock');
     if (Array.isArray(contentArr) && contentArr.length) {
-        log('dataLength accepted');
+        //log('dataLength accepted');
         const alertContentArr = contentArr.map(text => {
             let className = null;
             if (type === 'error') {
@@ -28,7 +28,7 @@ AlertBlock.renderData = function (innData) {
             return new Component({
                 htmlTagName: 'span',
                 attr: {
-                    className: [className],
+                    className: className,
                 },
                 innerHTML: text,
             });

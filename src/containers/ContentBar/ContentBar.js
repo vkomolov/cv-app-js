@@ -56,6 +56,14 @@ ContentBar.renderData = function(innData) {
         this.setInnerHTML(HeadingElem, ...contentArr);
     }
 
+    this.getHTMLElem().style.transition = '';
+    this.getHTMLElem().style.opacity = '0';
+
+    setTimeout(() => {
+        this.getHTMLElem().style.transition = 'opacity 0.5s linear';
+        this.getHTMLElem().style.opacity = '1';
+    }, 200);
+
     return this.getHTMLElem();
 };
 
