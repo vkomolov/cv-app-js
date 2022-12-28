@@ -21,6 +21,7 @@ class App extends Component {
         this._kids = [AsideBar, ContentBar];
         //will be overwritten by this.getAndRenderData
         this._data = null;
+        //todo: to realize the _error control
         this._alert = {
             type: null,
             contentArr: [],
@@ -32,7 +33,6 @@ class App extends Component {
         this._filterOption = filterOption;
         this._filter = this._filterOption[0];
 
-<<<<<<< HEAD
 
             //appending children... with 'Component.append(...elems)
             this.append(...this._kids);
@@ -40,12 +40,6 @@ class App extends Component {
             if (!this._data) {
                 this.dispatchAlert('loading', ['Loading...']);
             }
-=======
-            //appending children... with 'Component.append(...elems)
-            this.append(...this._kids);
-
-            !this._data && this.dispatchAlert('loading', 'Loading...');
->>>>>>> 3fe5c7a4360ecaaac635673696e7cea7d1893a17
     }
 ///////////////// END OF CONSTRUCTOR /////////////////
 
@@ -76,10 +70,7 @@ class App extends Component {
 
             if (this._data) {
                 this.alertClear();
-<<<<<<< HEAD
 
-=======
->>>>>>> 3fe5c7a4360ecaaac635673696e7cea7d1893a17
                 this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
                 //equalizing the heights of the kids...
                 equalCols(...this._kids.map(kid => kid.getHTMLElem()));
@@ -101,16 +92,9 @@ class App extends Component {
         return null;
     }
 
-<<<<<<< HEAD
     dispatchAlert (type, ...content) {
         if (this._alert.type && this._alert.type !== type) {
             this.alertClear();
-=======
-    dispatchAlert (type, content) {
-        if (this._alert.type !== type) {
-            this._alert.type = type;
-            this._alert.contentArr = [];
->>>>>>> 3fe5c7a4360ecaaac635673696e7cea7d1893a17
         }
         this._alert.type = type; //for the case, when this._alert.type = null;
         this._alert.contentArr.push(...content);
@@ -119,57 +103,29 @@ class App extends Component {
         this.append(AlertBlock.renderData(this._alert));
     }
 
-<<<<<<< HEAD
     alertClear () {
         document.body.style.overflow = 'auto';
         AlertBlock.getHTMLElem().remove();
         this._alert.type = null;
         this._alert.contentArr = [];
-=======
-    /**is used for re-rendering AlertBlock**/
-    renderAlert() {
-        if (!this._alert.type) {
-            AlertBlock.getHTMLElem().remove();
-        } else {
-            this.append(AlertBlock.renderData(this._alert));
-        }
-    }
-
-    alertClear() {
-        this._alert.type = null;
-        this._alert.contentArr = null;
-        this.renderAlert();
->>>>>>> 3fe5c7a4360ecaaac635673696e7cea7d1893a17
     }
 
     /**@description:
      *
      *
      */
-<<<<<<< HEAD
     getAndRenderData(dataPath, delay=0) {
         //simulating loading time
-=======
-    getAndRenderData(dataPath, delay = 0) {
->>>>>>> 3fe5c7a4360ecaaac635673696e7cea7d1893a17
         setTimeout(() => {
             getAndStore(dataPath)
                 .then(data => {
                     this._data = data;
-<<<<<<< HEAD
                     this.alertClear();
 
                     this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
                     //equalizing the heights of the kids...
                     equalCols(...this._kids.map(kid => kid.getHTMLElem()));
 
-=======
-                    this.alertClear(); //cleaning alerts
-                    this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
-
-                    //equalizing the heights of the kids...
-                    equalCols(...this._kids.map(kid => kid.getHTMLElem()));
->>>>>>> 3fe5c7a4360ecaaac635673696e7cea7d1893a17
                 })
                 .catch(e => {
                     this.dispatchAlert('error', e);

@@ -3,15 +3,15 @@
 
 
 .aside-item-wrapper {
+  //width: 200px;
   text-align: left;
+  padding: 0 3px;
 
   h3 {
     color: $foxyGrey;
     letter-spacing: 1px;
-    margin-bottom: 10px;
-    @include init-font(18px, 700);
+    margin: 20px auto 3px;
     @include text-shadow(2px, 3px);
-
   }
 
   .spanDetails {

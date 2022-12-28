@@ -8,11 +8,7 @@
   left: 0;
   width: 100%;
   height: 100vh;
-<<<<<<< HEAD
   background-color: $greyLight;
-=======
-  background-color: $greyLighter;
->>>>>>> 3fe5c7a4360ecaaac635673696e7cea7d1893a17
   opacity: 0.95;
 
   @include flex-box($flex-box-row-center...);

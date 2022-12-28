@@ -15,6 +15,10 @@
         {
           "title": "Email",
           "details": "vkomolov.ua@gmail.com"
+        },
+        {
+          "title": "Linkedin",
+          "details": "Vadim Komolov"
         }
       ],
       "skills": [
@@ -47,12 +51,12 @@
               "details": "80"
             },
             {
-              "title": "Self-Taught, Self-Organized",
+              "title": "Will to learn & experience",
               "details": "90"
             },
             {
-              "title": "Ready Remote",
-              "details": "99"
+              "title": "Flexibility",
+              "details": "85"
             }
           ]
         }
@@ -81,16 +85,22 @@
   },
   "experience": {
     "aside": {
+      "details": [
+        {
+          "title": "Achievements",
+          "details": "3M International Sales & Marketing Professional Award. Team & Department Awards on exceptional results;"
+        }
+      ],
       "skills": [
         {
           "title": "Development",
           "details": [
             {
-              "title": "...HTML5",
+              "title": "HTML",
               "details": "85"
             },
             {
-              "title": "...CSS3",
+              "title": "CSS",
               "details": "85"
             },
             {
@@ -98,19 +108,19 @@
               "details": "90"
             },
             {
-              "title": "Styled-Components",
+              "title": "styled-components",
               "details": "80"
             },
             {
-              "title": "Module Styling",
+              "title": "Module styling",
               "details": "85"
             },
             {
-              "title": "Javascript, ...ES6",
+              "title": "Javascript",
               "details": "85"
             },
             {
-              "title": "...PHP8",
+              "title": "PHP",
               "details": "80"
             },
             {
@@ -137,11 +147,11 @@
           ]
         },
         {
-          "title": "IDE, etc...",
+          "title": "IDE, API, etc...",
           "details": [
             {
               "title": "XAMPP",
-              "details": "80"
+              "details": "75"
             },
             {
               "title": "PHP Storm, Web Storm",
@@ -174,7 +184,7 @@
           ]
         },
         {
-          "title": "Sales & Marketing Management, data analysis and planning",
+          "title": "Sales & Marketing Management",
           "details": [
             {
               "title": "Product Management",
@@ -196,33 +206,83 @@
       "title": "Experience",
       "details": [
         {
-          "remark": "Apr 2022 – till present",
+          "remark": "Apr 2020 - till present",
           "subheading": "Outsource",
-          "comments": "programming, design, copywriting (en, ua, ru)",
+          "comments": "programming, design, copywriting",
           "li": [
-            "Stack: HTML5, CSS3 (SCSS/module/styled), ES6, React/Redux/Router",
-            "Creation of catalogs in publishing format with unique design and content (en, ua)",
+            "Stack: HTML5, CSS-3 (SCSS/module/styled), JS-6..., React/Redux/Router, on Gulp-4 / Webpack",
+            "Creation of catalogs in publishing format with unique design and content, English",
             "Ideas Lab outsource collaboration"
           ]
         },
         {
-          "remark": "Non-IT background (till Apr 2022)",
-          "subheading": "Sales & Marketing Management",
-          "comments": "Business Data Analysis and management in B2B markets; Achievements:",
+          "remark": "Nov 2017 – Apr 2018",
+          "subheading": "Studying Full Stack",
+          "comments": "'PHP Academy': Github links available at 'EDUCATION' folder",
           "li": [
-            "3M International Sales & Marketing Professional Award;",
-            "Team & Department Awards on exceptional results;"
+            "Frontend: HTML..5, CSS..3/SCSS, ES-2015..17, React..16/Redux, Gulp-4/Webpack;",
+            "Backend: PHP(basics), SQL(basics);",
+            "Backend (basics): Node.js, Express, MongoDB, end points...;"
           ]
         },
         {
-          "remark": null,
-          "subheading": null,
+          "remark": "Apr 2015 – till present",
+          "subheading": "Outsource «Ideas Lab»",
+          "comments": "Sales",
           "li": [
-            "Market Positioning based on the Marketing-Mix and other criteria; ",
-            "Product range and Distribution development;",
-            "Business & Market Data Analysis for the Product Category development;",
-            "Analysis & monitoring the markets, identification of target segments and market entry strategies;",
-            "CRM Data processing and management;"
+            "Positioning and Development Planning",
+            "Sales Management, leading personal Projects",
+            "Account Management, communication with the Client"
+          ],
+          "li": [
+            "taking part in Front-End programming",
+            "technical realization discussions"
+          ]
+        },
+        {
+          "remark": "Apr 2014 – Apr 2015",
+          "subheading": "Basalt-Actien-Gesellschaft",
+          "comments": "Sales Director",
+          "li": [
+            "Sales development in Ukraine, Russia, Belarus, Baltic States, Poland;",
+            "Analysis & monitoring of the markets, identification of target segments and market entry strategies.",
+            "Prioritization and development of distribution channels, pricing and distribution policies.",
+            "Planning of the sales and marketing activities"
+          ]
+        },
+        {
+          "remark": "Apr 2013 – Feb 2014",
+          "subheading": "Industrial Group 'Filter'",
+          "comments": "Business Direction Manager",
+          "li": [
+            "Identifying the target market segments, working on the market entry strategy;",
+            "Development of the Distribution channels",
+            "Product assortment management, Price and Discount Policy;",
+            "Sales activity, negotiations, presentations to the potential Traders"
+          ]
+        },
+        {
+          "remark": "May 2004 – Aug 2012",
+          "subheading": "3M Corporation, Ukraine",
+          "comments": "Senior Sales Representative",
+          "li": [
+            "Prioritizing and development of the Key Customers in the target segments. Identifying business opportunities, achievement of goals;",
+            "Analysis and development of the Product Channels. Initiating the Separate Product Group Policy",
+            "Direct work with the Final Customers in/without cooperation with the Traders.",
+            "Customers` 'cases' analysis and presenting the product solutions. Leading Presentations, specialized OH&ES lectures, instructions to the potential Accounts.",
+            "Leading trainings and lectures for the sales force of the Traders."
+          ]
+        },
+        {
+          "remark": "Sep 1997 – May 2004",
+          "subheading": "Ukrtekstyl",
+          "comments": "Senior Sales Manager",
+          "li": [
+            "Leading sales on the following trademarks: Ansell Edmont Industrial, JSP, Howard, Dupont, Ozon, Bacou Intersafe, MSA",
+            "Leading projects on agricultural, energy and construction materials with the following co-supply of the safety products to the Accounts",
+            "Product trainings to the sales stuff, coordination of the Sales Force",
+            "Direct sales to the Final Customers of the industrial market. Sales leader",
+            "Development of the Distribution Channel"
           ]
         }
       ]

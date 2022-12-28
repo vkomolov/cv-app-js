@@ -1,6 +1,6 @@
 'use strict';
 
-import './styles/reset.css';
+import './styles/normalize.css';
 import './styles/scss/index.scss';
 
 import App from './containers/App/App';
