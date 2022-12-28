@@ -19,8 +19,13 @@
 
   .contentWrapper {
     position: relative; //for loading icon
+
     @include scroll-init(5px, $blueDark, $foxyGrey);
+    @include init-font(16px, 400);
 
+    &.personal-spec {
+      max-width: 570px;
+      line-height: 25px;
+    }
   }
-
 }

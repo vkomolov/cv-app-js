@@ -21,26 +21,20 @@
   .contentBlock {
     flex-basis: 80%;
     flex-grow: 1;
-    @include init-font(20px, 400);
 
-    @media screen and (max-width: 1024px) {
-      @include init-font(18px, 400);
-      padding-left: 10px;
-      padding-right: 0;
-    }
 
     h3 {
       color: red;
     }
 
     h4 {
-      margin-top: 5px;
       @include init-font(20px, 400);
     }
   }
 
   p {
     margin-top: 20px;
+    text-align: justify;
   }
 
   ul {
@@ -59,10 +53,6 @@
     &:hover {
       transform: translateX(5px);
       color: $foxy
-    }
-
-    @media screen and (max-width: 1024px) {
-      @include init-font(16px, 400);
     }
   }
 }

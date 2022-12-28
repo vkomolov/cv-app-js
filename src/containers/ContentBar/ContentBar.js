@@ -22,9 +22,11 @@ ContentBar.renderData = function(innData) {
     let contentData;
     let HeadingElem;
     let contentArr;
+    let specClassName;
 
     if (filterActive && data[filterActive]) {
         contentData = data[filterActive][this.dataName];
+        specClassName = filterActive === 'personal' ? 'personal-spec' : null;
     } else {
         dispatchAlert('error', new Error(`filter ${filterActive} is not in the list of filters`));
     }
@@ -42,11 +44,14 @@ ContentBar.renderData = function(innData) {
 
     if (contentData['details'] && Array.isArray(contentData['details'])) {
         contentArr = contentData['details'].map(data => {
+            let classOut = specClassName && ('contentWrapper' + ' ' + specClassName) || 'contentWrapper';
+
+            log(classOut, 'classOut');
 
             return new ContentItem({
                 htmlTagName: 'div',
                 attr: {
-                    className: 'contentWrapper',
+                    className: classOut,
                 }
             }).renderData(data);
         });

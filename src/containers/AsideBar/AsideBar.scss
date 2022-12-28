@@ -5,7 +5,7 @@
 .asideBar {
   position: relative;
   width: 270px;
-  min-height: 1130px;
+  min-height: 970px;
   color: $white;
   background-color: $blue;
   box-shadow: inset 5px 5px 3px $white,
@@ -13,11 +13,6 @@
   padding: 25px;
   user-select: text;
   cursor: default;
-
-  @media screen and (max-width: 810px) {
-    width: 100%;
-    padding: 25px 5px;
-  }
 
   h1 {
     @include init-font(22px, 700);
