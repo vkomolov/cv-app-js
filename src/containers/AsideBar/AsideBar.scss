@@ -14,11 +14,6 @@
   user-select: text;
   cursor: default;
 
-  @media screen and (max-width: 810px) {
-    width: 100%;
-    padding: 25px 5px;
-  }
-
   h1 {
     @include init-font(22px, 700);
     @include text-shadow(2px, 4px);
@@ -41,6 +36,7 @@
 
   .sectionList {
     padding-inline-start: 20px;
+    list-style: disc;
 
     .sectionName {
       @include init-font(20px, 700);
