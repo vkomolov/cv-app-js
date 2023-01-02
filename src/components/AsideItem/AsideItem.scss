@@ -3,13 +3,13 @@
 
 
 .aside-item-wrapper {
-  //width: 200px;
+  width: 100%;
   text-align: left;
 
   h3 {
     color: $foxyGrey;
     letter-spacing: 1px;
-    margin: 20px auto 3px;
+    margin: 15px auto 3px;
     @include text-shadow(2px, 3px);
   }
 

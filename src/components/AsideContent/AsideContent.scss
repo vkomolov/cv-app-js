@@ -6,7 +6,7 @@
   @include scroll-init(5px, $foxyGrey, $blueDark);
 
   .segment-block {
-
+    @include flex-box($flex-box-row-start...);
   }
 
 }

@@ -22,12 +22,12 @@
           "title": "Languages",
           "details": [
             {
-              "title": "Russian",
+              "title": "Ukrainian",
               "details": "95"
             },
             {
-              "title": "Ukrainian",
-              "details": "90"
+              "title": "Russian",
+              "details": "95"
             },
             {
               "title": "English",
@@ -39,15 +39,15 @@
           "title": "Soft Skills",
           "details": [
             {
-              "title": "Leadership",
-              "details": "75"
+              "title": "Remote Ready",
+              "details": "90"
             },
             {
-              "title": "Collaboration",
+              "title": "Collaboration with Team",
               "details": "80"
             },
             {
-              "title": "Will to learn & experience",
+              "title": "Self-Organized and Self-Taught",
               "details": "90"
             },
             {
@@ -66,9 +66,10 @@
           "subheading": null,
           "p": [
             "Dear Sirs,",
-            "I have successfully worked in the Sales & Marketing management, structuring, operating & analyzing the massive business data, for more than 15 years.",
-            "Gaining a wealth of knowledge and skills in management and data analysis, I combined them with my natural inclination to programming: creating something from the idea and the algorithm of its realisation...",
-            "In programming the construction of the algorithms for performing tasks turned out to resemble the business management in planning with a clearly defined tasks weighed, splitting of responsibility and functionality to the elementary components.",
+            "I have worked in the sales & marketing management, structuring, operating & analyzing the business and market data, for more than 15 years.",
+            "Gaining a wealth of knowledge and skills in the management and data analysis, I combined them with my natural inclination to programming: creating something from the idea and the algorithm of its realisation...",
+            "In programming the construction of the algorithms for performing tasks turned out to resemble the business management in planning with a clearly defined tasks weighed, splitting of responsibility and functionality to the elementary operations and processes.",
+            "The same SOLID principles of the object-oriented programming lay on the thoroughly constructed business management",
             "It happens that some apps suffer not only adaptability, but also their imbalance in programming, using 'big' for the 'little': overloaded with many libraries for a couple of simple methods...",
             "Achieving the most efficiency with smallest cost - is a worth challenge...",
             "Knowing the rules is the vital goal, but to overcome the rules is a thorny and educational path, which bears creativity, originality and natural beauty.",
@@ -81,12 +82,6 @@
   },
   "experience": {
     "aside": {
-      "details": [
-        {
-          "title": "Achievements",
-          "details": "3M International Sales & Marketing Professional Award. Team & Department Awards on exceptional results;"
-        }
-      ],
       "skills": [
         {
           "title": "Development",
@@ -104,23 +99,15 @@
               "details": "90"
             },
             {
-              "title": "styled-components",
-              "details": "80"
-            },
-            {
-              "title": "Module styling",
-              "details": "85"
-            },
-            {
-              "title": "Javascript",
+              "title": "JS (...ES6)",
               "details": "85"
             },
             {
               "title": "PHP",
-              "details": "80"
+              "details": "85"
             },
             {
-              "title": "SQL",
+              "title": "MySql",
               "details": "85"
             }
           ]
@@ -133,12 +120,20 @@
               "details": "85"
             },
             {
-              "title": "React Redux",
+              "title": "Redux",
               "details": "85"
             },
             {
-              "title": "React Router",
+              "title": "Router",
               "details": "80"
+            },
+            {
+              "title": "Styled-Components",
+              "details": "80"
+            },
+            {
+              "title": "Module Styling",
+              "details": "85"
             }
           ]
         },
@@ -146,36 +141,32 @@
           "title": "IDE, API, etc...",
           "details": [
             {
-              "title": "XAMPP",
-              "details": "75"
-            },
-            {
               "title": "PHP Storm, Web Storm",
               "details": "85"
             },
             {
-              "title": "GIT, BitBucket...",
+              "title": "GIT",
               "details": "75"
             },
             {
-              "title": "Gulp",
+              "title": "Gulp, Webpack",
               "details": "80"
             },
             {
-              "title": "Webpack",
-              "details": "80"
+              "title": "JSDoc, PropTypes",
+              "details": "85"
+            },
+            {
+              "title": "Power Pivot, Power Query, DAX",
+              "details": "87"
             },
             {
               "title": "Photoshop, Illustrator",
               "details": "75"
             },
             {
-              "title": "Adobe Indesign",
+              "title": "Adobe Indesign, Solid Works",
               "details": "70"
-            },
-            {
-              "title": "Solid Works",
-              "details": "65"
             }
           ]
         },
@@ -202,83 +193,69 @@
       "title": "Experience",
       "details": [
         {
-          "remark": "Apr 2020 - till present",
+          "remark": "Apr 2022 - till present",
           "subheading": "Outsource",
-          "comments": "programming, design, copywriting",
+          "comments": "FullStack Dev, design, copywriting, translating",
           "li": [
-            "Stack: HTML5, CSS-3 (SCSS/module/styled), JS-6..., React/Redux/Router, on Gulp-4 / Webpack",
-            "Creation of catalogs in publishing format with unique design and content, English",
-            "Ideas Lab outsource collaboration"
+            "Stack: HTML5, CSS3 (SCSS/module/styled), JS, React/Redux/Router, JSDoc, PropTypes, PHP, MySql",
+            "Creating catalogs, tech-lists with a unique design and content (ua, ru, en)",
+            "Copywriting, translating (ua, ru, en)"
           ]
         },
         {
-          "remark": "Nov 2017 – Apr 2018",
-          "subheading": "Studying Full Stack",
-          "comments": "'PHP Academy': Github links available at 'EDUCATION' folder",
+          "remark": "1997 - till Apr 2022",
+          "subheading": "Non IT / partial IT Experience",
+          "comments": "Sales and Marketing management, data analysis & planning in B2B",
           "li": [
-            "Frontend: HTML..5, CSS..3/SCSS, ES-2015..17, React..16/Redux, Gulp-4/Webpack;",
-            "Backend: PHP(basics), SQL(basics);",
-            "Backend (basics): Node.js, Express, MongoDB, end points...;"
+            "Analysis of Business and Marketing data, statistics, positioning",
+            "Product and Distribution Management",
+            "Creating the visual and text content for the corporate catalogs, tech-lists, web...",
+            "Creating and support of the data base on Power Pivot, Power Querry, DAX",
+            "Sales & Marketing Management"
           ]
         },
         {
-          "remark": "Apr 2015 – till present",
-          "subheading": "Outsource «Ideas Lab»",
-          "comments": "Sales",
+          "remark": "Non-IT",
+          "subheading": "Achievements",
+          "comments" : "corporate awards",
           "li": [
-            "Positioning and Development Planning",
-            "Sales Management, leading personal Projects",
-            "Account Management, communication with the Client"
-          ],
-          "li": [
-            "taking part in Front-End programming",
-            "technical realization discussions"
+            "3M International Sales & Marketing Professional Award;",
+            "Team & Department Awards on exceptional results;"
           ]
         },
         {
-          "remark": "Apr 2014 – Apr 2015",
-          "subheading": "Basalt-Actien-Gesellschaft",
-          "comments": "Sales Director",
-          "li": [
-            "Sales development in Ukraine, Russia, Belarus, Baltic States, Poland;",
-            "Analysis & monitoring of the markets, identification of target segments and market entry strategies.",
-            "Prioritization and development of distribution channels, pricing and distribution policies.",
-            "Planning of the sales and marketing activities"
-          ]
-        },
-        {
-          "remark": "Apr 2013 – Feb 2014",
-          "subheading": "Industrial Group 'Filter'",
-          "comments": "Business Direction Manager",
-          "li": [
-            "Identifying the target market segments, working on the market entry strategy;",
-            "Development of the Distribution channels",
-            "Product assortment management, Price and Discount Policy;",
-            "Sales activity, negotiations, presentations to the potential Traders"
-          ]
-        },
-        {
-          "remark": "May 2004 – Aug 2012",
-          "subheading": "3M Corporation, Ukraine",
-          "comments": "Senior Sales Representative",
-          "li": [
-            "Prioritizing and development of the Key Customers in the target segments. Identifying business opportunities, achievement of goals;",
-            "Analysis and development of the Product Channels. Initiating the Separate Product Group Policy",
-            "Direct work with the Final Customers in/without cooperation with the Traders.",
-            "Customers` 'cases' analysis and presenting the product solutions. Leading Presentations, specialized OH&ES lectures, instructions to the potential Accounts.",
-            "Leading trainings and lectures for the sales force of the Traders."
-          ]
-        },
-        {
-          "remark": "Sep 1997 – May 2004",
-          "subheading": "Ukrtekstyl",
-          "comments": "Senior Sales Manager",
-          "li": [
-            "Leading sales on the following trademarks: Ansell Edmont Industrial, JSP, Howard, Dupont, Ozon, Bacou Intersafe, MSA",
-            "Leading projects on agricultural, energy and construction materials with the following co-supply of the safety products to the Accounts",
-            "Product trainings to the sales stuff, coordination of the Sales Force",
-            "Direct sales to the Final Customers of the industrial market. Sales leader",
-            "Development of the Distribution Channel"
+          "remark": "Git:",
+          "subheading": "Some samples of the code:",
+          "comments" : "links: ",
+          "a": [
+            {
+              "title": "CV on JS, rendered from fetching JSON",
+              "path": "https://github.com/vkomolov/cv-app"
+            },
+            {
+              "title": "CV on React, rendered from fetching JSON",
+              "path": "https://github.com/vkomolov/cv-app"
+            },
+            {
+              "title": "PostIt Application on React",
+              "path": "https://github.com/vkomolov/post-it"
+            },
+            {
+              "title": "Bundling pack on Gulp-4 (SCSS, JS, Browserify, Babelify, image optimizing, etc...) ",
+              "path": "https://github.com/vkomolov/Gulp4_Scss_JS-Browserify_Babelify"
+            },
+            {
+              "title": "Cart Realisation on Gulp-4 (SCSS, JS)",
+              "path": "https://github.com/vkomolov/cartForm_Gulp4_SCSS_ES2015"
+            },
+            {
+              "title": "Filtering data on React",
+              "path": "https://github.com/vkomolov/React_Filter_ModuleWork"
+            },
+            {
+              "title": "Product Catalog AdobeIndesign (Copywriting, Design)",
+              "path": "https://github.com/vkomolov/AdobeIndesign-Catalog"
+            }
           ]
         }
       ]
@@ -321,8 +298,7 @@
           "subheading": "PHP Academy ( Deutsche-It-Schule )",
           "li": [
             "Frontend: HTML, CSS/SCSS, JS, React/Redux/Router;",
-            "Backend: PHP, SQL;",
-            "TODO: Node.js, TypeScript, Next.js, Express, MongoDB, payment attachments;"
+            "Backend: PHP, SQL;"
           ]
         },
         {
@@ -341,60 +317,40 @@
           ]
         },
         {
-          "subheading": "GIT LINKS",
-          "a": [
-            {
-              "title": "Initial Git Profile",
-              "path": "https://github.com/vkomolov"
-            },
-            {
-              "title": "PostIt Application",
-              "path": "https://github.com/vkomolov/post-it"
-            },
-            {
-              "title": "CV Link",
-              "path": "https://github.com/vkomolov/cv-app"
-            },
-            {
-              "title": "Gulp-4_Scss_JS-Browserify_Babelify own pack",
-              "path": "https://github.com/vkomolov/Gulp4_Scss_JS-Browserify_Babelify"
-            },
-            {
-              "title": "cartForm_Gulp4_SCSS_ES2015",
-              "path": "https://github.com/vkomolov/cartForm_Gulp4_SCSS_ES2015"
-            },
-            {
-              "title": "React Filter Module",
-              "path": "https://github.com/vkomolov/React_Filter_ModuleWork"
-            },
-            {
-              "title": "Product Catalog AdobeIndesign (Copywriting, Design)",
-              "path": "https://github.com/vkomolov/AdobeIndesign-Catalog"
-            }
+          "remark": "Advanced:",
+          "subheading": "TODO: to learn:",
+          "li": [
+            "Node.js CMS Platforms",
+            "Node.js",
+            "MongoDB",
+            "Payment APIs",
+            "TypeScript"
           ]
         },
         {
+          "remark": null,
           "subheading": "REALISATION",
           "a": [
             {
-              "title": "Post-It Demo",
+              "title": "PostIt Application on React (Demo)",
               "path": "https://vkomolov.github.io/post-it/"
             },
             {
-              "title": "cartForm_Gulp4_SCSS_ES2015",
+              "title": "cartForm_Gulp4_SCSS_ES2015 (Demo)",
               "path": "https://vkomolov.github.io/cartForm_Gulp4_SCSS_ES2015/"
             },
             {
-              "title": "React Filter Module",
+              "title": "Filtering data on React (Demo)",
               "path": "https://vkomolov.github.io/React_Filter_ModuleWork/"
             }
           ]
         },
         {
+          "remark": null,
           "subheading": "CV Downloads",
           "file": [
             {
-              "title": "English CV Version",
+              "title": "English CV download:",
               "path": "./assets/pData/VKomolov_Eng22_CV_JS.pdf"
             }
           ]

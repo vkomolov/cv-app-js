@@ -78,7 +78,7 @@ module.exports = {
     },
     plugins: [
         new HTMLWebpackPlugin({
-            title: "cv app VKomolov",  //default title, will be overwritten
+            title: "Vadim Komolov CV",  //default title, will be overwritten
             template: './index.html',
             minify: {
                 collapseWhitespace: !isDev,
@@ -94,6 +94,10 @@ module.exports = {
                 {
                     from: path.resolve(__dirname, 'src/assets/pData/cv.json'),
                     to: path.resolve(__dirname, 'dist/assets/pData/cv.json')
+                },
+                {
+                    from: path.resolve(__dirname, 'src/assets/pData/VKomolov_Eng22_CV_JS.pdf'),
+                    to: path.resolve(__dirname, 'dist/assets/pData/VKomolov_Eng22_CV_JS.pdf')
                 },
                 {
                     from: path.resolve(__dirname, 'src/assets/img/vk.png'),

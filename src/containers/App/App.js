@@ -36,6 +36,7 @@ class App extends Component {
 
             //appending children... with 'Component.append(...elems)
             this.append(...this._kids);
+            equalCols(...this._kids.map(kid => kid.getHTMLElem()));
 
             if (!this._data) {
                 this.dispatchAlert('loading', ['Loading...']);

@@ -79,11 +79,10 @@ AsideBar.renderData = function (innData) {
      * **/
     SectionList.getHTMLElem().addEventListener('click', (e) => {
         let target = e.target;
-
-        /**callback to App with changing setter filter and rerendering all the data**/
-        setFilter(target.dataset.section);
-
-        log(target.dataset.section, 'target.dataset.section');
+        if (target.dataset.section !== filterActive) {
+            /**callback to App with changing setter filter and rerendering the elements with a new content**/
+            setFilter(target.dataset.section);
+        }
     });
 
     if (filterActive && innerData[filterActive]) {

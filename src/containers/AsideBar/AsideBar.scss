@@ -14,6 +14,8 @@
   user-select: text;
   cursor: default;
 
+
+
   h1 {
     @include init-font(22px, 700);
     @include text-shadow(2px, 4px);
@@ -35,8 +37,6 @@
   }
 
   .sectionList {
-    padding-inline-start: 20px;
-
     .sectionName {
       @include init-font(20px, 700);
       @include text-shadow(3px, 4px);
