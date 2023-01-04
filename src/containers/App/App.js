@@ -26,6 +26,8 @@ class App extends Component {
             type: null,
             contentArr: [],
         };
+        //it will be shown in the absolute when scrolling down the page to a certain pageYOffset
+        this.barOnScroll = null;
 
         /**@description Array 'filterOption' is a list of possible 'filters' which can be chosen
          *
@@ -75,6 +77,11 @@ class App extends Component {
                 this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
                 //equalizing the heights of the kids...
                 equalCols(...this._kids.map(kid => kid.getHTMLElem()));
+                //scrolling to start of the section
+                window.scrollTo(0, 0);
+
+                this.barOnScroll && this.barOnScroll.getHTMLElem() && this.barOnScroll.renderFilter(this._filter);
+
             } else {
                 console.error(`the data is empty:  ${this._data}`);
                 this.dispatchAlert('error', new Error(`the data is empty:  ${this._data}`));
@@ -111,11 +118,123 @@ class App extends Component {
         this._alert.contentArr = [];
     }
 
+    listenForScroll({scrollPoint, attr, textContentArr}) {
+        //all arguments will be checked and, if errors, the script stops and console.error of all errors at the check end...
+        const errorsArr = [];
+
+        //its the flag for limiting scroll event actions
+        let isLocked = false;
+
+        const {forScrollClass, onScrollEventClass, elementClass} = attr;
+
+        // the elements which will be shown on scroll down event
+        let preparedElemsArr;
+
+        //CHECKING FOR ERRORS
+        if (!+scrollPoint) {
+            errorsArr.push(new Error(`given scrollPoint: ${scrollPoint} is not of type 'number'...`));
+        }
+        if (!forScrollClass) {
+            errorsArr.push(new Error(`given value: ${forScrollClass} is not found...`));
+        }
+        if (!onScrollEventClass) {
+            errorsArr.push(new Error(`given onScrollEventClass: ${onScrollEventClass} is not found...`));
+        }
+        if (!elementClass) {
+            errorsArr.push(new Error(`given elementSpecClass: ${elementClass} is not found...`));
+        }
+        if (!textContentArr || !textContentArr.length) {
+            errorsArr.push(new Error(`given array: ${textContentArr} is not found or empty...`));
+        }
+
+        if (errorsArr.length) {
+            this.dispatchAlert('error', ...errorsArr);
+        }
+        // END OF CHECK /////////////////////
+
+        preparedElemsArr = textContentArr.map(text => {
+            let specClass = text === this._filter ? 'specClass' : 'toBeHovered';
+
+            return new Component({
+                htmlTagName: 'span',
+                attr: {
+                    className: `${elementClass} ${specClass}`,
+                    dataParams: [
+                        ['section', text],
+                    ],
+                },
+                innerHTML: text
+            });
+        });
+
+        this.barOnScroll = new Component({
+            htmlTagName: 'div',
+            attr: {
+                className: forScrollClass
+            },
+            innerHTML: preparedElemsArr
+        });
+
+        this.barOnScroll.renderFilter = function(activeFilter) {
+
+            [...this.getHTMLElem().children].forEach(el => {
+                el.classList.remove('specClass');
+                el.classList.remove('toBeHovered');
+
+                let specClass = el.dataset.section === activeFilter ? 'specClass' : 'toBeHovered';
+                el.classList.add(specClass);
+            });
+        };
+
+        this.barOnScroll.getHTMLElem().addEventListener('click', (e) => {
+            let target = e.target;
+            if (target.dataset.section !== this._filter) {
+                /**callback to App with changing setter filter and rerendering the elements with a new content**/
+                this.filter = target.dataset.section;
+            }
+        });
+
+        window.addEventListener('scroll', () => {
+            if (isLocked) {
+                return;
+            }
+
+            isLocked = true;
+            //restricting scroll event callbacks
+            setTimeout(() => {
+                //log(window.pageYOffset, 'window.pageYOffset');
+                const shownBar = this.barOnScroll.getHTMLElem();
+
+                if (window.pageYOffset >= scrollPoint) {
+                    //log('height is 400 or more...');
+                    this.append(shownBar);
+
+                    setTimeout(() => {
+                        //adding possibly multiple classNames
+                        shownBar.classList.add(onScrollEventClass);
+                    }, 100);
+
+                } else {
+                    shownBar.classList.remove(onScrollEventClass);
+
+                    setTimeout(() => {
+                        shownBar.remove();
+                    }, 100);
+                }
+
+                isLocked = false;
+            }, 300);
+        });
+
+    }
+
     /**@description:
      *
      *
      */
     getAndRenderData(dataPath, delay=0) {
+        //const filters = document.getElementById()
+
         //simulating loading time
         setTimeout(() => {
             getAndStore(dataPath)
@@ -124,9 +243,20 @@ class App extends Component {
                     this.alertClear();
 
                     this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
-                    //equalizing the heights of the kids...
+
+                    //equalizing the heights of AsideBar and ContentBar...
                     equalCols(...this._kids.map(kid => kid.getHTMLElem()));
 
+                    //setting the listener on scroll with the following showing elements on scroll down
+                    this.listenForScroll({
+                        scrollPoint: 400,
+                        attr: {
+                            forScrollClass: 'wrapper-on-scroll',
+                            onScrollEventClass: 'scroll-active',
+                            elementClass: 'elem-on-scroll'
+                        },
+                        textContentArr: this._filterOption,
+                    });
                 })
                 .catch(e => {
                     this.dispatchAlert('error', e);

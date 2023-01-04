@@ -46,8 +46,6 @@ ContentBar.renderData = function(innData) {
         contentArr = contentData['details'].map(data => {
             let classOut = specClassName && ('contentWrapper' + ' ' + specClassName) || 'contentWrapper';
 
-            log(classOut, 'classOut');
-
             return new ContentItem({
                 htmlTagName: 'div',
                 attr: {

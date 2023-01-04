@@ -8,13 +8,11 @@
   min-height: 970px;
   color: $white;
   background-color: $blue;
-  box-shadow: inset 5px 5px 3px $white,
-  inset -5px -5px 3px $white;
+/*  box-shadow: inset 5px 5px 3px $white,
+  inset -5px -5px 3px $white;*/
   padding: 25px;
   user-select: text;
   cursor: default;
-
-
 
   h1 {
     @include init-font(22px, 700);
@@ -36,24 +34,26 @@
     }
   }
 
-  .sectionList {
-    .sectionName {
-      @include init-font(20px, 700);
-      @include text-shadow(3px, 4px);
-      @include transition();
 
-      margin: 5px auto;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+}
+/*this block will be inside asideBar and outside when scroll event*/
+.sectionList {
+  .sectionName {
+    @include init-font(20px, 700);
+    @include text-shadow(3px, 4px);
+    @include transition();
 
-      &.toBeHovered:hover {
-        transform: translateX(7px);
-        cursor: pointer;
-      }
+    margin: 5px auto;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 
-      &.specClass {
-        color: $foxy;
-      }
+    &.toBeHovered:hover {
+      transform: translateX(7px);
+      cursor: pointer;
+    }
+
+    &.specClass {
+      color: $foxy;
     }
   }
 }

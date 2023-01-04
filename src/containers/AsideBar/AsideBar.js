@@ -31,6 +31,7 @@ AsideBar.renderData = function (innData) {
     /** prepared data for sending to the children **/
     let dataAside;
 
+
     HeadingFullName = new Component({
         htmlTagName: 'h1',
         innerHTML: fullName,
@@ -79,6 +80,7 @@ AsideBar.renderData = function (innData) {
      * **/
     SectionList.getHTMLElem().addEventListener('click', (e) => {
         let target = e.target;
+
         if (target.dataset.section !== filterActive) {
             /**callback to App with changing setter filter and rerendering the elements with a new content**/
             setFilter(target.dataset.section);

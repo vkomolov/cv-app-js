@@ -197,9 +197,9 @@
           "subheading": "Outsource",
           "comments": "FullStack Dev, design, copywriting, translating",
           "li": [
-            "Stack: HTML5, CSS3 (SCSS/module/styled), JS, React/Redux/Router, JSDoc, PropTypes, PHP, MySql",
-            "Creating catalogs, tech-lists with a unique design and content (ua, ru, en)",
-            "Copywriting, translating (ua, ru, en)"
+            "Stack: HTML5, CSS3 (SCSS/module/styled), JS, React/Redux/Router, JSDoc, PropTypes, PHP, MySql;",
+            "Creating catalogs, tech-lists with a unique design and content (ua, ru, en);",
+            "Copywriting, translating (ua, ru, en);"
           ]
         },
         {
@@ -207,11 +207,11 @@
           "subheading": "Non IT / partial IT Experience",
           "comments": "Sales and Marketing management, data analysis & planning in B2B",
           "li": [
-            "Analysis of Business and Marketing data, statistics, positioning",
-            "Product and Distribution Management",
-            "Creating the visual and text content for the corporate catalogs, tech-lists, web...",
-            "Creating and support of the data base on Power Pivot, Power Querry, DAX",
-            "Sales & Marketing Management"
+            "Analysis of Business and Marketing data, statistics, positioning;",
+            "Product and Distribution Management;",
+            "Creating the visual and text content for the corporate catalogs, tech-lists, web...;",
+            "Creating and support of the data base on Power Pivot, Power Querry, DAX;",
+            "Sales & Marketing Management;"
           ]
         },
         {
