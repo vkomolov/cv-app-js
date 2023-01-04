@@ -39,13 +39,14 @@
 /*this block will be inside asideBar and outside when scroll event*/
 .sectionList {
   .sectionName {
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+
     @include init-font(20px, 700);
     @include text-shadow(3px, 4px);
     @include transition();
-
-    margin: 5px auto;
-    text-transform: uppercase;
-    letter-spacing: 2px;
 
     &.toBeHovered:hover {
       transform: translateX(7px);

@@ -81,7 +81,7 @@ AsideBar.renderData = function (innData) {
     SectionList.getHTMLElem().addEventListener('click', (e) => {
         let target = e.target;
 
-        if (target.dataset.section !== filterActive) {
+        if (target.dataset.section && target.dataset.section !== filterActive) {
             /**callback to App with changing setter filter and rerendering the elements with a new content**/
             setFilter(target.dataset.section);
         }
