@@ -6,7 +6,8 @@
   flex-grow: 1;
   flex-basis: 450px;
   color: $blue;
-  padding: 0 10px 25px 25px;
+  padding-left: 45px;
+  padding-bottom: 25px;
 
 
   .heading {
@@ -15,8 +16,7 @@
     @include text-shadow(1px, 2px);
     @include init-font(28px, 700);
 
-    //line-height: 65px;
-    padding: 20px 5px;
+    padding: 20px 0;
     padding-left: 65px;
   }
 

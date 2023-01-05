@@ -12,39 +12,75 @@
 
 .wrapper-on-scroll {
   position: fixed;
+  width: 100%;
   top: -100px;
   left: 0;
-  width: 100%;
-  max-width: $maxWidth;
-  padding: 5px 25px;
-  background: linear-gradient(90deg, $white, $foxy);
-  opacity: 0.97;
-
-  @include text-shadow(2px, 3px);
-  @include flex-box($flex-box-row-left...);
-  @include transition();
 
   &.scroll-active {
     top: 0;
   }
 
-  .elem-on-scroll {
-    @include init-font(20px, 700);
-    @include text-shadow(3px, 4px);
-    @include transition(all, 0.2s);
+  @include transition();
 
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin: 5px 10px;
+  .bar-on-scroll {
+/*    position: fixed;
+    top: -100px;
+    left: 0;*/
+    width: 100%;
+    max-width: $maxWidth;
+    padding: 5px 25px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, $white, $foxy);
+    opacity: 0.97;
 
-    &.toBeHovered:hover {
-      transform: translateY(-3px);
-      cursor: pointer;
-      color: $foxy;
+    @include text-shadow(2px, 3px);
+    @include flex-box($flex-box-row-left...);
+
+    .elem-on-scroll {
+      @include init-font(20px, 700);
+      @include text-shadow(3px, 4px);
+      @include transition(all, 0.2s);
+
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 5px 10px;
+
+      &.toBeHovered:hover {
+        transform: translateY(-3px);
+        cursor: pointer;
+        color: $foxy;
+      }
+
+      &.specClass {
+        color: $foxy;
+      }
     }
+  }
+}
 
-    &.specClass {
-      color: $foxy;
+
+
+#scrolling-text-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 40px);
+  height: 30px;
+  margin: 0 20px;
+  border: 1px dotted red;
+  overflow: hidden;
+
+  .scrolling-text {
+    position: absolute;
+    top: 0;
+    //left: will be assigned with JS for scrolling text from the right side of the parent to the left
+    width: max-content;
+    color: $violet;
+
+    font: {
+      size: 18px;
+      weight: 700;
     }
+    line-height: 30px;
   }
 }

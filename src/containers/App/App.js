@@ -14,6 +14,8 @@ const filterOption = [
     'experience',
     'education'
 ];
+const scrollingText = 'All the content and the list of the necessary HTML tags to render in the page, where fetched from JSON' +
+    ', then stored in the LocalStorage, then rendered by the Components';
 
 class App extends Component {
     constructor(props) {
@@ -21,12 +23,12 @@ class App extends Component {
         this._kids = [AsideBar, ContentBar];
         //will be overwritten by this.getAndRenderData
         this._data = null;
-        //todo: to realize the _error control
         this._alert = {
             type: null,
             contentArr: [],
         };
-        //it will be shown in the absolute when scrolling down the page to a certain pageYOffset
+
+        //it wraps the section links and to be appeared on scroll-down event...
         this.barOnScroll = null;
 
         /**@description Array 'filterOption' is a list of possible 'filters' which can be chosen
@@ -80,7 +82,7 @@ class App extends Component {
                 //scrolling to start of the section
                 window.scrollTo(0, 0);
 
-                this.barOnScroll && this.barOnScroll.getHTMLElem() && this.barOnScroll.renderFilter(this._filter);
+                this.barOnScroll && this.barOnScroll.getHTMLElem && this.barOnScroll.renderFilter(this._filter);
 
             } else {
                 console.error(`the data is empty:  ${this._data}`);
@@ -119,13 +121,18 @@ class App extends Component {
     }
 
     listenForScroll({scrollPoint, attr, textContentArr}) {
+        //future wrapper in position 'fixed', which will appear at scroll-down event and includes BarOnScroll with links
+        let WrapperOnScroll;
         //all arguments will be checked and, if errors, the script stops and console.error of all errors at the check end...
         const errorsArr = [];
-
         //its the flag for limiting scroll event actions
         let isLocked = false;
-
-        const {forScrollClass, onScrollEventClass, elementClass} = attr;
+        /**'forScrollClass' className for the wrapper which will be shown in absolute on scroll-down event
+         * 'onScrollEventClass' className on scroll-down event
+         * 'wrapperClass' className for the direct wrapper of the elements to show
+         * 'elementClass' className for the elements
+         * **/
+        const {forScrollClass, onScrollEventClass, wrapperClass, elementClass} = attr;
 
         // the elements which will be shown on scroll down event
         let preparedElemsArr;
@@ -139,6 +146,9 @@ class App extends Component {
         }
         if (!onScrollEventClass) {
             errorsArr.push(new Error(`given onScrollEventClass: ${onScrollEventClass} is not found...`));
+        }
+        if (!wrapperClass) {
+            errorsArr.push(new Error(`given wrapperClass: ${wrapperClass} is not found...`));
         }
         if (!elementClass) {
             errorsArr.push(new Error(`given elementSpecClass: ${elementClass} is not found...`));
@@ -170,13 +180,12 @@ class App extends Component {
         this.barOnScroll = new Component({
             htmlTagName: 'div',
             attr: {
-                className: forScrollClass
+                className: wrapperClass,
             },
             innerHTML: preparedElemsArr
         });
-
         this.barOnScroll.renderFilter = function(activeFilter) {
-
+            //clearing previous styles of the shown elements and applying with the current activeFilter
             [...this.getHTMLElem().children].forEach(el => {
                 el.classList.remove('specClass');
                 el.classList.remove('toBeHovered');
@@ -186,6 +195,16 @@ class App extends Component {
             });
         };
 
+        //The top wrapper which is fixed on scroll, and keeps the shown block in the middle...
+        WrapperOnScroll = new Component({
+            htmlTagName: 'div',
+            attr: {
+                className: forScrollClass
+            },
+            innerHTML: this.barOnScroll,
+        });
+
+        //if clicked on the new section elem then to change filter and run setter 'filter' with rerendering elements...
         this.barOnScroll.getHTMLElem().addEventListener('click', (e) => {
             let target = e.target;
             if (target.dataset.section !== this._filter) {
@@ -203,7 +222,7 @@ class App extends Component {
             //restricting scroll event callbacks
             setTimeout(() => {
                 //log(window.pageYOffset, 'window.pageYOffset');
-                const shownBar = this.barOnScroll.getHTMLElem();
+                const shownBar = WrapperOnScroll.getHTMLElem();
 
                 if (window.pageYOffset >= scrollPoint) {
                     //log('height is 400 or more...');
@@ -228,6 +247,48 @@ class App extends Component {
 
     }
 
+    initScrollingText(text, duration) {
+
+        const ScrollingTextElem = new Component({
+            htmlTagName: 'p',
+            attr: {
+                className: 'scrolling-text',
+            },
+            innerHTML: text,
+        });
+
+        const ScrollingTextBar = new Component({
+            htmlTagName: 'div',
+            attr: {
+                id: 'scrolling-text-wrapper'
+            }
+        });
+
+        /**hiding the element in absolute to the right from the parent, which is in overflow:hidden,
+         * then animating the style 'left' to the left for scrolling text...
+         * **/
+        this.getHTMLElem().before(ScrollingTextBar.getHTMLElem());
+        ScrollingTextElem.getHTMLElem().style.left = ScrollingTextBar.getHTMLElem().offsetWidth + 10 + 'px';
+        ScrollingTextBar.append(ScrollingTextElem);
+
+        animateScrollingText(ScrollingTextElem.getHTMLElem(), duration, true);
+
+        function refreshScrollingTextElem() {
+            ScrollingTextElem.getHTMLElem().remove();
+            ScrollingTextElem.getHTMLElem().style.left = ScrollingTextBar.getHTMLElem().offsetWidth + 10 + 'px';
+            ScrollingTextBar.append(ScrollingTextElem);
+        }
+
+        function animateScrollingText(elem, time, isInfinite) {
+            let startTime = Date.now();
+            //checking if the element is in DOM
+            if (elem.parentElement) {
+                log('elem is in DOM');
+            }
+
+        }
+    }
+
     /**@description:
      *
      *
@@ -247,12 +308,16 @@ class App extends Component {
                     //equalizing the heights of AsideBar and ContentBar...
                     equalCols(...this._kids.map(kid => kid.getHTMLElem()));
 
+                    //initialising the scrolling text top of the page
+                    this.initScrollingText(scrollingText, 3000);
+
                     //setting the listener on scroll with the following showing elements on scroll down
                     this.listenForScroll({
                         scrollPoint: 400,
                         attr: {
                             forScrollClass: 'wrapper-on-scroll',
                             onScrollEventClass: 'scroll-active',
+                            wrapperClass: 'bar-on-scroll',
                             elementClass: 'elem-on-scroll'
                         },
                         textContentArr: this._filterOption,

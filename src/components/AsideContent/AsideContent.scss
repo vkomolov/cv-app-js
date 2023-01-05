@@ -3,7 +3,7 @@
 
 .topWrapper {
   margin: 10px auto;
-  @include scroll-init(5px, $foxyGrey, $blueDark);
+  //@include scroll-init(5px, $foxyGrey, $blueDark);
 
   .segment-block {
     @include flex-box($flex-box-row-start...);
