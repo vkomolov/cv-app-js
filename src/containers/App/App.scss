@@ -23,9 +23,6 @@
   @include transition();
 
   .bar-on-scroll {
-/*    position: fixed;
-    top: -100px;
-    left: 0;*/
     width: 100%;
     max-width: $maxWidth;
     padding: 5px 25px;
@@ -58,8 +55,6 @@
   }
 }
 
-
-
 #scrolling-text-wrapper {
   position: absolute;
   top: 0;
@@ -67,8 +62,9 @@
   width: calc(100% - 40px);
   height: 30px;
   margin: 0 20px;
-  border: 1px dotted red;
   overflow: hidden;
+
+  @include transition('left', 5s);
 
   .scrolling-text {
     position: absolute;
@@ -76,6 +72,8 @@
     //left: will be assigned with JS for scrolling text from the right side of the parent to the left
     width: max-content;
     color: $violet;
+
+
 
     font: {
       size: 18px;

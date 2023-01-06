@@ -14,8 +14,9 @@ const filterOption = [
     'experience',
     'education'
 ];
-const scrollingText = 'All the content and the list of the necessary HTML tags to render in the page, where fetched from JSON' +
-    ', then stored in the LocalStorage, then rendered by the Components';
+const scrollingText = 'The task - is, using Vanilla JS, to realize the App, with the "state" principles and OOP approach,' +
+    ' as React does. It also makes possible to change the structure and the content' +
+    ' of this App by simply editing the JSON file, which is initially to be fetched for rendering current App...';
 
 class App extends Component {
     constructor(props) {
@@ -247,7 +248,9 @@ class App extends Component {
 
     }
 
-    initScrollingText(text, duration) {
+    initScrollingText(text, duration, isInfinite = false) {
+        //id of requestAnimationFrame, which to be initiated;
+        let reqId;
 
         const ScrollingTextElem = new Component({
             htmlTagName: 'p',
@@ -271,7 +274,7 @@ class App extends Component {
         ScrollingTextElem.getHTMLElem().style.left = ScrollingTextBar.getHTMLElem().offsetWidth + 10 + 'px';
         ScrollingTextBar.append(ScrollingTextElem);
 
-        animateScrollingText(ScrollingTextElem.getHTMLElem(), duration, true);
+        animateScrollingText(ScrollingTextElem.getHTMLElem(), duration, isInfinite);
 
         function refreshScrollingTextElem() {
             ScrollingTextElem.getHTMLElem().remove();
@@ -279,13 +282,42 @@ class App extends Component {
             ScrollingTextBar.append(ScrollingTextElem);
         }
 
-        function animateScrollingText(elem, time, isInfinite) {
-            let startTime = Date.now();
+        function animateScrollingText(elem, duration, isInfinite) {
+            let startTime = null;
+            const scrollingTextWidth = ScrollingTextElem.getHTMLElem().offsetWidth;
+            const scrollingTextBarWidth = ScrollingTextBar.getHTMLElem().offsetWidth;
+            const distance = scrollingTextWidth + scrollingTextBarWidth + 10;
+            let initialLeft = parseInt(ScrollingTextElem.getHTMLElem().style.left);
+
             //checking if the element is in DOM
             if (elem.parentElement) {
-                log('elem is in DOM');
-            }
+                requestAnimationFrame(function measure(time) {
+                    if (!startTime) {
+                        startTime = time;
+                    }
+                    let progress = (time - startTime)/duration;   //from 0 to 1
+                    if (progress > 1) {
+                        progress = 1;
+                    }
 
+                    let shift = distance * progress;
+                    ScrollingTextElem.getHTMLElem().style.left = (initialLeft - shift) + 'px';
+
+                    if (progress < 1) {
+                        requestAnimationFrame(measure);
+                    } else {
+                        if (isInfinite) {
+                            refreshScrollingTextElem();
+                            startTime = null;
+                            requestAnimationFrame(measure);
+                        }
+                        console.log('text scrolling ended...');
+                    }
+                });
+            }
+            else {
+                throw new Error('given parentElement is not in DOM...');
+            }
         }
     }
 
@@ -309,7 +341,7 @@ class App extends Component {
                     equalCols(...this._kids.map(kid => kid.getHTMLElem()));
 
                     //initialising the scrolling text top of the page
-                    this.initScrollingText(scrollingText, 3000);
+                    this.initScrollingText(scrollingText, 50000, true);
 
                     //setting the listener on scroll with the following showing elements on scroll down
                     this.listenForScroll({
