@@ -1,12 +1,13 @@
 ///node_modules
 import axios  from 'axios';
 
-/**@description it gets the localStorage by name, validating by the time limit;
+/** It gets the localStorage by name, validating by the time limit in days;
  * If the time limit is expired, then to return false;
  * If the localStorage does not exist then to return false;
  * Else to return the data;
- * @param { string } name;
+ * @param { string } name of the LocalStorage data;
  * @param { number } timeLimit: number of days;
+ * @return { object || false } the data, stored in the LocalStorage... or false, if its not found or expired by time
  * */
 export function getLocalStorage( name, timeLimit=1 ) {
 	const storage = localStorage.getItem( name );

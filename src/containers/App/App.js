@@ -14,9 +14,9 @@ const filterOption = [
     'experience',
     'education'
 ];
-const scrollingText = 'The task - is, using Vanilla JS, to realize the App, with the "state" principles and OOP approach,' +
-    ' as React does. It also makes possible to change the structure and the content' +
-    ' of this App by simply editing the JSON file, which is initially to be fetched for rendering current App...';
+const scrollingText = 'Using vanilla JS, to realize the App, with the "state" principles and OOP approach. ' +
+    'It also makes possible to change the structure of the page and its content' +
+    ' by initially fetching the JSON file for rendering current App...';
 
 class App extends Component {
     constructor(props) {
@@ -341,7 +341,7 @@ class App extends Component {
                     equalCols(...this._kids.map(kid => kid.getHTMLElem()));
 
                     //initialising the scrolling text top of the page
-                    this.initScrollingText(scrollingText, 50000, true);
+                    this.initScrollingText(scrollingText, 40000, true);
 
                     //setting the listener on scroll with the following showing elements on scroll down
                     this.listenForScroll({
