@@ -14,7 +14,9 @@
   }
 
   .spanDetails {
+    letter-spacing: 0.05em;
 
+    @include init-font(14px, 400);
   }
 
   .subHeading {

@@ -265,7 +265,34 @@
     "aside": {
       "details": [
         {
-          "title": "CFS",
+          "title": "Non IT:"
+        },
+        {
+          "title": "CopyWriting",
+          "details": "self-study"
+        },
+        {
+          "title": "Power Pivot, Power Querry, DAX",
+          "details": "self-study"
+        },
+        {
+          "title": "Data structuring and analysis",
+          "details": "Corporate Courses"
+        },
+        {
+          "title": "Microsoft Excel, Access...",
+          "details": "Corporate Courses"
+        },
+        {
+          "title": "Adobe Photoshop, Illustrator",
+          "details": "self-study"
+        },
+        {
+          "title": "Adobe InDesign, Solid Works",
+          "details": "self-study"
+        },
+        {
+          "title": "Customer Focus Selling",
           "details": "Corporate Courses"
         },
         {
@@ -273,11 +300,11 @@
           "details": "Corporate Courses"
         },
         {
-          "title": "Presentation",
+          "title": "Presentations",
           "details": "Corporate Courses"
         },
         {
-          "title": "Negotiation",
+          "title": "Negotiations",
           "details": "Corporate Courses"
         },
         {
@@ -298,7 +325,9 @@
           "subheading": "PHP Academy ( Deutsche-It-Schule )",
           "li": [
             "Frontend: HTML, CSS/SCSS, JS, React/Redux/Router;",
-            "Backend: PHP, SQL;"
+            "Backend: PHP, MySQL;",
+            "REST API",
+            "ToDo (advanced): GraphQL"
           ]
         },
         {

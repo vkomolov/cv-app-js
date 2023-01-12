@@ -5,7 +5,7 @@ import './App.scss';
 import { getAndStore } from '../../utils/services/userService';
 import { equalCols } from '../../utils/services/index';
 
-/** components **/
+//components
 import AsideBar from "../AsideBar/AsideBar";
 import ContentBar from "../ContentBar/ContentBar";
 import AlertBlock from "../../components/AlertBlock/AlertBlock";
@@ -14,41 +14,94 @@ const filterOption = [
     'experience',
     'education'
 ];
-const scrollingText = 'Using vanilla JS, to realize the App, with the "state" principles and OOP approach. ' +
-    'It also makes possible to change the structure of the page and its content' +
-    ' by initially fetching the JSON file for rendering current App...';
+const scrollingText = 'Using only vanilla JS, to realize the CV App which will dynamically construct the HTMLElements ' +
+    'from the fetched JSON file, and re-render the HTMLElements on changing the value/state of the data or filters. ' +
+    'Resembling React, to implement Classes/Components, which shall comprise the logic and the markup/styles of the App. ' +
+    'The link to the code is available in the section "Experience"... ';
 
+
+/**
+ * @class
+ * @classdesc it adds additional methods to the methods of {@link Component};
+ * @extends Component
+ */
 class App extends Component {
+    /**
+     * @param {Object} props similar to super {@link Component};
+     */
     constructor(props) {
         super(props);
+
+        /**
+         * @type {(Component)[]} adding columns to the page: {@link AsideBar}, {@link ContentBar}
+         * @protected
+         * the elems will be later appended to this._htmlElem {@link this._htmlElem}
+         */
         this._kids = [AsideBar, ContentBar];
-        //will be overwritten by this.getAndRenderData
+
+        /**
+         * @type {(Object | null)} will be overwritten on using {@link getAndRenderData} which gets the data when
+         * document already loaded
+         * @protected
+         */
         this._data = null;
+
+        /**
+         * @type {{type: (null | string), contentArr: ([] | (HTMLElement | string | Error | number)[])}}
+         * @protected
+         * @example
+         * type: null, 'error', 'loading'... to be scaled
+         * contentArr: (new Error() | string | number | HTMLElement)[] ... to be scaled
+         */
         this._alert = {
             type: null,
             contentArr: [],
         };
 
-        //it wraps the section links and to be appeared on scroll-down event...
+        /**
+         * new Component, which wraps the section links and to be appeared on top in the fixed position
+         * on scroll-down event...
+         * @type {(null | Component)} will be overwritten with the function {@link listenForScroll}
+         */
         this.barOnScroll = null;
 
-        /**@description Array 'filterOption' is a list of possible 'filters' which can be chosen
-         *
+        /**
+         * @description Array 'filterOption' is a list of the sections / filters which can be chosen/clicked with
+         * the following re-rendering of the elements with the new data;
+         * @type {string[]} {@link filterOption}
+         * @protected
          * **/
         this._filterOption = filterOption;
-        this._filter = this._filterOption[0];
+        this._filter = this._filterOption[0]; //choosing the initial section to render
 
+        /**
+         * using the method of Component {@link Component.append}
+         * As 'this' is not an HTMLElement, which uses 'HTMLElement.append' method, but new Component Object,
+         * then to use the method of new Component.append, which appends the elems to
+         * innerHTML of Component._htmlElem {@link Component._htmlElem}
+         */
+        this.append(...this._kids);
 
-            //appending children... with 'Component.append(...elems)
-            this.append(...this._kids);
+        /**
+         * it makes all columns of the page to be equal, corresponding to their content size
+         * @param {...HTMLElement[]}
+         */
             equalCols(...this._kids.map(kid => kid.getHTMLElem()));
 
             if (!this._data) {
+                /**
+                 * if still no data loaded, then to dispatch alert with type='loading'
+                 */
                 this.dispatchAlert('loading', ['Loading...']);
             }
     }
 ///////////////// END OF CONSTRUCTOR /////////////////
 
+    /**
+     * it adds additional properties to the data object which then will be sent by {@link renderData}
+     * @param {Object} data, taken from the LocalStorage or fetched...
+     * @returns {{data: Object, filterActive: string, setFilter: callback, dispatchAlert: callback}}
+     */
     prepareData(data) {
         return {
             data,
@@ -58,31 +111,50 @@ class App extends Component {
         };
     }
 
-/**@description setFilter uses 'setter' and will be sent as the callback to the children **/
+/**
+ * @description setFilter initiates 'setter' on 'filter'... it will be sent as the callback to the children
+ * setter {@link filter} will re-render all appended elements with the new data... resembling 'state' changes...
+ */
     setFilter (value) {
         this.filter = value;    //switching to the setter (set filter()), not this._filter directly...
     }
 
+    /**
+     * @returns {string} this._filter
+     */
     get filter () {
         return this._filter;
     }
 
-    /**@description making setter in order to callback on changing value, as on event...
-     *
+    /**
+     * @description making setter in order to re-render the children with the new data on changing value, as on event...
+     * @param {string} value, which must be one of {@link this._filterOption}
+     * @example
+     * this.filter = 'personal' | 'experience' |'education'
      * **/
     set filter (value) {
         if (this._filterOption.length && this._filterOption.includes(value)) {
             this._filter = value;
 
             if (this._data) {
+                /**
+                 * on getting data to clear all alerts {@link this._alert}, removing 'loading' element
+                 */
                 this.alertClear();
 
+                //sending new data to the Component ancestors
                 this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
+
                 //equalizing the heights of the kids...
                 equalCols(...this._kids.map(kid => kid.getHTMLElem()));
-                //scrolling to start of the section
+
+                //scrolling up to start of the page
                 window.scrollTo(0, 0);
 
+                /**
+                 * if {@link this.barOnScroll} is already Component and it has own
+                 * method {@link this.barOnScroll.renderFilter} then to style the filters according to new active filter
+                 */
                 this.barOnScroll && this.barOnScroll.getHTMLElem && this.barOnScroll.renderFilter(this._filter);
 
             } else {
@@ -96,6 +168,10 @@ class App extends Component {
         }
     }
 
+    /**
+     * if {@link this._alert.type} equals 'error', then to return {@link this._alert.contentArr} as the array of Errors
+     * @returns {null|Error[]}
+     */
     get error () {
         if (this._alert.type === 'error') {
             return this._alert.content;
@@ -103,6 +179,19 @@ class App extends Component {
         return null;
     }
 
+    /**
+     * it receives the type of the alert
+     * it receives multiple content items to add to the alert block, which will be re-rendered, when
+     * {@link dispatchAlert} is initiated with a new content;
+     * If current type of this._alert.type equals to the type, given in arguments, then to add new content
+     * to the existing at {@link this._alert.contentArr},
+     * else to change this._alert.type to arguments['type'] and to overwrite the content of {@link this._alert.contentArr}
+     * with the new content, given in arguments...
+     * @param {string} type: 'error', 'loading'... to be scaled
+     * @param {...(string | HTMLElement | Component)} content
+     * @example
+     * dispatchAlert('error', new Error('too many comments for all this :)'), new Error('bla bla bla :)'));
+     */
     dispatchAlert (type, ...content) {
         if (this._alert.type && this._alert.type !== type) {
             this.alertClear();
@@ -114,6 +203,9 @@ class App extends Component {
         this.append(AlertBlock.renderData(this._alert));
     }
 
+    /**
+     * it removes the alert block from DOM, resetting {@link this._alert} properties to default values
+     */
     alertClear () {
         document.body.style.overflow = 'auto';
         AlertBlock.getHTMLElem().remove();
@@ -121,21 +213,34 @@ class App extends Component {
         this._alert.contentArr = [];
     }
 
+    /**
+     * it hangs EventListener on scroll untill window.pageYOffset >= scrollPoint
+     * then it appends the bar on top of the page in absolute position
+     * @param {number} scrollPoint
+     * @param {Object} attr contains the keys: 'forScrollClass', 'onScrollEventClass', 'wrapperClass', 'elementClass'
+     * @param {string[]} textContentArr - the array of filters which will be shown in the top bar
+     */
     listenForScroll({scrollPoint, attr, textContentArr}) {
-        //future wrapper in position 'fixed', which will appear at scroll-down event and includes BarOnScroll with links
+        //future wrapper in fixed position ,which will appear with the filters included at scroll-down event
         let WrapperOnScroll;
+
         //all arguments will be checked and, if errors, the script stops and console.error of all errors at the check end...
         const errorsArr = [];
-        //its the flag for limiting scroll event actions
+
+        //the flag for limiting scroll event actions
         let isLocked = false;
-        /**'forScrollClass' className for the wrapper which will be shown in absolute on scroll-down event
-         * 'onScrollEventClass' className on scroll-down event
-         * 'wrapperClass' className for the direct wrapper of the elements to show
-         * 'elementClass' className for the elements
+
+        /**
+         * @type {Object} attr
+         * @type {string} attr.forScrollClass - className for the wrapper which will be shown in absolute position
+         * on scroll-down event;
+         * @type {string} attr.onScrollEventClass - className on scroll-down event
+         * @type {string} attr.wrapperClass - className for the direct wrapper of the elements to show
+         * @type {string} attr.elementClass - className for the filters
          * **/
         const {forScrollClass, onScrollEventClass, wrapperClass, elementClass} = attr;
 
-        // the elements which will be shown on scroll down event
+        // HTMLElement[] which will be shown on scroll down event
         let preparedElemsArr;
 
         //CHECKING FOR ERRORS
@@ -248,6 +353,15 @@ class App extends Component {
 
     }
 
+    /**
+     *
+     * @param {string} text to be animated scrolling
+     * @param {number} duration of the animation in ms
+     * @param {boolean} [isInfinite = false] if true then animation infinite
+     * @example
+     * initScrollingText('some text', 2000, true);
+     * will animate 'some text' with 2000ms, continuous
+     */
     initScrollingText(text, duration, isInfinite = false) {
         //id of requestAnimationFrame, which to be initiated;
         let reqId;
@@ -274,15 +388,29 @@ class App extends Component {
         ScrollingTextElem.getHTMLElem().style.left = ScrollingTextBar.getHTMLElem().offsetWidth + 10 + 'px';
         ScrollingTextBar.append(ScrollingTextElem);
 
+        /**
+         * {@link animateScrollingText}
+         */
         animateScrollingText(ScrollingTextElem.getHTMLElem(), duration, isInfinite);
 
+        /**
+         * resetting the position of the text to initial state, right from the parent, which is in overflow:hidden;
+         * in order to avoid transition on 'style.left' during change, the text is removed, then repositioned and
+         * appended again;
+         */
         function refreshScrollingTextElem() {
             ScrollingTextElem.getHTMLElem().remove();
             ScrollingTextElem.getHTMLElem().style.left = ScrollingTextBar.getHTMLElem().offsetWidth + 10 + 'px';
             ScrollingTextBar.append(ScrollingTextElem);
         }
 
-        function animateScrollingText(elem, duration, isInfinite) {
+        /**
+         * It realized the scrolling animation of the given DOM element
+         * @param {HTMLElement} elem for animation must be in DOM, otherwise it will dispatch new Error...
+         * @param {number} duration in ms for animation of the text scrolling through all the width of the main wrapper
+         * @param {boolean} [isInfinite = false] ... if true the cycling animation
+         */
+        function animateScrollingText(elem, duration, isInfinite = false) {
             let startTime = null;
             const scrollingTextWidth = ScrollingTextElem.getHTMLElem().offsetWidth;
             const scrollingTextBarWidth = ScrollingTextBar.getHTMLElem().offsetWidth;
@@ -295,17 +423,24 @@ class App extends Component {
                     if (!startTime) {
                         startTime = time;
                     }
+                    //getting the percentage of time, passed from startTime...
                     let progress = (time - startTime)/duration;   //from 0 to 1
                     if (progress > 1) {
                         progress = 1;
                     }
 
+                    //getting the portion of distance to animate
                     let shift = distance * progress;
                     ScrollingTextElem.getHTMLElem().style.left = (initialLeft - shift) + 'px';
 
+                    //recycling function till come to 100%
                     if (progress < 1) {
                         requestAnimationFrame(measure);
                     } else {
+                        /**
+                         * if fulfilled, then to replace the scrolling element to the initial position, unvisible right
+                         * only in case of isInfinite === true
+                         */
                         if (isInfinite) {
                             refreshScrollingTextElem();
                             startTime = null;
@@ -321,27 +456,33 @@ class App extends Component {
         }
     }
 
-    /**@description:
+    /**
+     * @description: it is the main start method, which is initiated right after the App is appended to DOM
      *
-     *
+     * @param { string } dataPath url to the source for fetching data
+     * @param {number} [delay = 0] optional delay for rendering the data, imitating the delay in loading
      */
-    getAndRenderData(dataPath, delay=0) {
-        //const filters = document.getElementById()
-
+    getAndRenderData(dataPath, delay = 0) {
         //simulating loading time
         setTimeout(() => {
+
+            /**
+             * {@link getAndStore} for fetchig and storing the data in the LocalStorage
+             */
             getAndStore(dataPath)
                 .then(data => {
                     this._data = data;
+                    //clearing the previous alerts
                     this.alertClear();
 
+                    //re-rendering the elements with the new and prepared data
                     this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
 
                     //equalizing the heights of AsideBar and ContentBar...
                     equalCols(...this._kids.map(kid => kid.getHTMLElem()));
 
                     //initialising the scrolling text top of the page
-                    this.initScrollingText(scrollingText, 40000, true);
+                    this.initScrollingText(scrollingText, 50000, true);
 
                     //setting the listener on scroll with the following showing elements on scroll down
                     this.listenForScroll({
