@@ -1,4 +1,5 @@
 'use strict';
+
 import Component from "../../components/Component/Component";
 
 import './App.scss';
@@ -14,11 +15,10 @@ const filterOption = [
     'experience',
     'education'
 ];
-const scrollingText = 'Using only vanilla JS, to realize the CV App which will dynamically construct the HTMLElements ' +
-    'from the fetched JSON file, and re-render the HTMLElements on changing the value/state of the data or filters. ' +
-    'Resembling React, to implement Classes/Components, which shall comprise the logic and the markup/styles of the App. ' +
-    'The link to the code is available in the section "Experience"... ';
-
+const scrollingText = 'Using vanilla JS, without libraries, to realize the CV App which will dynamically construct ' +
+    'the HTMLElements from the fetched JSON file, and re-render the HTMLElements on changing the value/state of the ' +
+    'data or filters. Resembling React, to implement Classes/Components, which shall comprise the logic and the ' +
+    'markup/styles of the App. The link to the code is available in the section "Experience"... ';
 
 /**
  * @class
@@ -28,6 +28,16 @@ const scrollingText = 'Using only vanilla JS, to realize the CV App which will d
 class App extends Component {
     /**
      * @param {Object} props similar to super {@link Component};
+     * @param {string} props.htmlTagName - the HTML tag name in 'string': 'div'
+     * @param {Object} props.attr - attributes
+     * @param {string} props.attr.className - the className attribute of the given tag
+     * @param {string} props.attr.id - the id attribute of the given tag
+     * @param {[[string, string]]} props.attr.dataParams - is used for dataset params of the given tag
+     * dataParams is Array of arrays with [key, value] pairs for dataset[key]=value
+     * @param {string} props.attr.* - it sets any attribute name:
+     * the tag is set with dataset[*] = value
+     * @param {((Component | HTMLElement | string | number)[] | (Component | HTMLElement | string | number)} props.innerHTML
+     * - will be placed to innerHTML of HTMLElement
      */
     constructor(props) {
         super(props);
@@ -84,7 +94,7 @@ class App extends Component {
 
         /**
          * it makes all columns of the page to be equal, corresponding to their content size
-         * @param {...HTMLElement[]}
+         * @param {...HTMLElement}
          */
             equalCols(...this._kids.map(kid => kid.getHTMLElem()));
 
@@ -97,7 +107,7 @@ class App extends Component {
     }
 ///////////////// END OF CONSTRUCTOR /////////////////
 
-    /**
+    /**@function
      * it adds additional properties to the data object which then will be sent by {@link renderData}
      * @param {Object} data, taken from the LocalStorage or fetched...
      * @returns {{data: Object, filterActive: string, setFilter: callback, dispatchAlert: callback}}
@@ -111,7 +121,7 @@ class App extends Component {
         };
     }
 
-/**
+/**@function
  * @description setFilter initiates 'setter' on 'filter'... it will be sent as the callback to the children
  * setter {@link filter} will re-render all appended elements with the new data... resembling 'state' changes...
  */
@@ -119,14 +129,14 @@ class App extends Component {
         this.filter = value;    //switching to the setter (set filter()), not this._filter directly...
     }
 
-    /**
+    /**@function getter
      * @returns {string} this._filter
      */
     get filter () {
         return this._filter;
     }
 
-    /**
+    /**@function setter
      * @description making setter in order to re-render the children with the new data on changing value, as on event...
      * @param {string} value, which must be one of {@link this._filterOption}
      * @example
@@ -157,7 +167,8 @@ class App extends Component {
                  */
                 this.barOnScroll && this.barOnScroll.getHTMLElem && this.barOnScroll.renderFilter(this._filter);
 
-            } else {
+            }
+            else {
                 console.error(`the data is empty:  ${this._data}`);
                 this.dispatchAlert('error', new Error(`the data is empty:  ${this._data}`));
             }
@@ -168,7 +179,7 @@ class App extends Component {
         }
     }
 
-    /**
+    /**@function getter
      * if {@link this._alert.type} equals 'error', then to return {@link this._alert.contentArr} as the array of Errors
      * @returns {null|Error[]}
      */
@@ -179,7 +190,7 @@ class App extends Component {
         return null;
     }
 
-    /**
+    /**@function
      * it receives the type of the alert
      * it receives multiple content items to add to the alert block, which will be re-rendered, when
      * {@link dispatchAlert} is initiated with a new content;
@@ -188,7 +199,7 @@ class App extends Component {
      * else to change this._alert.type to arguments['type'] and to overwrite the content of {@link this._alert.contentArr}
      * with the new content, given in arguments...
      * @param {string} type: 'error', 'loading'... to be scaled
-     * @param {...(string | HTMLElement | Component)} content
+     * @param {...(string | HTMLElement | Component | Error)} content
      * @example
      * dispatchAlert('error', new Error('too many comments for all this :)'), new Error('bla bla bla :)'));
      */
@@ -203,7 +214,7 @@ class App extends Component {
         this.append(AlertBlock.renderData(this._alert));
     }
 
-    /**
+    /**@function
      * it removes the alert block from DOM, resetting {@link this._alert} properties to default values
      */
     alertClear () {
@@ -213,35 +224,50 @@ class App extends Component {
         this._alert.contentArr = [];
     }
 
-    /**
+    /**@function
      * it hangs EventListener on scroll untill window.pageYOffset >= scrollPoint
      * then it appends the bar on top of the page in absolute position
      * @param {number} scrollPoint
      * @param {Object} attr contains the keys: 'forScrollClass', 'onScrollEventClass', 'wrapperClass', 'elementClass'
+     * @param {string} attr.forScrollClass - className for the wrapper which will be shown in absolute position
+     * on scroll-down event;
+     * @param {string} attr.onScrollEventClass - className on scroll-down event
+     * @param {string} attr.wrapperClass - className for the direct wrapper of the elements to show
+     * @param {string} attr.elementClass - className for the filters
      * @param {string[]} textContentArr - the array of filters which will be shown in the top bar
      */
     listenForScroll({scrollPoint, attr, textContentArr}) {
-        //future wrapper in fixed position ,which will appear with the filters included at scroll-down event
+        /**
+         * @type {Component} future wrapper in fixed position ,which will appear at scroll-down event
+         */
         let WrapperOnScroll;
-
-        //all arguments will be checked and, if errors, the script stops and console.error of all errors at the check end...
-        const errorsArr = [];
-
-        //the flag for limiting scroll event actions
-        let isLocked = false;
+        /**
+         * @type {HTMLElement} shownBar - the property of {@link WrapperOnScroll} with HTMLElement
+         */
+        let shownBar;
 
         /**
-         * @type {Object} attr
-         * @type {string} attr.forScrollClass - className for the wrapper which will be shown in absolute position
-         * on scroll-down event;
-         * @type {string} attr.onScrollEventClass - className on scroll-down event
-         * @type {string} attr.wrapperClass - className for the direct wrapper of the elements to show
-         * @type {string} attr.elementClass - className for the filters
-         * **/
+         * @type {([] | Error[])} if errors, to dispatch errors to {@link this.dispatchAlert}
+         */
+        const errorsArr = [];
+
+        /**
+         * @type {boolean} isLocked - the flag for limiting scroll event actions
+         */
+        let isLocked = false;
+
         const {forScrollClass, onScrollEventClass, wrapperClass, elementClass} = attr;
 
-        // HTMLElement[] which will be shown on scroll down event
+        /**
+         * @type {(Component | HTMLElement)[]} - array of Components to show in the wrapper {@link this.barOnScroll}
+         */
         let preparedElemsArr;
+
+        /**
+         * the last value of window.pageYOffset is used for checking the previous window.pageYOffset
+         * @type {number}
+         */
+        let lastScrollPos = 0;
 
         //CHECKING FOR ERRORS
         if (!+scrollPoint) {
@@ -268,6 +294,7 @@ class App extends Component {
         }
         // END OF CHECK /////////////////////
 
+        //adding specClass for styling the active filter in the bar of the filters
         preparedElemsArr = textContentArr.map(text => {
             let specClass = text === this._filter ? 'specClass' : 'toBeHovered';
 
@@ -283,6 +310,10 @@ class App extends Component {
             });
         });
 
+        /**
+         * creating the wrapper of the bar with the fiters. The bar will be appended to {@link WrapperOnScroll}
+         * @type {Component}
+         */
         this.barOnScroll = new Component({
             htmlTagName: 'div',
             attr: {
@@ -290,6 +321,14 @@ class App extends Component {
             },
             innerHTML: preparedElemsArr
         });
+
+        /**
+         * it removes the previous styles of the filters in the bar and applies new ones with the new acitve filter
+         * @param {string} activeFilter, which is currently chosen/clicked
+         * it is the value, which must be one of {@link this._filterOption}
+         * @example
+         * this.filter = 'personal' | 'experience' |'education'
+         */
         this.barOnScroll.renderFilter = function(activeFilter) {
             //clearing previous styles of the shown elements and applying with the current activeFilter
             [...this.getHTMLElem().children].forEach(el => {
@@ -309,8 +348,9 @@ class App extends Component {
             },
             innerHTML: this.barOnScroll,
         });
+        shownBar = WrapperOnScroll.getHTMLElem();
 
-        //if clicked on the new section elem then to change filter and run setter 'filter' with rerendering elements...
+        //if clicked on the new section elem then to change filter and run setter 'filter' with re-rendering elements...
         this.barOnScroll.getHTMLElem().addEventListener('click', (e) => {
             let target = e.target;
             if (target.dataset.section !== this._filter) {
@@ -319,42 +359,56 @@ class App extends Component {
             }
         });
 
+        /**
+         * listening to window.scrolling by Y, and at a certain window.scrollY to show the filter navigation
+         * on top of the page in the fixed position
+         */
         window.addEventListener('scroll', () => {
-            if (isLocked) {
-                return;
+            if (!isLocked) {
+                isLocked = true;
+                //restricting scroll event callbacks
+                setTimeout(() => {
+                    handleScrollEvent(this.getHTMLElem());
+
+                    isLocked = false;
+                }, 300);
             }
+        });
 
-            isLocked = true;
-            //restricting scroll event callbacks
-            setTimeout(() => {
-                //log(window.pageYOffset, 'window.pageYOffset');
-                const shownBar = WrapperOnScroll.getHTMLElem();
-
-                if (window.pageYOffset >= scrollPoint) {
-                    //log('height is 400 or more...');
-                    this.append(shownBar);
+        /**@function
+         * @param {HTMLElement} parent - the wrapper which will append {@link shownBar} top in the fixed position
+         */
+        function handleScrollEvent(parent) {
+            if (window.pageYOffset >= scrollPoint) {
+                // if at previous check the shownBar was already appended then 'return' for optimizing
+                if (lastScrollPos < scrollPoint) {
+                    parent.append(shownBar);
 
                     setTimeout(() => {
                         //adding possibly multiple classNames
-                        shownBar.classList.add(onScrollEventClass);
+                        requestAnimationFrame(() => {
+                            shownBar.classList.add(onScrollEventClass);
+                        });
                     }, 100);
-
-                } else {
-                    shownBar.classList.remove(onScrollEventClass);
+                }
+            }
+            else {
+                if (lastScrollPos >= scrollPoint) {
+                    requestAnimationFrame(() => {
+                        shownBar.classList.remove(onScrollEventClass);
+                    });
 
                     setTimeout(() => {
                         shownBar.remove();
                     }, 100);
                 }
+            }
 
-                isLocked = false;
-            }, 300);
-        });
-
+            lastScrollPos = window.pageYOffset;
+        }
     }
 
-    /**
-     *
+    /**@function it animates running text top of the page
      * @param {string} text to be animated scrolling
      * @param {number} duration of the animation in ms
      * @param {boolean} [isInfinite = false] if true then animation infinite
@@ -363,8 +417,6 @@ class App extends Component {
      * will animate 'some text' with 2000ms, continuous
      */
     initScrollingText(text, duration, isInfinite = false) {
-        //id of requestAnimationFrame, which to be initiated;
-        let reqId;
 
         const ScrollingTextElem = new Component({
             htmlTagName: 'p',
@@ -388,12 +440,9 @@ class App extends Component {
         ScrollingTextElem.getHTMLElem().style.left = ScrollingTextBar.getHTMLElem().offsetWidth + 10 + 'px';
         ScrollingTextBar.append(ScrollingTextElem);
 
-        /**
-         * {@link animateScrollingText}
-         */
         animateScrollingText(ScrollingTextElem.getHTMLElem(), duration, isInfinite);
 
-        /**
+        /**@function
          * resetting the position of the text to initial state, right from the parent, which is in overflow:hidden;
          * in order to avoid transition on 'style.left' during change, the text is removed, then repositioned and
          * appended again;
@@ -404,7 +453,7 @@ class App extends Component {
             ScrollingTextBar.append(ScrollingTextElem);
         }
 
-        /**
+        /**@function
          * It realized the scrolling animation of the given DOM element
          * @param {HTMLElement} elem for animation must be in DOM, otherwise it will dispatch new Error...
          * @param {number} duration in ms for animation of the text scrolling through all the width of the main wrapper
@@ -456,18 +505,16 @@ class App extends Component {
         }
     }
 
-    /**
-     * @description: it is the main start method, which is initiated right after the App is appended to DOM
-     *
-     * @param { string } dataPath url to the source for fetching data
+    /**@function
+     * @description: it is the main start method, which is initiated right after the App is appended to DOM     *
+     * @param {string} dataPath url to the source for fetching data
      * @param {number} [delay = 0] optional delay for rendering the data, imitating the delay in loading
      */
     getAndRenderData(dataPath, delay = 0) {
-        //simulating loading time
+        //simulating loading time with the given delay
         setTimeout(() => {
-
             /**
-             * {@link getAndStore} for fetchig and storing the data in the LocalStorage
+             * {@link getAndStore} for fetching and storing the data in the LocalStorage
              */
             getAndStore(dataPath)
                 .then(data => {

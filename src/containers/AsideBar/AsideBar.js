@@ -4,9 +4,10 @@ import "./AsideBar.scss";
 import Component from "../../components/Component/Component";
 import AsideContent from "../../components/AsideContent/AsideContent";
 
-/**@description
- *
- * it is scalable and can be added with additional, special for the AsideBar functionality...
+/**
+ * it is scalable and can be added with additional, special for the AsideBar functionality with adding own methods...
+ * @extends Component {@link Component}
+ * @type {Component}
  * **/
 const AsideBar = new Component({
     htmlTagName: "div",
@@ -16,21 +17,27 @@ const AsideBar = new Component({
 });
 AsideBar.dataName = 'aside';
 
+/**
+ * It receives the fetched data, active filter and the callbacks:
+ * for dispatching Alert Data {@link dispatchAlert}
+ * for setting a new filter, which then will initiate re-rendering elements with the new data
+ * It creates the elements and writes the data to innerHTML
+ *
+ */
 AsideBar.renderData = function (innData) {
     const {dispatchAlert, setFilter, filterActive, data} = innData;
     const {fullName, photoUrl, ...innerData} = data;
 
-    /** heading **/
+    //heading
     let HeadingFullName;
-    /** new Image() **/
+    //new Image()
     let image;
-    /** image container **/
+    //image container
     let ImageContainer;
-    /** list of sections which changes the filter on click and rerender new content **/
+    //list of sections which changes the filter on click and rerender new content
     let SectionList;
-    /** prepared data for sending to the children **/
+    //prepared data for sending to the children
     let dataAside;
-
 
     HeadingFullName = new Component({
         htmlTagName: 'h1',
