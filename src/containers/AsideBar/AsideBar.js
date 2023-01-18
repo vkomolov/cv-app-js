@@ -45,7 +45,6 @@ AsideBar.renderData = function (innData) {
     });
 
     image = new Image();
-
     image.src = photoUrl;
 
     ImageContainer = new Component({
