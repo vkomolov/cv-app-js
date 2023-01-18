@@ -519,20 +519,16 @@ class App extends Component {
             getAndStore(dataPath)
                 .then(data => {
                     log(data, 'data fetched...');
-                    log(data.photoUrl, 'data.photoUrl');
 
                     return getAndStore(data['photoUrl'], 1, 'blob')
                         .then(objUrl => {
                             data['photoUrl'] = objUrl;
 
-                            log(data.photoUrl, 'data.photoUrl out:');
                             return data;
                         });
                 })
                 .then(data => {
                     this._data = data;
-
-                    log(data, 'ready Data:');
                     //clearing the previous alerts
                     this.alertClear();
 
