@@ -1,7 +1,7 @@
 ///utils
-import { getLocalStorage, setLocalStorage, getAxios } from './index';
+import { getLocalStorage, setLocalStorage, initAxios, initFetch } from './index';
 
-export const getAndStore = async ( path, timeLimit=1, extension='' ) => {
+export const getAndStore = async ( path, timeLimit=1, extension='json' ) => {
 	const dataName = path.split('/').slice(-1)[0];
 
     let localData = getLocalStorage( dataName, timeLimit );
@@ -10,9 +10,10 @@ export const getAndStore = async ( path, timeLimit=1, extension='' ) => {
         return localData.data;
     }
 
-    return await getAxios(path, extension )
+    return await initAxios(path, extension)
         .then( data => {
-            (Object.keys(data).length) && setLocalStorage( dataName, data );
+            //(Object.keys(data).length) && setLocalStorage( dataName, data );
+            setLocalStorage( dataName, data );
             return data;
         } )
 };

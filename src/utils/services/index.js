@@ -38,94 +38,131 @@ export function setLocalStorage( name='localData', data ) {
 	localStorage.setItem(name, JSON.stringify( dataWithDate ));
 }
 
-/**@description It prepares the params and returns axios with url and expecting format of the the data (ext)
+/**@description It prepares the params and returns axios with the params, depending on the arguments:
+ * - if the second argument 'ext' is Object, then to use method 'POST" with the key 'data' in params and the
+ * following object as the value;
+ * - if the second optional argument is String, then to use method 'GET' with the key 'responseType' and the following
+ * expecting value;
+ * - if the third optional argument 'innDataParams' is Object then to append it to params for axios;
  * @param {string} url of the data source
- * @param {string} [ext='json'] by default is expected
+ * @param {(Object|string)} [ext='json'] can be data for post method or string with the expecting 'responseType'
+ * @param {Object} [inDataParams] - optional params for the request is null by default
+ * @example initAxios('someUrl', {someObject: values}, {id: 'someId'}) : POST request with the object and params
+ * @example initAxios('someUrl', 'blob') - GET request with responseType = 'blob'
  * */
-export function getAxios(url, ext='json') {
-	let params = {
-		url,
-		method: 'GET',
-		responseType: ext,
-	};
-    /**
-     * @function axios fetching data with outcoming Promise
-     * @param {Object} params
-     * @param {string} params.url url of the data source
-     * @param {string} params.method using fixed 'GET' method
-     * @param {string} params.responseType using 'json' by default
-     * @returns {Promise} of the data from axios
-     */
-	return axios(params)
+export function initAxios(url, ext = 'json', inDataParams = null) {
+    let getOrPostKey, getOrPostValue, method, paramsOut;
+
+    //eliminating possible 'null' of ext
+    if (ext && typeof ext === 'object') {
+        getOrPostKey = 'data';
+        getOrPostValue = ext;
+        method = 'POST';
+    } else {
+        getOrPostKey = 'responseType';
+        getOrPostValue = ext;
+        method = 'GET';
+    }
+
+    paramsOut = {
+        url,
+        method,
+        [getOrPostKey]: getOrPostValue,
+    };
+
+    //if additional params are given, then to append them to 'params';
+    if (inDataParams && typeof inDataParams === 'object') {
+        paramsOut.params = inDataParams;
+    }
+
+    return axios(paramsOut)
     /**
      * @function for processing the response fetched
      * @param {Object} resp
-     * @param {Object} resp.data
+     * @param {Object} [resp.data] - if GET request, it receives 'data' property;
      * @returns {Promise} if responseType === blob, then to use FileReader by the inner func: {@link readFileAsDataUrl}
-     * else to return resp.data
+     * or URL.createObjectURL...
+     * @todo to realize how optionally use FileReader or URL API for operating with the 'blob' responseType
+     * else to return resp.data on GET request or resp on POST request;
      */
         .then(resp => {
-			if (resp.responseType === 'blob') {
-				return readFileAsDataUrl( resp.data );
-			}
-			return  resp.data;
-		})
-}
-
-/**
- * @function: it fetches the data with from the source and params;
- * It contains the inner funcs for passing the Fetch Promise through
- * the response status to parsing the response with account to the Content-Type;
- * @param {string} source: url source of the requested data;
- * @param {Object} params: for fetch: method, mode, headers, etc...;
- * @returns {Promise} Promise.resolve, Promise.reject;
- * */
-export function getFetch( source, params ) {
-    return fetch( source, params )
-        .then( status )
-        .then( handle );
-	
-	function status( response ) {
-		if ( response.ok ) {
-			return Promise.resolve( response );
-		} else {
-			return Promise.reject(new Error( response.statusText ));
-		}
-	}
-	
-	function handle( response ) {
-		if ( response.headers.get("Content-Type").includes('application/json') ) {
-			return response.json();
-		} else if ( response.headers.get("Content-Type").includes('text/html') ) {
-			return response.text();
-		}
-		else {
-			return URL.createObjectURL(response.blob());
-		}
-	}
+            //if it is method GET and 'responseType' property exists...
+            if (paramsOut.responseType) {
+                if (paramsOut.responseType === 'blob') {
+                    return URL.createObjectURL(resp.data);
+                }
+                return resp.data;
+            }
+            return resp;
+        });
 }
 //catch will be taken outer
 
+/**@description It prepares the params and returns fetch with the params, depending on the arguments:
+ * - if the second argument 'ext' is Object, then to use method 'POST" with the key 'body' in params and the
+ * following object as the value; !the data must NOT be already jSON.stringified
+ * - if the second optional argument is String, then to use method 'GET' with the headers: {'Content-Type': value}
+ * value - expecting type 'json' (by default), 'blob'...
+ * - if the third optional argument 'innDataParams' is Object then to append it to params for the fetch request;
+ * @param {string} url of the data source
+ * @param {(Object|string)} [ext='json'] can be data for post method or string with the expecting 'responseType'
+ * @param {Object} [inDataParams] - optional params for the request is null by default
+ * @example initFetch('someUrl', {someKey: someValue}, {credentials: 'include', mode: 'cors'}) : POST request and params
+ * @example initFetch('someUrl', 'blob') - GET request with responseType = 'blob'
+ * */
+export function initFetch(url, ext = 'json', inDataParams = null) {
+    let getOrPostKey, getOrPostValue, method, paramsOut, myHeaders;
 
-/**@function it get data by axios with the given source and params...
- * it handles the response for 'application/json', 'text/html' and 'blob', by URL API *
- * @param {string} source URL
- * @param {Object} params
- * @returns {Promise<AxiosResponse<T>>}
- */
-export function initAxios( source, params ) {
-    return axios( source, params ).then( handle );
-	
-	function handle( response ) {
-		if ( response.headers.get("Content-Type").includes('application/json') ) {
-			return response.json();
-		} else if ( response.headers.get("Content-Type").includes('text/html') ) {
-			return response.text();
-		}
-		else {
-			return URL.createObjectURL(response.blob());
-		}
-	}
+    //eliminating possible 'null' of ext
+    if (ext && typeof ext === 'object') {
+        getOrPostKey = 'body';
+        getOrPostValue = JSON.stringify(ext);
+        method = 'POST';
+    } else {
+        myHeaders = new Headers({
+            'Content-Type': ext
+        });
+        getOrPostKey = 'headers';
+        getOrPostValue = myHeaders;
+        method = 'GET';
+    }
+
+    paramsOut = {
+        method,
+        [getOrPostKey]: getOrPostValue,
+    };
+
+    //if additional params are given, then to append them to 'params';
+    if (inDataParams && typeof inDataParams === 'object') {
+        //paramsOut = {...paramsOut, ...inDataParams};
+        paramsOut = Object.assign(paramsOut, inDataParams);
+    }
+
+    return fetch(url, paramsOut)
+        .then(status)
+        .then(handle);
+
+    function status( response ) {
+
+        log(response, 'response in fetch:');
+
+        if ( response.ok ) {
+            return Promise.resolve( response );
+        } else {
+            return Promise.reject(new Error( response.statusText ));
+        }
+    }
+
+    function handle( response ) {
+        if ( response.headers.get("Content-Type").includes('application/json') ) {
+            return response.json();
+        } else if ( response.headers.get("Content-Type").includes('text/html') ) {
+            return response.text();
+        }
+        else {
+            return URL.createObjectURL(response.blob());
+        }
+    }
 }
 
 /**@description it utilizes FileReader methods to read the file / blob as DataURL;
