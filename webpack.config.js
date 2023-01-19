@@ -7,6 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require('terser-webpack-plugin');
+const webpack = require('webpack');
 
 
 const filename = (ext) => isDev ? `[name].bundle.${ext}` : `[name].[fullhash].${ext}`;
@@ -37,9 +38,23 @@ const babelOption = preset => {
 
 const optimization = () => {
     const config = {
+        runtimeChunk: 'single',
         splitChunks: {
-            chunks: "all"
-        }
+            chunks: "all",
+            maxInitialRequests: Infinity,
+            minSize: 0,
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name(module) {
+                        const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+
+                        return `npm.${packageName.replace('@', '')}`;
+                    }
+                }
+            }
+        },
+        moduleIds: 'deterministic'
     };
     if (!isDev) {
         config.minimizer = [
@@ -55,7 +70,16 @@ module.exports = {
     context: path.resolve(__dirname, 'src'),
     mode: 'development',
     entry: {
-        main: './index.js'
+        main: './index.js',
+        App: '/containers/App/App.js',
+        AsideBar: '/containers/AsideBar/AsideBar.js',
+        ContentBar: '/containers/ContentBar/ContentBar.js',
+        AlertBlock: '/components/AlertBlock/AlertBlock.js',
+        AsideContent: '/components/AsideContent/AsideContent.js',
+        AsideItem: '/components/AsideItem/AsideItem.js',
+        Component: '/components/Component/Component.js',
+        ContentItem: '/components/ContentItem/ContentItem.js',
+        GraphBlock: '/components/GraphBlock/GraphBlock',
     },
     output: {
         //filename: '[name].bundle.js',
