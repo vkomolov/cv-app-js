@@ -124,8 +124,8 @@ module.exports = {
                     to: path.resolve(__dirname, 'dist/assets/pData/VKomolov_Eng22_CV_JS.pdf')
                 },
                 {
-                    from: path.resolve(__dirname, 'src/assets/img/vk.png'),
-                    to: path.resolve(__dirname, 'dist/assets/img/vk.png')
+                    from: path.resolve(__dirname, 'src/assets/img/vk.jpeg'),
+                    to: path.resolve(__dirname, 'dist/assets/img/vk.jpeg')
                 }
             ]
         }),
