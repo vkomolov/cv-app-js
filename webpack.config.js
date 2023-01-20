@@ -8,19 +8,28 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require('terser-webpack-plugin');
+const PostCssPresetEnvPlugin = require('postcss-preset-env');
 
 const target = isDev ? 'web' : 'browserslist';
 const devtool = isDev ? 'source-map' : undefined;
 
 const filename = (ext) => isDev ? `[name].bundle.${ext}` : `[name].[contenthash].${ext}`;
-const cssLoaders = (extraLoader) => {
+const cssLoaders = (...extraLoaderArr) => {
     const loaders = [
         isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-        'css-loader'
+        'css-loader',
+        {
+            loader: 'postcss-loader',
+            options: {
+                postcssOptions: {
+                    plugins: [PostCssPresetEnvPlugin],
+                }
+            }
+        },
     ]; //from right to left
 
-    if (extraLoader) {
-        loaders.push(extraLoader);
+    if (extraLoaderArr.length) {
+        extraLoaderArr.forEach(loader => loaders.push(loader));
     }
 
     return loaders;
