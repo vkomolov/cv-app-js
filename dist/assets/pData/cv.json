@@ -347,10 +347,10 @@
         },
         {
           "remark": "Advanced:",
-          "subheading": "TODO: to learn:",
+          "subheading": "TODO: advanced learn:",
           "li": [
-            "Node.js CMS Platforms",
-            "Node.js",
+            "Node.js, Headless CMS: Strapi",
+            "GraphQL",
             "MongoDB",
             "Payment APIs",
             "TypeScript"

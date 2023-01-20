@@ -45,6 +45,7 @@ AsideBar.renderData = function (innData) {
     });
 
     image = new Image();
+    image.alt = 'VK';
     image.src = photoUrl;
 
     ImageContainer = new Component({

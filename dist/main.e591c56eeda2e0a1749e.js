@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[179],{243:(e,a,t)=>{var s=new(t(616).Z)({htmlTagName:"div",attr:{className:"totalWrapper",id:"app"}});document.getElementById("root").append(s.getHTMLElem()),s.getAndRenderData("./assets/pData/cv.json",1e3)}},e=>{e.O(0,[278,23,505,975,847,127,222,177,421,820,616],(()=>{return a=243,e(e.s=a);var a}));e.O()}]);

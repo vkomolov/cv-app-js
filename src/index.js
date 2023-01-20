@@ -2,6 +2,7 @@
 
 import './styles/reset.css';
 import './styles/scss/index.scss';
+import './index.html';  //for listening for changes
 
 import App from './containers/App/App';
 

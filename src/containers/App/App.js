@@ -379,7 +379,7 @@ class App extends Component {
          * @param {HTMLElement} parent - the wrapper which will append {@link shownBar} top in the fixed position
          */
         function handleScrollEvent(parent) {
-            if (window.pageYOffset >= scrollPoint) {
+            if (window.scrollY >= scrollPoint) {
                 // if at previous check the shownBar was already appended then 'return' for optimizing
                 if (lastScrollPos < scrollPoint) {
                     parent.append(shownBar);

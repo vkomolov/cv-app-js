@@ -1,5 +1,6 @@
 const path = require('path');
-const isDev = process.env.NODE_ENV === 'development'; //to check the mode
+const curMode = process.env.NODE_ENV || 'development';
+const isDev = curMode === 'development'; //to check the mode
 
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
@@ -7,13 +8,14 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require('terser-webpack-plugin');
-const webpack = require('webpack');
 
+const target = isDev ? 'web' : 'browserslist';
+const devtool = isDev ? 'source-map' : undefined;
 
-const filename = (ext) => isDev ? `[name].bundle.${ext}` : `[name].[fullhash].${ext}`;
+const filename = (ext) => isDev ? `[name].bundle.${ext}` : `[name].[contenthash].${ext}`;
 const cssLoaders = (extraLoader) => {
     const loaders = [
-        MiniCssExtractPlugin.loader,
+        isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
         'css-loader'
     ]; //from right to left
 
@@ -68,7 +70,9 @@ const optimization = () => {
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
-    mode: 'development',
+    mode: curMode,
+    target,
+    devtool,
     entry: {
         main: './index.js',
         App: '/containers/App/App.js',
@@ -82,17 +86,9 @@ module.exports = {
         GraphBlock: '/components/GraphBlock/GraphBlock',
     },
     output: {
-        //filename: '[name].bundle.js',
         filename: filename('js'),
         path: path.resolve(__dirname, 'dist'),
-    },
-    resolve: {
-        extensions: ['.js', '.css', '.scss'],   //can write filenames without extensions
-        /*alias: {
-            "@models": path.resolve(__dirname, "./models/"),
-            "@": path.resolve(__dirname, 'src'),
-            "@assets": path.resolve(__dirname,"./assets/")
-        }*/
+        clean: true
     },
     optimization: optimization(),
     devServer: {
@@ -103,7 +99,7 @@ module.exports = {
     plugins: [
         new HTMLWebpackPlugin({
             title: "Vadim Komolov CV",  //default title, will be overwritten
-            template: './index.html',
+            template: path.resolve(__dirname, './src', 'index.html'),
             minify: {
                 collapseWhitespace: !isDev,
             }
@@ -136,11 +132,16 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
+                test: /\.html$/i,
+                loader: 'html-loader'
+
+            },
+            {
+                test: /\.css$/i,
                 use: cssLoaders()
             },
             {
-                test: /\.s[ac]ss$/,
+                test: /\.s[ac]ss$/i,
                 use: cssLoaders("sass-loader" )
             },
             {
