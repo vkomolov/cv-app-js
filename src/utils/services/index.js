@@ -81,15 +81,15 @@ export function initAxios(url, ext = 'json', inDataParams = null) {
      * @param {Object} resp
      * @param {Object} [resp.data] - if GET request, it receives 'data' property;
      * @returns {Promise} if responseType === blob, then to use FileReader by the inner func: {@link readFileAsDataUrl}
-     * or URL.createObjectURL...
-     * @todo to realize how optionally use FileReader or URL API for operating with the 'blob' responseType
+     * (URL.createObjectURL lives till window is closed, and is worthless in LocalStorage)...
      * else to return resp.data on GET request or resp on POST request;
      */
         .then(resp => {
             //if it is method GET and 'responseType' property exists...
             if (paramsOut.responseType) {
                 if (paramsOut.responseType === 'blob') {
-                    return URL.createObjectURL(resp.data);
+                    //return URL.createObjectURL(resp.data); //it is alive till window closes...
+                    return readFileAsDataUrl(resp.data);
                 }
                 return resp.data;
             }
@@ -113,7 +113,7 @@ export function initAxios(url, ext = 'json', inDataParams = null) {
 export function initFetch(url, ext = 'json', inDataParams = null) {
     let getOrPostKey, getOrPostValue, method, paramsOut, myHeaders;
 
-    //eliminating possible 'null' of ext
+    //eliminating possible 'null' of ext for typeof limitations on null...
     if (ext && typeof ext === 'object') {
         getOrPostKey = 'body';
         getOrPostValue = JSON.stringify(ext);
@@ -142,8 +142,12 @@ export function initFetch(url, ext = 'json', inDataParams = null) {
         .then(status)
         .then(handle);
 
+    /**
+     * it checks for the response status
+     * @param {Object} response
+     * @returns {Promise} resolve or reject
+     */
     function status( response ) {
-
         log(response, 'response in fetch:');
 
         if ( response.ok ) {
@@ -153,31 +157,37 @@ export function initFetch(url, ext = 'json', inDataParams = null) {
         }
     }
 
+    /**
+     * it handles the response with the account to the 'Content-Type'
+     * @param {Object} response
+     * @returns {*}
+     */
     function handle( response ) {
         if ( response.headers.get("Content-Type").includes('application/json') ) {
             return response.json();
-        } else if ( response.headers.get("Content-Type").includes('text/html') ) {
+        }
+        else if ( response.headers.get("Content-Type").includes('text/html') ) {
             return response.text();
         }
-        else {
-            return URL.createObjectURL(response.blob());
+        else if (response.headers.get("Content-Type").includes('image/jpeg')) {
+            //return URL.createObjectURL(response.blob());
+            return response.blob().then(blob => readFileAsDataUrl(blob));
         }
     }
 }
 
 /**@description it utilizes FileReader methods to read the file / blob as DataURL;
  * @async
- * @param {Object} file Blob or File
+ * @param {blob} file Blob or File
  * @returns {string} base64 encoded URL format
  * */
 async function readFileAsDataUrl( file ) {
-	const result_base64 = await new Promise( resolve => {
+	return await new Promise( resolve => {
+        let fileReader = new FileReader();
+        fileReader.onload = event => resolve(event.target.result);
 
-		let fileReader = new FileReader();
-		fileReader.onload = () => resolve(fileReader.result);
-	} );
-	
-	return result_base64;
+        return fileReader.readAsDataURL(file);
+    });
 }
 
 /**@description Converts the Date format to yyyy-mm-dd String

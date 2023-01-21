@@ -518,12 +518,9 @@ class App extends Component {
              */
             getAndStore(dataPath)
                 .then(data => {
-                    log(data, 'data fetched...');
-
                     return getAndStore(data['photoUrl'], 1, 'blob')
                         .then(objUrl => {
                             data['photoUrl'] = objUrl;
-
                             return data;
                         });
                 })

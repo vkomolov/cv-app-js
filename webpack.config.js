@@ -117,10 +117,6 @@ module.exports = {
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: path.resolve(__dirname, 'src/assets/img/cv.ico'),
-                    to: path.resolve(__dirname, 'dist/cv.ico')
-                },
-                {
                     from: path.resolve(__dirname, 'src/assets/pData/cv.json'),
                     to: path.resolve(__dirname, 'dist/assets/pData/cv.json')
                 },

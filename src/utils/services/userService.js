@@ -12,7 +12,6 @@ export const getAndStore = async ( path, timeLimit=1, extension='json' ) => {
 
     return await initAxios(path, extension)
         .then( data => {
-            //(Object.keys(data).length) && setLocalStorage( dataName, data );
             setLocalStorage( dataName, data );
             return data;
         } )
