@@ -353,7 +353,7 @@ class App extends Component {
         //if clicked on the new section elem then to change filter and run setter 'filter' with re-rendering elements...
         this.barOnScroll.getHTMLElem().addEventListener('click', (e) => {
             let target = e.target;
-            if (target.dataset.section !== this._filter) {
+            if (target.dataset.section && target.dataset.section !== this._filter) {
                 /**callback to App with changing setter filter and rerendering the elements with a new content**/
                 this.filter = target.dataset.section;
             }

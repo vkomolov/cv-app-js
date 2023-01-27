@@ -3,7 +3,6 @@ const curMode = process.env.NODE_ENV || 'development';
 const isDev = curMode === 'development'; //to check the mode
 
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
@@ -13,7 +12,7 @@ const PostCssPresetEnvPlugin = require('postcss-preset-env');
 const target = isDev ? 'web' : 'browserslist';
 const devtool = isDev ? 'source-map' : undefined;
 
-const filename = (ext) => isDev ? `[name].bundle.${ext}` : `[name].[contenthash].${ext}`;
+const filename = (ext) => isDev ? `[name].bundle.${ext}` : `[name].[contenthash:8].${ext}`;
 const cssLoaders = (...extraLoaderArr) => {
     const loaders = [
         isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -46,12 +45,10 @@ const babelOption = preset => {
 
     return options;
 };
-
 const optimization = () => {
     const config = {
         runtimeChunk: 'single',
         splitChunks: {
-            chunks: "all",
             maxInitialRequests: Infinity,
             minSize: 0,
             cacheGroups: {
@@ -59,9 +56,9 @@ const optimization = () => {
                     test: /[\\/]node_modules[\\/]/,
                     name(module) {
                         const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-
                         return `npm.${packageName.replace('@', '')}`;
-                    }
+                    },
+                    chunks: "all",
                 }
             }
         },
@@ -83,37 +80,33 @@ module.exports = {
     target,
     devtool,
     entry: {
-        main: './index.js',
-        App: '/containers/App/App.js',
-        AsideBar: '/containers/AsideBar/AsideBar.js',
-        ContentBar: '/containers/ContentBar/ContentBar.js',
-        AlertBlock: '/components/AlertBlock/AlertBlock.js',
-        AsideContent: '/components/AsideContent/AsideContent.js',
-        AsideItem: '/components/AsideItem/AsideItem.js',
-        Component: '/components/Component/Component.js',
-        ContentItem: '/components/ContentItem/ContentItem.js',
-        GraphBlock: '/components/GraphBlock/GraphBlock',
+        main: path.join(__dirname, 'src', 'index.js'),
     },
     output: {
         filename: filename('js'),
         path: path.resolve(__dirname, 'dist'),
-        clean: true
+        clean: true,
+        //assets which has no path in the loader settings
+        assetModuleFilename: 'asset/[hash][ext][query]',
     },
     optimization: optimization(),
     devServer: {
         port: 9000,
+        open: true,
+        compress: true,
         hot: true,
-        static: path.resolve(__dirname, './dist'),
+        watchFiles: path.resolve(__dirname, 'src'),
     },
     plugins: [
         new HTMLWebpackPlugin({
             title: "Vadim Komolov CV",  //default title, will be overwritten
             template: path.resolve(__dirname, './src', 'index.html'),
+            filename: 'index.html',
             minify: {
+                removeComments: !isDev,
                 collapseWhitespace: !isDev,
             }
         }),
-        new CleanWebpackPlugin(),
         new CopyWebpackPlugin({
             patterns: [
                 {
@@ -127,83 +120,83 @@ module.exports = {
                 {
                     from: path.resolve(__dirname, 'src/assets/img/vk.jpeg'),
                     to: path.resolve(__dirname, 'dist/assets/img/vk.jpeg')
-                }
-            ]
+                },
+/*                {
+                    from: path.resolve(__dirname, 'src/assets/fonts'),
+                    to: path.resolve(__dirname, 'dist/assets/fonts')
+                },*/
+            ],
         }),
         new MiniCssExtractPlugin({
-            filename: filename('css')
+            filename: 'styles/' + filename('css'),
         }),
     ],
     module: {
         rules: [
+            //loading html
             {
                 test: /\.html$/i,
-                loader: 'html-loader'
+                use: 'html-loader'
 
             },
+            //loading css
             {
                 test: /\.css$/i,
                 use: cssLoaders()
             },
+            //loading scss
             {
                 test: /\.s[ac]ss$/i,
                 use: cssLoaders("sass-loader" )
             },
-            {
-                test: /\.(png|jpe?g|gif)$/i,
-                loader: 'file-loader',
-                options: {
-                    name: '[path][name].[ext]',
-                },
-            },
+            //loading js
             {
                 test:   /\.js$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            babelOption()
-                        ],
-                    }
+                loader: 'babel-loader',
+                options: {
+                    presets: [
+                        babelOption()
+                    ],
+                },
+                type: 'javascript/auto',
+            },
+            //loading images
+            {
+                test: /\.(jpe?g|png|webp|gif)/i,
+                type: 'asset/resource',
+            },
+            //loading svg inline
+            {
+                test: /\.svg/i,
+                type: 'asset/inline',
+            },
+            //loading fonts
+            {
+                test: /\.(ttf|woff2?)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: `${path.join(__dirname, 'dist/assets/fonts/')}[name].[ext]`,
                 }
             },
-/*            {
-                test:   /\.ts$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            babelOption('@babel/preset-typescript')
-                        ],
-                    }
-                }
+            /*{
+                test: /\.(ttf|eot|woff|woff2)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: `./assets/fonts/[name].[ext]`,
+                            //publicPath: "assets",
+                        }
+                    },
+                ],
+                type: 'javascript/auto',
             },*/
-/*            {
-                test:   /\.jsx$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            babelOption('@babel/preset-react')
-                        ],
-                    }
-                }
-            },*/
+
 /*            {
                 test: /\.(ttf|eot|woff|woff2)$/,
                 use: ['file-loader'],
             },*/
-/*            {
-                test: /\.xml$/, //loader for xml files
-                use: ['xml-loader']
-            },*/
-/*            {
-                test: /\.csv$/, //loader for csv files
-                use: ['csv-loader']
-            }*/
         ]
     }
 };
