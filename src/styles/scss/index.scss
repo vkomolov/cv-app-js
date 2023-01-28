@@ -1,12 +1,11 @@
-@import "./global_styles/_fonts.scss";
 @import "./global_styles/_variables.scss";
 @import "./global_styles/_mixins.scss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 /////// STYLES ///////
 
 body {
-  font-family: "Roboto Regular", sans-serif;
-
+  font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /**** user-select: none; *****/

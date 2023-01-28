@@ -1,6 +1,6 @@
 {
   "fullName": "Vadim Komolov",
-  "photoUrl": "assets/img/vk.jpeg",
+  "photoUrl": "asset/img/vk.jpeg",
   "personal": {
     "aside": {
       "details": [
@@ -380,7 +380,7 @@
           "file": [
             {
               "title": "English CV download:",
-              "path": "./assets/pData/VKomolov_Eng22_CV_JS.pdf"
+              "path": "./asset/pData/VKomolov_Eng22_CV_JS.pdf"
             }
           ]
         }

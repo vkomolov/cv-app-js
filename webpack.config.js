@@ -4,14 +4,14 @@ const isDev = curMode === 'development'; //to check the mode
 
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require('terser-webpack-plugin');
-const PostCssPresetEnvPlugin = require('postcss-preset-env');
+//const PostCssPresetEnvPlugin = require('postcss-preset-env');
 
 const target = isDev ? 'web' : 'browserslist';
-const devtool = isDev ? 'source-map' : undefined;
-
+const devtool = isDev ? 'eval-source-map' : 'nosources-source-map';
 const filename = (ext) => isDev ? `[name].bundle.${ext}` : `[name].[contenthash:8].${ext}`;
 const cssLoaders = (...extraLoaderArr) => {
     const loaders = [
@@ -21,7 +21,12 @@ const cssLoaders = (...extraLoaderArr) => {
             loader: 'postcss-loader',
             options: {
                 postcssOptions: {
-                    plugins: [PostCssPresetEnvPlugin],
+                    //plugins: [PostCssPresetEnvPlugin],
+                    plugins: {
+                        'postcss-preset-env': {
+                            browsers: 'last 3 versions',
+                        },
+                    },
                 }
             }
         },
@@ -86,20 +91,28 @@ module.exports = {
         filename: filename('js'),
         path: path.resolve(__dirname, 'dist'),
         clean: true,
-        //assets which has no path in the loader settings
+        //asset which has no path in the loader settings
         assetModuleFilename: 'asset/[hash][ext][query]',
     },
     optimization: optimization(),
     devServer: {
         port: 9000,
-        open: true,
+        open: true, //open browser
+        devMiddleware: {
+            writeToDisk: true, // pack files to write to disk
+        },
         compress: true,
         hot: true,
-        watchFiles: path.resolve(__dirname, 'src'),
+/*        compress: true,
+        hot: true,
+        watchFiles: path.resolve(__dirname, 'src'),*/
+    },
+    watchOptions: {
+        ignored: /node_modules/,
     },
     plugins: [
         new HTMLWebpackPlugin({
-            title: "Vadim Komolov CV",  //default title, will be overwritten
+            title: "cv",  //default title, will be overwritten
             template: path.resolve(__dirname, './src', 'index.html'),
             filename: 'index.html',
             minify: {
@@ -107,23 +120,24 @@ module.exports = {
                 collapseWhitespace: !isDev,
             }
         }),
+        new CleanWebpackPlugin(),
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: path.resolve(__dirname, 'src/assets/pData/cv.json'),
-                    to: path.resolve(__dirname, 'dist/assets/pData/cv.json')
+                    from: path.resolve(__dirname, 'src/asset/pData/cv.json'),
+                    to: path.resolve(__dirname, 'dist/asset/pData/cv.json')
                 },
                 {
-                    from: path.resolve(__dirname, 'src/assets/pData/VKomolov_Eng22_CV_JS.pdf'),
-                    to: path.resolve(__dirname, 'dist/assets/pData/VKomolov_Eng22_CV_JS.pdf')
+                    from: path.resolve(__dirname, 'src/asset/pData/VKomolov_Eng22_CV_JS.pdf'),
+                    to: path.resolve(__dirname, 'dist/asset/pData/VKomolov_Eng22_CV_JS.pdf')
                 },
                 {
-                    from: path.resolve(__dirname, 'src/assets/img/vk.jpeg'),
-                    to: path.resolve(__dirname, 'dist/assets/img/vk.jpeg')
+                    from: path.resolve(__dirname, 'src/asset/img/vk.jpeg'),
+                    to: path.resolve(__dirname, 'dist/asset/img/vk.jpeg')
                 },
 /*                {
-                    from: path.resolve(__dirname, 'src/assets/fonts'),
-                    to: path.resolve(__dirname, 'dist/assets/fonts')
+                    from: path.resolve(__dirname, 'src/asset/fonts'),
+                    to: path.resolve(__dirname, 'dist/asset/fonts')
                 },*/
             ],
         }),
@@ -133,6 +147,10 @@ module.exports = {
     ],
     module: {
         rules: [
+            {
+                test: /\.txt$/i, // text
+                type: 'asset/source'
+            },
             //loading html
             {
                 test: /\.html$/i,
@@ -163,30 +181,54 @@ module.exports = {
             },
             //loading images
             {
+                test: /\.(png|jpe?g|gif|webp)$/i,
+                type: 'asset',
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 4096 // ограничение 4kb
+                    }
+                },
+                generator: {
+                    filename: 'asset/img/[hash:8][ext][query]' // все изображения в dist/img
+                }
+            },
+/*            {
                 test: /\.(jpe?g|png|webp|gif)/i,
                 type: 'asset/resource',
-            },
+            },*/
             //loading svg inline
             {
                 test: /\.svg/i,
                 type: 'asset/inline',
             },
             //loading fonts
-            {
-                test: /\.(ttf|woff2?)$/i,
+/*            {
+                test: /\.(woff2?|eot|ttf|otf)$/i,
                 type: 'asset/resource',
                 generator: {
-                    filename: `${path.join(__dirname, 'dist/assets/fonts/')}[name].[ext]`,
+                    filename: 'asset/fonts/[hash][ext][query]' // все шрифты в dist/font или build/font
                 }
+                //type: 'asset/inline',
+            },*/
+
+            {
+                test: /\.(ttf|eot|woff|woff2)$/i,
+                loader: 'file-loader',
+                options: {
+                    name: `[name].[ext]`,
+                    outputPath: 'asset/fonts/',
+                },
+                type: 'javascript/auto',
             },
-            /*{
+
+/*            {
                 test: /\.(ttf|eot|woff|woff2)$/i,
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
-                            name: `./assets/fonts/[name].[ext]`,
-                            //publicPath: "assets",
+                            name: `asset/fonts/[name].[ext]`,
+                            publicPath: "../../",
                         }
                     },
                 ],
