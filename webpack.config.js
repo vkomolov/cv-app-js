@@ -8,14 +8,21 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require('terser-webpack-plugin');
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 //const PostCssPresetEnvPlugin = require('postcss-preset-env');
+
 
 const target = isDev ? 'web' : 'browserslist';
 const devtool = isDev ? 'eval-source-map' : 'nosources-source-map';
 const filename = (ext) => isDev ? `[name].bundle.${ext}` : `[name].[contenthash:8].${ext}`;
 const cssLoaders = (...extraLoaderArr) => {
     const loaders = [
-        isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+        //isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+        isDev ? 'style-loader' : {
+            loader: MiniCssExtractPlugin.loader,
+            // required for asset imports in CSS, such as url()
+            options: { publicPath: "" },
+        },
         'css-loader',
         {
             loader: 'postcss-loader',
@@ -88,8 +95,11 @@ module.exports = {
         main: path.join(__dirname, 'src', 'index.js'),
     },
     output: {
-        filename: filename('js'),
         path: path.resolve(__dirname, 'dist'),
+        filename: (pathData) => {
+            return pathData.chunk.name === 'main' ? filename('js') : `[name]/${filename('js')}`;
+        },
+        //filename: filename('js'),
         clean: true,
         //asset which has no path in the loader settings
         assetModuleFilename: 'asset/[hash][ext][query]',
@@ -103,9 +113,6 @@ module.exports = {
         },
         compress: true,
         hot: true,
-/*        compress: true,
-        hot: true,
-        watchFiles: path.resolve(__dirname, 'src'),*/
     },
     watchOptions: {
         ignored: /node_modules/,
@@ -144,6 +151,7 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'styles/' + filename('css'),
         }),
+        //new BundleAnalyzerPlugin(),
     ],
     module: {
         rules: [
@@ -171,13 +179,23 @@ module.exports = {
             {
                 test:   /\.js$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
-                options: {
-                    presets: [
-                        babelOption()
-                    ],
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            babelOption()
+                        ],
+                        /**
+                         * From the docs: When set, the given directory will be used
+                         * to cache the results of the loader. Future webpack builds
+                         * will attempt to read from the cache to avoid needing to run
+                         * the potentially expensive Babel recompilation process on each run.
+                         */
+                        cacheDirectory: true,
+                    },
                 },
-                type: 'javascript/auto',
+
+
             },
             //loading images
             {
@@ -192,53 +210,19 @@ module.exports = {
                     filename: 'asset/img/[hash:8][ext][query]' // все изображения в dist/img
                 }
             },
-/*            {
-                test: /\.(jpe?g|png|webp|gif)/i,
-                type: 'asset/resource',
-            },*/
             //loading svg inline
             {
                 test: /\.svg/i,
                 type: 'asset/inline',
             },
             //loading fonts
-/*            {
-                test: /\.(woff2?|eot|ttf|otf)$/i,
-                type: 'asset/resource',
-                generator: {
-                    filename: 'asset/fonts/[hash][ext][query]' // все шрифты в dist/font или build/font
-                }
-                //type: 'asset/inline',
-            },*/
-
             {
                 test: /\.(ttf|eot|woff|woff2)$/i,
-                loader: 'file-loader',
-                options: {
-                    name: `[name].[ext]`,
-                    outputPath: 'asset/fonts/',
+                type: 'asset/resource',
+                generator: {
+                    filename: 'fonts/[name][ext]',
                 },
-                type: 'javascript/auto',
             },
-
-/*            {
-                test: /\.(ttf|eot|woff|woff2)$/i,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: `asset/fonts/[name].[ext]`,
-                            publicPath: "../../",
-                        }
-                    },
-                ],
-                type: 'javascript/auto',
-            },*/
-
-/*            {
-                test: /\.(ttf|eot|woff|woff2)$/,
-                use: ['file-loader'],
-            },*/
         ]
     }
 };
