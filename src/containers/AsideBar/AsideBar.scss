@@ -25,7 +25,7 @@
   }
 
   .imageContainer {
-    width: 100%;
+    max-width: 350px;
     margin: 20px auto;
     @include flex-box($flex-box-row-center...);
 

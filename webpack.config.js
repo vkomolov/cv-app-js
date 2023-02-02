@@ -11,20 +11,20 @@ const TerserWebpackPlugin = require('terser-webpack-plugin');
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 //const PostCssPresetEnvPlugin = require('postcss-preset-env');
 
-
 const target = isDev ? 'web' : 'browserslist';
 const devtool = isDev ? 'eval-source-map' : 'nosources-source-map';
 const filename = (ext) => isDev ? `[name].bundle.${ext}` : `[name].[contenthash:8].${ext}`;
 const cssLoaders = (...extraLoaderArr) => {
     const loaders = [
-        //isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+        //it injects styles to DOM
         isDev ? 'style-loader' : {
             loader: MiniCssExtractPlugin.loader,
             // required for asset imports in CSS, such as url()
             options: { publicPath: "" },
-        },
+        }, //turns css into js
         'css-loader',
         {
+            //adds prefixes to css
             loader: 'postcss-loader',
             options: {
                 postcssOptions: {
@@ -85,7 +85,6 @@ const optimization = () => {
     return config;
 };
 
-
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     mode: curMode,
@@ -97,9 +96,8 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: (pathData) => {
-            return pathData.chunk.name === 'main' ? filename('js') : `[name]/${filename('js')}`;
+            return pathData.chunk.name === 'main' ? filename('js') : `js/[name]/${filename('js')}`;
         },
-        //filename: filename('js'),
         clean: true,
         //asset which has no path in the loader settings
         assetModuleFilename: 'asset/[hash][ext][query]',
@@ -194,8 +192,6 @@ module.exports = {
                         cacheDirectory: true,
                     },
                 },
-
-
             },
             //loading images
             {

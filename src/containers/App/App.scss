@@ -1,14 +1,16 @@
-@import "../../styles/scss/global_styles/variables";
-@import "../../styles/scss/global_styles/mixins";
-@import "../../styles/scss/global_styles/animations";
+@import '../../styles/scss/global_styles/variables';
+@import '../../styles/scss/global_styles/mixins';
+@import '../../styles/scss/global_styles/animations';
+@import '../../styles/scss/global_styles/_media.scss';
 
 .totalWrapper {
   position: relative;
   width: 100%;
-  @include flex-box($flex-box-row-top...);
 
   font-size: 1rem;
   line-height: 1.2em;
+
+  @include flex-box($flex-box-row-top...);
 }
 
 .wrapper-on-scroll {

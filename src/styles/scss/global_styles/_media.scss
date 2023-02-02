@@ -1,0 +1,68 @@
+@import './_variables.scss';
+@import './_mixins.scss';
+
+
+@media screen and (max-width: 1920px) {
+}
+
+@media screen and (max-width: 1680px) {
+}
+
+@media screen and (max-width: 1440px) {
+}
+
+@media screen and (max-width: 1366px) {
+}
+
+@media screen and (max-width: 1280px) {
+}
+
+@media screen and (max-width: 1024px) {
+
+}
+
+@media screen and (max-width: 992px) {
+
+}
+//spec media
+@media screen and (max-width: 875px) {
+  .totalWrapper {
+    //@include flex-box($flex-box-col-top...);
+    flex-direction: column !important;
+    align-items: center !important;
+
+    border: 1px dotted red;
+  }
+}
+
+@media screen and (max-width: 800px) {
+
+}
+
+@media screen and (max-width: 782px) {
+
+}
+
+@media screen and (max-width: 768px) {
+
+}
+
+@media screen and (max-width: 600px) {
+
+}
+
+@media screen and (max-width: 568px) {
+
+}
+
+@media screen and (max-width: 425px) {
+
+}
+
+@media screen and (max-width: 375px) {
+
+  }
+
+@media screen and (max-width: 320px) {
+
+}

@@ -1,7 +1,6 @@
 'use strict';
 
 import Component from "../../components/Component/Component";
-
 import './App.scss';
 import { getAndStore } from '../../utils/services/userService';
 import { equalCols } from '../../utils/services/index';
@@ -518,6 +517,11 @@ class App extends Component {
              */
             getAndStore(dataPath)
                 .then(data => {
+                    /**
+                     * on fetching the data it takes data['photoUrl'] and additionally fetches the blob from this url,
+                     * then reading by File-Reader it re-sets the value of data['photoUrl'] and finally returns the
+                     * updated data
+                     */
                     return getAndStore(data['photoUrl'], 1, 'blob')
                         .then(objUrl => {
                             data['photoUrl'] = objUrl;

@@ -88,7 +88,7 @@
           "details": [
             {
               "title": "HTML",
-              "details": "85"
+              "details": "90"
             },
             {
               "title": "CSS",
@@ -104,11 +104,11 @@
             },
             {
               "title": "PHP",
-              "details": "85"
+              "details": "75"
             },
             {
               "title": "MySql",
-              "details": "85"
+              "details": "80"
             }
           ]
         },
@@ -142,7 +142,7 @@
           "details": [
             {
               "title": "PHP Storm, Web Storm",
-              "details": "85"
+              "details": "90"
             },
             {
               "title": "GIT",
