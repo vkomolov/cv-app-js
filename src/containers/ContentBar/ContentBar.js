@@ -27,16 +27,18 @@ ContentBar.renderData = function(innData) {
     if (filterActive && data[filterActive]) {
         contentData = data[filterActive][this.dataName];
         specClassName = filterActive === 'personal' ? 'personal-spec' : null;
+
     } else {
         dispatchAlert('error', new Error(`filter ${filterActive} is not in the list of filters`));
     }
 
     /** heading **/
     if (contentData['title']) {
+        let classOut = specClassName && ('heading' + ' ' + specClassName) || 'heading';
        HeadingElem = new Component({
            htmlTagName: 'h2',
            attr: {
-               className: 'heading'
+               className: classOut,
            },
            innerHTML: contentData['title'],
        });

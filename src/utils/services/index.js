@@ -216,7 +216,11 @@ export function numFormat(num, decimal) {
  * @param {...Object} elemsArr of the HTMLElements
  */
 export function equalCols(...elemsArr) {   //for making DOM elems` height to be equal. Put them in array elemsArr
-	let highestCal = 0;
+	//adaptive styles for the screen with less or equal 875px
+    if (window.innerWidth <= 875) {
+        return;
+    }
+    let highestCal = 0;
 
 	for (let i = 0; i < elemsArr.length; i++) {
 	    /**resetting the heights of the elements to 'auto' after rerendering the elements**/

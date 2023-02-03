@@ -7,7 +7,7 @@ import AsideItem from "../AsideItem/AsideItem";
 const AsideContent = new Component({
     htmlTagName: 'div',
     attr: {
-        className:'topWrapper',
+        className:'personal-section-wrapper',
     },
 });
 

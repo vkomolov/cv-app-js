@@ -7,20 +7,23 @@
 
   align-items: flex-start;
   flex-wrap: nowrap;
-  margin: 20px auto;
+  margin: 1.2em 0;
 
 
   .remarkCol {
-    width: 70px;
+    box-sizing: border-box;
+    padding: 0.2em 0.5em;
+    width: 5em;
 
     .remark {
       display: block;
-      @include init-font(12px, 18px);
+      @include init-font(0.75em, 400);
+      line-height: 1.1em;
     }
   }
 
   .contentBlock {
-/*    flex-basis: 80%;*/
+    //flex-basis: 80%;
     flex-grow: 1;
 
 

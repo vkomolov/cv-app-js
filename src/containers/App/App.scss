@@ -4,10 +4,9 @@
 @import '../../styles/scss/global_styles/_media.scss';
 
 .totalWrapper {
+  //font-size is in #root with rem, which is changed by media queries
   position: relative;
   width: 100%;
-
-  font-size: 1rem;
   line-height: 1.2em;
 
   @include flex-box($flex-box-row-top...);
@@ -26,8 +25,8 @@
   @include transition();
 
   .bar-on-scroll {
-    width: 100%;
-    max-width: $maxWidth;
+    //width: 100%;
+    //max-width: $maxWidth;
     padding: 5px 25px;
     margin: 0 auto;
     background: linear-gradient(90deg, $white, $foxy);

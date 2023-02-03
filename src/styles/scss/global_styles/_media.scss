@@ -26,12 +26,44 @@
 }
 //spec media
 @media screen and (max-width: 875px) {
+  #root {
+    font-size: 0.9rem !important;
+  }
+
+  .totalWrapper {
+
+  }
+  .asideBar {
+    width: 100% !important;
+    height: fit-content !important;
+    min-height: unset !important;
+
+    .hero-name {
+      margin-bottom: 0.5em;
+    }
+  }
+
+  .aside-item-wrapper {
+    padding: 0 0.5em;
+  }
+
   .totalWrapper {
     //@include flex-box($flex-box-col-top...);
     flex-direction: column !important;
     align-items: center !important;
+  }
 
-    border: 1px dotted red;
+  .imageContainer {
+    align-items: flex-start !important;
+  }
+
+  .contentBar {
+    width: 100%;
+    padding-left: 1.4em !important;
+
+    .heading {
+      padding-left: 0 !important;
+    }
   }
 }
 
@@ -60,8 +92,7 @@
 }
 
 @media screen and (max-width: 375px) {
-
-  }
+}
 
 @media screen and (max-width: 320px) {
 

@@ -3,7 +3,6 @@
 
 
 .aside-item-wrapper {
-  width: 100%;
   text-align: left;
 
   h3 {
@@ -21,7 +20,7 @@
 
   .subHeading {
     display: block;
-    margin:10px auto 5px;
+    margin:15px auto 5px;
   }
 
   .subDetails {
@@ -29,7 +28,7 @@
   }
 
   .graph-section {
-
+    max-width: 225px;
   }
 
   .graph-wrapper {

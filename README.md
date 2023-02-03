@@ -3,21 +3,18 @@ dynamically from the JSON file, which is fetched from the server,
  when the empty page is rendered.
 
 ## Task: 
-- To use vanilla JS, but following the principles of re-rendering the page 
-on changing the value/state/filters of the data;
-- Resembling React, to implement Classes/Components, which shall comprise the logic and 
-the markup/styles of the App;
-- Each Class can return the HTMLElement as a component | container and has the
-methods to handle the corresponding data;
-- Finally, bundled in the App container, it will be appended to 
-the '#root' DOM Element of the initial empty page;
+- 'Using vanilla JS, without libraries, to realize the CV App which will dynamically construct ' +
+  'the HTMLElements from the fetched JSON file, and re-render the HTMLElements on changing the value/state of the ' +
+  'data or filters. Resembling React, to implement Classes/Components, which shall comprise the logic and the ' +
+  'markup/styles of the App. The link to the code is available in the section "Experience"... ';
+- The Class/Component can return the HTMLElement and has the methods to handle the corresponding data;
+- Finally, bundled in the App container, it will be appended to the '#root' DOM Element of the initial empty page;
 - No hardcoded names and elements UI: <br>
-All the UI elements (lists, paragraphs, filters, etc) should be rendered 
-according to the JSON data;
+All the UI elements (lists, paragraphs, filters, etc) should be rendered according to the JSON data;
 - The initial render of the App is empty with the only 'loading' icon;
-- to set the LocalStorage with the JSON data for the future sessions;
-- to renew the LocalStorage, if the creation date of the LocalStorage
- is more than 1 day;  
+- to set the LocalStorage with the fetched JSON data for the future sessions;
+- to set the LocalStorage with the image, fetched from the JSON data url and read with FileReader;
+- to renew the LocalStorage, if the creation date of the LocalStorage is more than 1 day;  
 - to equalize the heights of the page`s columns, according to the content,
  rendered in the columns: <br> 
  if one column is higher, then to make another column of the same height;
@@ -27,6 +24,7 @@ The pdf files for the <a> links should be fetched and stored separately;
 - Fetched pdf files should be stored in the LocalStorage for the next sessions;
 The files should be also validated with the creation date and restored if
 necessary;
+- to make adoptive html on desktop and mobile screens;
 - to imitate the loading time, showing the loading icon, when fetching the data;
 - on choosing the filter, the components must be re-rendered with the new data;
 - to visually demonstrate the level of knowledge and skills with the indicating

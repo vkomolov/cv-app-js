@@ -6,29 +6,36 @@
   flex-grow: 1;
   flex-basis: 450px;
   color: $blue;
-  padding-left: 45px;
-  padding-bottom: 25px;
-
+  padding-left: 1.8em;
+  padding-bottom: 2em;
 
   .heading {
-    letter-spacing: 2px;
+    letter-spacing: 0.13em;
     background: linear-gradient(90deg, $white, $foxy);
     @include text-shadow(1px, 2px);
-    @include init-font(28px, 700);
+    //@include init-font(1.6em, 700);
+    font: {
+      size: 1.6em;
+      weight: 700;
+    }
 
-    padding: 20px 0;
-    padding-left: 65px;
+    padding: 1em 0;
+
+    &.personal-spec {
+      text-align: center;
+    }
   }
 
   .contentWrapper {
     position: relative; //for loading icon
 
     @include scroll-init(5px, $blueDark, $foxyGrey);
-    @include init-font(16px, 400);
+    //@include init-font(16px, 400);
 
     &.personal-spec {
       max-width: 555px;
-      line-height: 25px;
+      line-height: 1.5em;
+      margin: 1em auto;
     }
   }
 }

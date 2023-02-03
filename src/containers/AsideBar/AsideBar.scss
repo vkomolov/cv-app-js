@@ -4,20 +4,22 @@
 
 .asideBar {
   position: relative;
-  width: 270px;
-  min-height: 970px;
+  //width: 270px;
+  flex-basis: 270px;
+  min-height: 1020px;
   color: $white;
-  background-color: $blue;
-/*  box-shadow: inset 5px 5px 3px $white,
-  inset -5px -5px 3px $white;*/
-  padding: 25px;
+  background-color: $blueDark;
+  padding: 1.4em;
   user-select: text;
   cursor: default;
 
-  h1 {
+  @include flex-box($flex-box-row-top...);
+
+  .hero-name {  //:)
     @include init-font(22px, 700);
     @include text-shadow(2px, 4px);
 
+    width: 100%;  //it will take all the raw of the container in flex
     color: $foxy;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -26,7 +28,7 @@
 
   .imageContainer {
     max-width: 350px;
-    margin: 20px auto;
+    margin: 20px 0;
     @include flex-box($flex-box-row-center...);
 
     img {
@@ -36,14 +38,14 @@
 
 
 }
-/*this block will be inside asideBar and outside when scroll event*/
+
 .sectionList {
   .sectionName {
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 5px;
 
-    @include init-font(20px, 700);
+    @include init-font(1.25em, 700);
     @include text-shadow(3px, 4px);
     @include transition();
 

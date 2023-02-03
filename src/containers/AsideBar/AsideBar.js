@@ -38,9 +38,14 @@ AsideBar.renderData = function (innData) {
     let SectionList;
     //prepared data for sending to the children
     let dataAside;
+    //for adoptive HTML making additional container
+    let ImageSectionContainer;
 
     HeadingFullName = new Component({
         htmlTagName: 'h1',
+        attr: {
+            className: 'hero-name', //:)
+        },
         innerHTML: fullName,
     });
 
@@ -95,10 +100,19 @@ AsideBar.renderData = function (innData) {
         }
     });
 
+    //for adoptive html creating additional containers...
+    ImageSectionContainer = new Component({
+        htmlTagName: 'div',
+        attr: {
+            className: 'image-section-container',
+        },
+        innerHTML: [ImageContainer, SectionList],
+    });
+
     if (filterActive && innerData[filterActive]) {
         dataAside = innerData[filterActive][this.dataName];
 
-        this.setInnerHTML(HeadingFullName, ImageContainer, SectionList, AsideContent.renderData(dataAside));
+        this.setInnerHTML(HeadingFullName, ImageSectionContainer, AsideContent.renderData(dataAside));
 
     } else {
         dispatchAlert('error', new Error(`filter ${filterActive} is not in the list of filters`));
