@@ -10,12 +10,11 @@ const AlertBlock = new Component({
 
 AlertBlock.renderData = function (innData) {
 
-    log(innData, 'innData inside AlertBlock');
+    //log(innData, 'innData inside AlertBlock');
 
     const {type, contentArr} = innData;
     //log(contentArr, 'data inside AlertBlock');
     if (Array.isArray(contentArr) && contentArr.length) {
-        //log('dataLength accepted');
         const alertContentArr = contentArr.map(text => {
             let className = null;
             if (type === 'error') {

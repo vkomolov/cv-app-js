@@ -5,6 +5,8 @@ import './App.scss';
 import { getAndStore } from '../../utils/services/userService';
 import { equalCols } from '../../utils/services/index';
 
+import loadingIcon from '../../asset/img/loadingIcon.svg';
+
 //components
 import AsideBar from "../AsideBar/AsideBar";
 import ContentBar from "../ContentBar/ContentBar";
@@ -67,6 +69,13 @@ class App extends Component {
             contentArr: [],
         };
 
+        this._loadingIcon = new Component({
+            htmlTagName: 'img',
+            attr: {
+                src: loadingIcon,
+            }
+        });
+
         /**
          * new Component, which wraps the section links and to be appeared on top in the fixed position
          * on scroll-down event...
@@ -101,7 +110,7 @@ class App extends Component {
                 /**
                  * if still no data loaded, then to dispatch alert with type='loading'
                  */
-                this.dispatchAlert('loading', ['Loading...']);
+                this.dispatchAlert('loading', this._loadingIcon.getHTMLElem());
             }
     }
 ///////////////// END OF CONSTRUCTOR /////////////////
@@ -532,6 +541,9 @@ class App extends Component {
                     this._data = data;
                     //clearing the previous alerts
                     this.alertClear();
+
+                    //this.dispatchAlert('error', new Error('TESTING...'));
+                    //this.dispatchAlert('loading', this._loadingIcon.getHTMLElem());
 
                     //re-rendering the elements with the new and prepared data
                     this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));

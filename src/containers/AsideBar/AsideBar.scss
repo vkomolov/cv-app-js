@@ -4,16 +4,18 @@
 
 .asideBar {
   position: relative;
-  //width: 270px;
-  flex-basis: 270px;
-  min-height: 1020px;
+  //width: 17em;
+  flex-basis: 17em;
+  min-height: 1100px; //for the starting loading empty page
   color: $white;
-  background-color: $blueDark;
-  padding: 1.4em;
+  background-color: $blue;
+  padding: 1.7em 1.4em;
   user-select: text;
   cursor: default;
 
-  @include flex-box($flex-box-row-top...);
+  @include flex-box($flex-box-col-top...);
+  align-items: flex-start;
+  flex-wrap: nowrap;
 
   .hero-name {  //:)
     @include init-font(22px, 700);
@@ -27,8 +29,8 @@
   }
 
   .imageContainer {
-    max-width: 350px;
-    margin: 20px 0;
+    max-width: 22em;
+    margin: 1.2em 0;
     @include flex-box($flex-box-row-center...);
 
     img {
@@ -42,8 +44,8 @@
 .sectionList {
   .sectionName {
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 5px;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.2em;
 
     @include init-font(1.25em, 700);
     @include text-shadow(3px, 4px);

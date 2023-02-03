@@ -34,11 +34,10 @@ ContentBar.renderData = function(innData) {
 
     /** heading **/
     if (contentData['title']) {
-        let classOut = specClassName && ('heading' + ' ' + specClassName) || 'heading';
        HeadingElem = new Component({
            htmlTagName: 'h2',
            attr: {
-               className: classOut,
+               className: 'heading',
            },
            innerHTML: contentData['title'],
        });

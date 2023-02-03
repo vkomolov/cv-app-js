@@ -1,45 +1,47 @@
 @import './_variables.scss';
 @import './_mixins.scss';
 
-
-@media screen and (max-width: 1920px) {
+/*@media screen and (max-width: 1920px) {
 }
-
 @media screen and (max-width: 1680px) {
 }
-
 @media screen and (max-width: 1440px) {
 }
-
 @media screen and (max-width: 1366px) {
 }
-
 @media screen and (max-width: 1280px) {
-}
+}*/
 
 @media screen and (max-width: 1024px) {
-
-}
-
-@media screen and (max-width: 992px) {
-
-}
-//spec media
-@media screen and (max-width: 875px) {
   #root {
     font-size: 0.9rem !important;
   }
+}
 
-  .totalWrapper {
+/*@media screen and (max-width: 992px) {
 
+}*/
+
+@media screen and (max-width: 800px) {
+
+}
+
+@media screen and (max-width: 782px) {
+
+}
+
+@media screen and (max-width: 768px) {
+  #root {
+    font-size: 0.8rem !important;
   }
+
   .asideBar {
     width: 100% !important;
     height: fit-content !important;
     min-height: unset !important;
 
     .hero-name {
-      margin-bottom: 0.5em;
+      margin-bottom: 1em;
     }
   }
 
@@ -59,41 +61,25 @@
 
   .contentBar {
     width: 100%;
-    padding-left: 1.4em !important;
+    padding-left: 0 !important;
 
     .heading {
-      padding-left: 0 !important;
+      //padding-left: 0 !important;
     }
   }
 }
 
-@media screen and (max-width: 800px) {
-
-}
-
-@media screen and (max-width: 782px) {
-
-}
-
-@media screen and (max-width: 768px) {
-
-}
-
 @media screen and (max-width: 600px) {
-
 }
 
 @media screen and (max-width: 568px) {
-
 }
 
 @media screen and (max-width: 425px) {
-
 }
 
 @media screen and (max-width: 375px) {
 }
 
 @media screen and (max-width: 320px) {
-
 }

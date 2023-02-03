@@ -4,11 +4,12 @@
 
 .aside-item-wrapper {
   text-align: left;
+  padding: 0.5em 0 1em;
 
   h3 {
     color: $foxyGrey;
     letter-spacing: 1px;
-    margin: 15px auto 3px;
+    //margin: 1em auto 3px;
     @include text-shadow(2px, 3px);
   }
 
