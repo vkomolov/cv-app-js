@@ -4,32 +4,34 @@
 
 .contentBar {
   flex-grow: 1;
-  flex-basis: 450px;
+  flex-basis: 30em;
   color: $blue;
   padding-left: 1.8em;
+  padding-right: 0.5em;
   padding-bottom: 2em;
 
   .heading {
     letter-spacing: 0.13em;
     background: linear-gradient(90deg, $white, $foxy);
-    @include text-shadow(1px, 2px);
-    //@include init-font(1.6em, 700);
-    font: {
-      size: 1.6em;
-      weight: 700;
-    }
 
-    padding: 1em 0;
+    @include text-shadow(0.07em, 0.1em);
+    @include init-font(1.5em, 700);
+
+    padding: 0.9em 0;
   }
 
   .contentWrapper {
     position: relative; //for loading icon
 
     @include scroll-init(5px, $blueDark, $foxyGrey);
-    //@include init-font(16px, 400);
+    @include flex-box($flex-box-row-left...);
+
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    margin: 1.2em 0;
 
     &.personal-spec {
-      max-width: 555px;
+      max-width: 40em;
       line-height: 1.5em;
       margin: 1em auto;
     }

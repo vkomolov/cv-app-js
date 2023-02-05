@@ -7,16 +7,16 @@
   //font-size is in #root with rem, which is changed by media queries
   position: relative;
   width: 100%;
-  line-height: 1.2em;
 
   @include flex-box($flex-box-row-top...);
 }
 
 .wrapper-on-scroll {
   position: fixed;
-  width: 100%;
+  width: calc(100% - 1em);
   top: -100px;
   left: 0;
+  margin: 0 0.5em;
 
   &.scroll-active {
     top: 0;
@@ -25,9 +25,6 @@
   @include transition();
 
   .bar-on-scroll {
-    //width: 100%;
-    //max-width: $maxWidth;
-    //padding: 5px 25px;
     margin: 0;
     background: linear-gradient(90deg, $white, $foxy);
     opacity: 0.97;
@@ -35,16 +32,19 @@
     @include flex-box($flex-box-row-left...);
 
     .elem-on-scroll {
+      display: inline-block;
+
       @include init-font(1.2em, 700);
       @include text-shadow(0.11em, 0.2em);
       @include transition(all, 0.2s);
 
       text-transform: uppercase;
-      letter-spacing: 2px;
-      margin: 5px 10px;
+      letter-spacing: 0.08em;
+      padding: 0.25em;
 
       &.toBeHovered:hover {
-        transform: translateY(-3px);
+        //transform: translateY(0.5em);
+        transform: scale(1.05);
         cursor: pointer;
         color: $foxy;
       }
@@ -60,27 +60,25 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: calc(100% - 40px);
-  height: 30px;
-  margin: 0 20px;
+  width: calc(100% - 1em);
+  height: 1.5em;
+  margin: 0 0.5em;
   overflow: hidden;
 
   @include transition('left', 5s);
 
   .scrolling-text {
+    margin: 0;
     position: absolute;
     top: 0;
     //left: will be assigned with JS for scrolling text from the right side of the parent to the left
     width: max-content;
     color: $violet;
-
-
-
     font: {
       size: 1em;
       weight: 700;
     }
-    line-height: 2em;
+    line-height: 1.5em;
     letter-spacing: 0.04em;
   }
 }

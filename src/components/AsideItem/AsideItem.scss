@@ -3,14 +3,13 @@
 
 
 .aside-item-wrapper {
-  text-align: left;
-  padding: 0.5em 0 1em;
+  padding-bottom: 1em;
 
   h3 {
     color: $foxyGrey;
-    letter-spacing: 1px;
-    //margin: 1em auto 3px;
-    @include text-shadow(2px, 3px);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3em;
+    @include text-shadow(0.17em, 0.2em);
   }
 
   .spanDetails {
@@ -21,7 +20,7 @@
 
   .subHeading {
     display: block;
-    margin:15px auto 5px;
+    margin-bottom: 0.3em;
   }
 
   .subDetails {
@@ -29,7 +28,8 @@
   }
 
   .graph-section {
-    max-width: 225px;
+    max-width: 17em;
+    padding: 0.28em 0;
   }
 
   .graph-wrapper {

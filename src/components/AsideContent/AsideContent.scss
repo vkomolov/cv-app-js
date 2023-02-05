@@ -2,7 +2,7 @@
 @import "../../styles/scss/global_styles/mixins";
 
 .segment-block-wrapper {
-  margin: 10px auto;
+  margin: 10px 0;
   //@include scroll-init(5px, $foxyGrey, $blueDark);
 
   .segment-block {

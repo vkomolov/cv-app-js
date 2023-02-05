@@ -5,10 +5,6 @@
     "aside": {
       "details": [
         {
-          "title": "Citizenship",
-          "details": "Kyiv, Ukraine"
-        },
-        {
           "title": "Cellular",
           "details": "+(380) 66 350-61-04"
         },
@@ -62,15 +58,13 @@
       "title": "Covering Letter",
       "details": [
         {
-          "remark": null,
-          "subheading": null,
           "p": [
             "Dear Sirs,",
-            "I have worked in the sales & marketing management, structuring, operating & analyzing the business and market data, for more than 15 years.",
+            "I have worked in the sales \u0026 marketing management, structuring, operating \u0026 analyzing the business and market data, for more than 15 years.",
             "Gaining a wealth of knowledge and skills in the management and data analysis, I combined them with my natural inclination to programming: creating something from the idea and the algorithm of its realisation...",
             "In programming the construction of the algorithms for performing tasks turned out to resemble the business management in planning with a clearly defined tasks weighed, splitting of responsibility and functionality to the elementary operations and processes.",
             "The same SOLID principles of the object-oriented programming lay on the thoroughly constructed business management",
-            "It happens that some apps suffer not only adaptability, but also their imbalance in programming, using 'big' for the 'little': overloaded with many libraries for a couple of simple methods...",
+            "It happens that some apps suffer not only adaptability, but also their imbalance in programming, using \u0027big\u0027 for the \u0027little\u0027: overloaded with many libraries for a couple of simple methods...",
             "Achieving the most efficiency with smallest cost - is a worth challenge...",
             "Knowing the rules is the vital goal, but to overcome the rules is a thorny and educational path, which bears creativity, originality and natural beauty.",
             "Sincerely,",
@@ -171,7 +165,7 @@
           ]
         },
         {
-          "title": "Sales & Marketing Management",
+          "title": "Sales \u0026 Marketing Management",
           "details": [
             {
               "title": "Product Management",
@@ -205,28 +199,28 @@
         {
           "remark": "1997 - till Apr 2022",
           "subheading": "Non IT / partial IT Experience",
-          "comments": "Sales and Marketing management, data analysis & planning in B2B",
+          "comments": "Sales and Marketing management, data analysis \u0026 planning in B2B",
           "li": [
             "Analysis of Business and Marketing data, statistics, positioning;",
             "Product and Distribution Management;",
             "Creating the visual and text content for the corporate catalogs, tech-lists, web...;",
             "Creating and support of the data base on Power Pivot, Power Querry, DAX;",
-            "Sales & Marketing Management;"
+            "Sales \u0026 Marketing Management;"
           ]
         },
         {
           "remark": "Non-IT",
           "subheading": "Achievements",
-          "comments" : "corporate awards",
+          "comments": "corporate awards",
           "li": [
-            "3M International Sales & Marketing Professional Award;",
-            "Team & Department Awards on exceptional results;"
+            "3M International Sales \u0026 Marketing Professional Award;",
+            "Team \u0026 Department Awards on exceptional results;"
           ]
         },
         {
           "remark": "Git:",
           "subheading": "Some samples of the code:",
-          "comments" : "links: ",
+          "comments": "links: ",
           "a": [
             {
               "title": "CV on JS, rendered from fetching JSON",
@@ -255,6 +249,24 @@
             {
               "title": "Product Catalog AdobeIndesign (Copywriting, Design)",
               "path": "https://github.com/vkomolov/AdobeIndesign-Catalog"
+            }
+          ]
+        },
+        {
+          "remark": "Some:",
+          "subheading": "REALISATION",
+          "a": [
+            {
+              "title": "PostIt Application on React (Demo)",
+              "path": "https://vkomolov.github.io/post-it/"
+            },
+            {
+              "title": "cartForm_Gulp4_SCSS_ES2015 (Demo)",
+              "path": "https://vkomolov.github.io/cartForm_Gulp4_SCSS_ES2015/"
+            },
+            {
+              "title": "Filtering data on React (Demo)",
+              "path": "https://vkomolov.github.io/React_Filter_ModuleWork/"
             }
           ]
         }
@@ -354,24 +366,6 @@
             "MongoDB",
             "Payment APIs",
             "TypeScript"
-          ]
-        },
-        {
-          "remark": "Some:",
-          "subheading": "REALISATION",
-          "a": [
-            {
-              "title": "PostIt Application on React (Demo)",
-              "path": "https://vkomolov.github.io/post-it/"
-            },
-            {
-              "title": "cartForm_Gulp4_SCSS_ES2015 (Demo)",
-              "path": "https://vkomolov.github.io/cartForm_Gulp4_SCSS_ES2015/"
-            },
-            {
-              "title": "Filtering data on React (Demo)",
-              "path": "https://vkomolov.github.io/React_Filter_ModuleWork/"
-            }
           ]
         },
         {
