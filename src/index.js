@@ -18,7 +18,9 @@ const root = document.getElementById('root');
 root.append(rootApp.getHTMLElem());
 rootApp.getAndRenderData('./asset/pData/cv.json', 1000);
 
-////  dev  /////////////////////////////
+
+
+///////////////// dev
 function log(it, comments='value: ') {
     console.log(comments, it);
 }
