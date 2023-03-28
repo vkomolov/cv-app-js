@@ -223,11 +223,11 @@
           "comments": "links: ",
           "a": [
             {
-              "title": "CV on JS, rendered from fetching JSON",
-              "path": "https://github.com/vkomolov/cv-app"
+              "title": "CV on JS, rendered from fetched JSON",
+              "path": "https://github.com/vkomolov/cv-app-js"
             },
             {
-              "title": "CV on React, rendered from fetching JSON",
+              "title": "CV on React, rendered from fetched JSON",
               "path": "https://github.com/vkomolov/cv-app"
             },
             {
