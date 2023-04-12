@@ -50,7 +50,7 @@ export default class ContentItem extends Component {
                             className: 'link',
                             href: it.path,
                             target: '_blank',
-                            rel: 'noopener noreferrer',
+                            rel: 'noreferrer noopener nofollow',
                         },
                         innerHTML: it.title,
                     }),

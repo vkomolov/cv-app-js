@@ -1,8 +1,8 @@
 'use strict';
 
-import "./AsideBar.scss";
-import Component from "../../components/Component/Component";
-import AsideContent from "../../components/AsideContent/AsideContent";
+import './AsideBar.scss';
+import Component from '../../components/Component/Component';
+import AsideContent from '../../components/AsideContent/AsideContent';
 
 /**
  * it is scalable and can be added with additional, special for the AsideBar functionality with adding own methods...
@@ -10,12 +10,12 @@ import AsideContent from "../../components/AsideContent/AsideContent";
  * @type {Component}
  * **/
 const AsideBar = new Component({
-    htmlTagName: "div",
+    htmlTagName: 'div',
     attr: {
-        className: "asideBar",
+        className: 'asideBar',
     }
 });
-AsideBar.dataName = 'aside';
+AsideBar['dataName'] = 'aside';
 
 /**
  * It receives the fetched data, active filter and the callbacks:
@@ -24,7 +24,7 @@ AsideBar.dataName = 'aside';
  * It creates the elements and writes the data to innerHTML
  *
  */
-AsideBar.renderData = function (innData) {
+AsideBar['renderData'] = function (innData) {
     const {dispatchAlert, setFilter, filterActive, data} = innData;
     const {fullName, photoUrl, ...innerData} = data;
 

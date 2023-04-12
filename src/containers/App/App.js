@@ -331,7 +331,7 @@ class App extends Component {
         });
 
         /**
-         * it removes the previous styles of the filters in the bar and applies new ones with the new acitve filter
+         * it removes the previous styles of the filters in the bar and applies new ones with the new active filter
          * @param {string} activeFilter, which is currently chosen/clicked
          * it is the value, which must be one of {@link this._filterOption}
          * @example

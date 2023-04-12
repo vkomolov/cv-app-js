@@ -9,15 +9,16 @@ import ContentItem from '../../components/ContentItem/ContentItem';
  * it is scalable and can be added with additional, special for the AsideBar functionality...
  * **/
 const ContentBar = new Component({
-    htmlTagName: "div",
+    htmlTagName: 'div',
     attr: {
-        className: "contentBar",
+        className: 'contentBar fade-in',
     },
 });
 
-ContentBar.dataName = 'content';
+ContentBar['dataName'] = 'content';
 
 ContentBar.renderData = function(innData) {
+    const thisHtml = this.getHTMLElem();
     const {dispatchAlert, filterActive, data} = innData;
     let contentData;
     let HeadingElem;
@@ -60,15 +61,13 @@ ContentBar.renderData = function(innData) {
         this.setInnerHTML(HeadingElem, ...contentArr);
     }
 
-    this.getHTMLElem().style.transition = '';
-    this.getHTMLElem().style.opacity = '0';
 
+    thisHtml.classList.toggle('fade-in');
     setTimeout(() => {
-        this.getHTMLElem().style.transition = 'opacity 0.5s linear';
-        this.getHTMLElem().style.opacity = '1';
+        thisHtml.classList.toggle('fade-in');
     }, 200);
 
-    return this.getHTMLElem();
+    return thisHtml;
 };
 
 export default ContentBar;
