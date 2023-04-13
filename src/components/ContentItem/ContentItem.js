@@ -51,6 +51,7 @@ export default class ContentItem extends Component {
                             href: it.path,
                             target: '_blank',
                             rel: 'noreferrer noopener nofollow',
+                            title: 'follow the link for review...'
                         },
                         innerHTML: it.title,
                     }),
