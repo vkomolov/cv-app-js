@@ -3,7 +3,7 @@
 import Component from "../../components/Component/Component";
 import './App.scss';
 import { getAndStore } from '../../utils/services/userService';
-import { equalCols } from '../../utils/services/index';
+//import { equalCols } from '../../utils/services/index';
 
 import loadingIcon from '../../asset/img/loadingIcon.svg';
 
@@ -58,7 +58,7 @@ class App extends Component {
         this._data = null;
 
         /**
-         * @type {{type: (null | string), contentArr: ([] | (HTMLElement | string | Error | number)[])}}
+         * @param {{type: (null | string), contentArr: ([] | (HTMLElement | string | Error | number)[])}}
          * @protected
          * @example
          * type: null, 'error', 'loading'... to be scaled
@@ -104,7 +104,7 @@ class App extends Component {
          * it makes all columns of the page to be equal, corresponding to their content size
          * @param {...HTMLElement}
          */
-            equalCols(...this._kids.map(kid => kid.getHTMLElem()));
+            //equalCols(...this._kids.map(kid => kid.getHTMLElem()));
 
             if (!this._data) {
                 /**
@@ -161,10 +161,10 @@ class App extends Component {
                 this.alertClear();
 
                 //sending new data to the Component ancestors
-                this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
+                this._kids.forEach(kid => kid['renderData'](this.prepareData(this._data)));
 
                 //equalizing the heights of the kids...
-                equalCols(...this._kids.map(kid => kid.getHTMLElem()));
+                //equalCols(...this._kids.map(kid => kid.getHTMLElem()));
 
                 //scrolling up to start of the page
                 window.scrollTo(0, 0);
@@ -542,14 +542,11 @@ class App extends Component {
                     //clearing the previous alerts
                     this.alertClear();
 
-                    //this.dispatchAlert('error', new Error('TESTING...'));
-                    //this.dispatchAlert('loading', this._loadingIcon.getHTMLElem());
-
                     //re-rendering the elements with the new and prepared data
-                    this._kids.forEach(kid => kid.renderData(this.prepareData(this._data)));
+                    this._kids.forEach(kid => kid["renderData"](this.prepareData(this._data)));
 
                     //equalizing the heights of AsideBar and ContentBar...
-                    equalCols(...this._kids.map(kid => kid.getHTMLElem()));
+                    //equalCols(...this._kids.map(kid => kid.getHTMLElem()));
 
                     //initialising the scrolling text top of the page
                     this.initScrollingText(scrollingText, 50000, true);

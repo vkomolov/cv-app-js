@@ -6,16 +6,19 @@
   //font-size is in #root with rem, which is changed by media queries
   position: relative;
   width: 100%;
+  background-color: $white;
 
   @include flex-box($flex-box-row-top...);
+  @include box-shadow(2px, 8px);
 }
 
 .wrapper-on-scroll {
   position: fixed;
-  width: calc(100% - 1em);
+  max-width: $maxWidth;
+  width: calc(100% - 3em);
   top: -100px;
   left: 0;
-  margin: 0 0.5em;
+  margin: 0 1.5em;
 
   &.scroll-active {
     top: 0;
@@ -63,6 +66,7 @@
   height: 1.5em;
   margin: 0 0.5em;
   overflow: hidden;
+  background-color: $white;
 
   @include transition('left', 5s);
 
