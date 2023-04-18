@@ -14,11 +14,14 @@
 
 .wrapper-on-scroll {
   position: fixed;
-  max-width: $maxWidth;
-  width: calc(100% - 3em);
+  //max-width: $maxWidth;
+  //width: calc(100% - 3em);
+  width: 100%;
   top: -100px;
   left: 0;
-  margin: 0 1.5em;
+  //margin: 0 1.5em;
+
+  @include flex-box($flex-box-row-center...);
 
   &.scroll-active {
     top: 0;
@@ -27,7 +30,10 @@
   @include transition();
 
   .bar-on-scroll {
-    margin: 0;
+    width: 100%;
+    max-width: calc(#{$maxWidth} - 1em);
+    //margin: 0;
+    //padding: 0 0.5em;
     background: linear-gradient(90deg, $white, $foxy);
     opacity: 0.97;
 

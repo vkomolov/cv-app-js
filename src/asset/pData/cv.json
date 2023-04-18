@@ -93,6 +93,14 @@
               "details": "90"
             },
             {
+              "title": "Styled-Components",
+              "details": "80"
+            },
+            {
+              "title": "Module Styling",
+              "details": "85"
+            },
+            {
               "title": "Javascript",
               "details": "85"
             },
@@ -102,7 +110,7 @@
             },
             {
               "title": "MySql",
-              "details": "80"
+              "details": "85"
             }
           ]
         },
@@ -119,14 +127,6 @@
             },
             {
               "title": "Router",
-              "details": "80"
-            },
-            {
-              "title": "Styled-Components",
-              "details": "80"
-            },
-            {
-              "title": "Module Styling",
               "details": "85"
             }
           ]
@@ -147,7 +147,7 @@
               "details": "80"
             },
             {
-              "title": "JSDoc, PropTypes, ARIA",
+              "title": "JSDoc, PropTypes, ESLint, ARIA",
               "details": "85"
             },
             {
@@ -172,11 +172,11 @@
               "details": "80"
             },
             {
-              "title": "Structuring and Organizing Data operations",
+              "title": "Structuring, Organizing Data operations",
               "details": "90"
             },
             {
-              "title": "Marketing Mix Analysis, Positioning and Penetration",
+              "title": "Marketing Mix Analysis, Benchmarking",
               "details": "85"
             }
           ]
@@ -191,7 +191,7 @@
           "subheading": "Outsource",
           "comments": "FullStack Dev, design, copywriting, translating",
           "li": [
-            "Stack: HTML5, CSS3 (SCSS/module/styled), JS, React/Redux/Router, JSDoc, PropTypes, PHP, MySql;",
+            "Stack: HTML5, CSS3 (SCSS/module/styled), JS, React/Redux/Router, PHP, MySql;",
             "Creating catalogs, tech-lists with a unique design and content (ua, ru, en);",
             "Copywriting, translating (ua, ru, en);"
           ]
@@ -199,12 +199,12 @@
         {
           "remark": "1997 - till Apr 2022",
           "subheading": "Non IT / partial IT Experience",
-          "comments": "Sales and Marketing management, data analysis \u0026 planning in B2B",
+          "comments": "Sales \u0026 Marketing management, data analysis \u0026 in B2B",
           "li": [
-            "Analysis of Business and Marketing data, statistics, positioning;",
-            "Product and Distribution Management;",
+            "Analysis of Business and Marketing data, statistics, benchmarking;",
+            "Product \u0026 Distribution Management;",
             "Creating the visual and text content for the corporate catalogs, tech-lists, web...;",
-            "Creating and support of the data base on Power Pivot, Power Querry, DAX;",
+            "Creating and support of the data base (Power Pivot, Power Querry, DAX);",
             "Sales \u0026 Marketing Management;"
           ]
         },
@@ -228,7 +228,7 @@
             },
             {
               "title": "CV on React, rendered from fetched JSON",
-              "path": "https://github.com/vkomolov/cv-app"
+              "path": "https://github.com/vkomolov/cv-app-react"
             },
             {
               "title": "PostIt Application on React",
@@ -257,16 +257,24 @@
           "subheading": "REALISATION",
           "a": [
             {
+              "title": "CV Application on React",
+              "path": "https://vkomolov-cv-react.pages.dev/"
+            },
+            {
+              "title": "CV Application on vanilla JS",
+              "path": "https://vkomolov-cv-js.pages.dev/"
+            },
+            {
+              "title": "Filtering data on React (Demo)",
+              "path": "https://vkomolov.github.io/React_Filter_ModuleWork/"
+            },
+            {
               "title": "PostIt Application on React (Demo)",
               "path": "https://vkomolov.github.io/post-it/"
             },
             {
               "title": "cartForm_Gulp4_SCSS_ES2015 (Demo)",
               "path": "https://vkomolov.github.io/cartForm_Gulp4_SCSS_ES2015/"
-            },
-            {
-              "title": "Filtering data on React (Demo)",
-              "path": "https://vkomolov.github.io/React_Filter_ModuleWork/"
             }
           ]
         }
@@ -333,13 +341,25 @@
       "title": "Education",
       "details": [
         {
+          "remark": "TODO",
+          "subheading": "Advanced",
+          "li": [
+            "Testings, Test-driven development (TDD)",
+            "Next.js, TypeScript",
+            "Node.js, Headless CMS on Node.js: Strapi",
+            "Joomla, WordPress",
+            "GraphQL, MongoDB",
+            "SEO for Headless CMS, React \u0026 Apps frontend-rendered",
+            "Payment APIs"
+          ]
+        },
+        {
           "remark": "Nov 2017 - Apr 2018",
           "subheading": "PHP Academy ( Deutsche-It-Schule )",
           "li": [
             "Frontend: HTML, CSS/SCSS, JS, React/Redux/Router;",
             "Backend: PHP, MySQL;",
-            "REST API",
-            "ToDo (advanced): GraphQL"
+            "REST API"
           ]
         },
         {
@@ -358,23 +378,12 @@
           ]
         },
         {
-          "remark": "Advanced:",
-          "subheading": "TODO: advanced learn:",
-          "li": [
-            "Node.js, Headless CMS: Strapi",
-            "GraphQL",
-            "MongoDB",
-            "Payment APIs",
-            "TypeScript"
-          ]
-        },
-        {
           "remark": "CV",
           "subheading": "CV Downloads",
           "file": [
             {
               "title": "English CV download:",
-              "path": "./asset/pData/VKomolov_Eng22_CV_JS.pdf"
+              "path": "asset/pData/VKomolov_Eng22_CV_JS.pdf"
             }
           ]
         }

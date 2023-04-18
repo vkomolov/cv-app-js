@@ -233,7 +233,7 @@ class App extends Component {
     }
 
     /**@function
-     * it hangs EventListener on scroll untill window.pageYOffset >= scrollPoint
+     * it hangs EventListener on scroll until window.pageYOffset >= scrollPoint
      * then it appends the bar on top of the page in absolute position
      * @param {number} scrollPoint
      * @param {Object} attr contains the keys: 'forScrollClass', 'onScrollEventClass', 'wrapperClass', 'elementClass'
@@ -319,7 +319,7 @@ class App extends Component {
         });
 
         /**
-         * creating the wrapper of the bar with the fiters. The bar will be appended to {@link WrapperOnScroll}
+         * creating the wrapper of the bar with the filters. The bar will be appended to {@link WrapperOnScroll}
          * @type {Component}
          */
         this.barOnScroll = new Component({
@@ -495,7 +495,7 @@ class App extends Component {
                         requestAnimationFrame(measure);
                     } else {
                         /**
-                         * if fulfilled, then to replace the scrolling element to the initial position, unvisible right
+                         * if fulfilled, then to replace the scrolling element to the initial not visible position
                          * only in case of isInfinite === true
                          */
                         if (isInfinite) {
@@ -503,7 +503,7 @@ class App extends Component {
                             startTime = null;
                             requestAnimationFrame(measure);
                         }
-                        console.log('text scrolling ended...');
+                        //log('text scrolling ended...');
                     }
                 });
             }
@@ -553,7 +553,7 @@ class App extends Component {
 
                     //setting the listener on scroll with the following showing elements on scroll down
                     this.listenForScroll({
-                        scrollPoint: 400,
+                        scrollPoint: 350,
                         attr: {
                             forScrollClass: 'wrapper-on-scroll',
                             onScrollEventClass: 'scroll-active',
