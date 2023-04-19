@@ -3,6 +3,7 @@
 @import "../../styles/scss/global_styles/_animations";
 
 .contentBar {
+  position: relative;
   flex-grow: 1;
   flex-basis: 30em;
   color: $blue;
@@ -23,6 +24,21 @@
     @include init-font(1.5em, 700);
 
     padding: 0.9em 0;
+  }
+
+  .jsIconContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 3em;
+    margin: 0.5em 1em;
+
+    @include flex-box($flex-box-row-center...);
+
+    img {
+      width: 100%;
+      animation: rotateY 5s infinite linear;
+    }
   }
 
   .contentWrapper {

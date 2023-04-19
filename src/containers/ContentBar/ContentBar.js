@@ -3,6 +3,7 @@
 import './ContentBar.scss';
 import Component from '../../components/Component/Component';
 import ContentItem from '../../components/ContentItem/ContentItem';
+import iconJs from '../../asset/img/js.png';
 
 /**@description
  *
@@ -57,8 +58,19 @@ ContentBar.renderData = function(innData) {
         });
     }
 
+    const jsIcon = new Image();
+    jsIcon.alt = 'js icon';
+    jsIcon.src = iconJs;
+    const iconWrapper = new Component({
+        htmlTagName: 'div',
+        attr: {
+            className: 'jsIconContainer',
+        },
+        innerHTML: jsIcon,
+    });
+
     if (HeadingElem && contentArr && contentArr.length) {
-        this.setInnerHTML(HeadingElem, ...contentArr);
+        this.setInnerHTML(HeadingElem, iconWrapper, ...contentArr);
     }
 
 
