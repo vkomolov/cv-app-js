@@ -32,8 +32,7 @@
   .bar-on-scroll {
     width: 100%;
     max-width: calc(#{$maxWidth} - 1em);
-    //margin: 0;
-    //padding: 0 0.5em;
+    margin: 0 0.5em;
     background: linear-gradient(90deg, $white, $foxy);
     opacity: 0.97;
 
