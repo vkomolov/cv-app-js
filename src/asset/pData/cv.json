@@ -82,11 +82,11 @@
           "details": [
             {
               "title": "HTML",
-              "details": "90"
+              "details": "85"
             },
             {
               "title": "CSS",
-              "details": "90"
+              "details": "85"
             },
             {
               "title": "SCSS",
@@ -94,11 +94,11 @@
             },
             {
               "title": "Styled-Components",
-              "details": "80"
+              "details": "75"
             },
             {
               "title": "Module Styling",
-              "details": "85"
+              "details": "80"
             },
             {
               "title": "Javascript",
@@ -134,12 +134,16 @@
               "details": "85"
             },
             {
-              "title": "Redux Toolkit",
-              "details": "80"
+              "title": "Redux-Saga",
+              "details": "75"
             },
             {
-              "title": "Router",
-              "details": "85"
+              "title": "React-Router",
+              "details": "75"
+            },
+            {
+              "title": "Redux-Toolkit",
+              "details": "75"
             }
           ]
         },
@@ -173,11 +177,11 @@
             },
             {
               "title": "GIT",
-              "details": "80"
+              "details": "75"
             },
             {
               "title": "Gulp, Webpack",
-              "details": "80"
+              "details": "75"
             },
             {
               "title": "Power Pivot, Power Query, DAX",
@@ -220,7 +224,7 @@
           "subheading": "Outsource",
           "comments": "FullStack Dev, design, copywriting, translating",
           "li": [
-            "Stack: HTML5, CSS3 (SCSS/module/styled), JS, React/Redux/Router, PHP, MySql;",
+            "Developing webSites and apps: HTML5, CSS3 (SCSS/module/styled), JS, React/Redux/Router, PHP, MySql;",
             "Creating catalogs, tech-lists with a unique design and content (ua, ru, en);",
             "Copywriting, translating (ua, ru, en);"
           ]
@@ -228,7 +232,7 @@
         {
           "remark": "1997 - till Apr 2022",
           "subheading": "Non IT / partial IT Experience",
-          "comments": "Sales \u0026 Marketing management, data analysis \u0026 in B2B",
+          "comments": "Sales \u0026 Marketing management, data analysis in B2B",
           "li": [
             "Analysis of Business and Marketing data, statistics, benchmarking;",
             "Product \u0026 Distribution Management;",
@@ -248,15 +252,27 @@
         },
         {
           "remark": "Git:",
-          "subheading": "Some samples of the code:",
+          "subheading": "CODE REALISATIONS:",
           "comments": "links: ",
           "a": [
             {
-              "title": "CV on JS, rendered from fetched JSON",
+              "title": "CV on native JS, rendered from the fetched JSON",
               "path": "https://github.com/vkomolov/cv-app-js"
             },
             {
-              "title": "CV on React, rendered from fetched JSON",
+              "title": "CV on React, realisation with classes and props drilling",
+              "path": "https://github.com/vkomolov/cv-app-react/tree/classVer"
+            },
+            {
+              "title": "CV on React, functional with hooks",
+              "path": "https://github.com/vkomolov/cv-app-react/tree/hookVer"
+            },
+            {
+              "title": "CV on React, functional with hooks, redux/thunk",
+              "path": "https://github.com/vkomolov/cv-app-react/tree/reduxVer"
+            },
+            {
+              "title": "CV on React, functional with hooks, redux-toolkit, redux-saga, react-router",
               "path": "https://github.com/vkomolov/cv-app-react"
             },
             {
@@ -274,36 +290,20 @@
             {
               "title": "Filtering data on React",
               "path": "https://github.com/vkomolov/React_Filter_ModuleWork"
-            },
-            {
-              "title": "Product Catalog AdobeIndesign (Copywriting, Design)",
-              "path": "https://github.com/vkomolov/AdobeIndesign-Catalog"
             }
           ]
         },
         {
           "remark": "Some:",
-          "subheading": "REALISATION",
+          "subheading": "VISUAL REALISATIONS",
           "a": [
             {
-              "title": "CV Application on React",
+              "title": "CV Application with React/Redux-Toolkit/Redux-Saga/Router",
               "path": "https://vkomolov-cv-react.pages.dev/"
             },
             {
-              "title": "CV Application on vanilla JS",
+              "title": "CV Application with native JS",
               "path": "https://vkomolov-cv-js.pages.dev/"
-            },
-            {
-              "title": "Filtering data on React (Demo)",
-              "path": "https://vkomolov.github.io/React_Filter_ModuleWork/"
-            },
-            {
-              "title": "PostIt Application on React (Demo)",
-              "path": "https://vkomolov.github.io/post-it/"
-            },
-            {
-              "title": "cartForm_Gulp4_SCSS_ES2015 (Demo)",
-              "path": "https://vkomolov.github.io/cartForm_Gulp4_SCSS_ES2015/"
             }
           ]
         }
@@ -322,7 +322,7 @@
         },
         {
           "title": "Power Pivot, Power Querry, DAX",
-          "details": "self-study"
+          "details": "Corporate Courses"
         },
         {
           "title": "Data structuring and analysis",
@@ -341,11 +341,7 @@
           "details": "self-study"
         },
         {
-          "title": "Customer Focus Selling",
-          "details": "Corporate Courses"
-        },
-        {
-          "title": "Lean Six Sigma",
+          "title": "Customer Focus Negotiations",
           "details": "Corporate Courses"
         },
         {
@@ -353,11 +349,15 @@
           "details": "Corporate Courses"
         },
         {
-          "title": "Negotiations",
-          "details": "Corporate Courses"
+          "title": "Project Management",
+          "details": "self-study"
         },
         {
           "title": "Time Management",
+          "details": "Corporate Courses"
+        },
+        {
+          "title": "Lean Six Sigma",
           "details": "Corporate Courses"
         },
         {
@@ -369,19 +369,6 @@
     "content": {
       "title": "Education",
       "details": [
-        {
-          "remark": "TODO",
-          "subheading": "Advanced",
-          "li": [
-            "Testings, Test-driven development (TDD)",
-            "Next.js, TypeScript",
-            "Node.js, Headless CMS on Node.js: Strapi",
-            "Joomla, WordPress",
-            "GraphQL, MongoDB",
-            "SEO for Headless CMS, React \u0026 Apps frontend-rendered",
-            "Payment APIs"
-          ]
-        },
         {
           "remark": "Nov 2017 - Apr 2018",
           "subheading": "PHP Academy ( Deutsche-It-Schule )",
@@ -407,12 +394,26 @@
           ]
         },
         {
+          "remark": "TODO",
+          "subheading": "TODO Advanced",
+          "li": [
+            "Testings, Test-driven development (TDD)",
+            "Node.js, Express, Next.js, TypeScript",
+            "PostgreSQL, GraphQL, MongoDB",
+            "Headless CMS on Node.js: Strapi",
+            "SEO for Headless CMS plus Next.js \u0026 Single-Page Apps",
+            "Payment APIs",
+            "Angular, React Native",
+            "Joomla, WordPress"
+          ]
+        },
+        {
           "remark": "CV",
           "subheading": "CV Downloads",
           "file": [
             {
               "title": "English CV download:",
-              "path": "asset/pData/VKomolov_Eng22_CV_JS.pdf"
+              "path": "asset/pData/VKomolov_Eng23_CV_JS.pdf"
             }
           ]
         }
