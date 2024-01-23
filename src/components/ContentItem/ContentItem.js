@@ -87,6 +87,7 @@ export default class ContentItem extends Component {
                         attr: {
                             className: 'link',
                             href: it.path,
+                            target: "_blank",
                             title: `Save ${it.title} (pdf format)`,
                             download: true,
                         },

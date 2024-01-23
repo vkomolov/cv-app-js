@@ -129,21 +129,9 @@ module.exports = {
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: path.resolve(__dirname, 'src/asset/pData/cv.json'),
-                    to: path.resolve(__dirname, 'dist/asset/pData/cv.json')
-                },
-                {
-                    from: path.resolve(__dirname, 'src/asset/pData/VKomolov_Eng22_CV_JS.pdf'),
-                    to: path.resolve(__dirname, 'dist/asset/pData/VKomolov_Eng22_CV_JS.pdf')
-                },
-                {
-                    from: path.resolve(__dirname, 'src/asset/img/vk.jpeg'),
-                    to: path.resolve(__dirname, 'dist/asset/img/vk.jpeg')
-                },
-/*                {
-                    from: path.resolve(__dirname, 'src/asset/fonts'),
-                    to: path.resolve(__dirname, 'dist/asset/fonts')
-                },*/
+                    from: path.resolve(__dirname, 'src/asset'),
+                    to: path.resolve(__dirname, 'dist/asset')
+                }
             ],
         }),
         new MiniCssExtractPlugin({

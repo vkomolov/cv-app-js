@@ -18,11 +18,11 @@ export function getLocalStorage( name, timeLimit=1 ) {
 		const creationDate = new Date(innData.creationDate);
 		const currentDate = new Date();
 		if (((currentDate - creationDate)/1000/60/60/24) > 1) {
-			return false;
+			return null;
 		}
 		return innData;
 	}
-	return false;
+	return null;
 }
 
 /**@description it receives the data and update it with the current Date
@@ -91,8 +91,10 @@ export function initAxios(url, ext = 'json', inDataParams = null) {
                     //return URL.createObjectURL(resp.data); //it is alive till window closes...
                     return readFileAsDataUrl(resp.data);
                 }
+
                 return resp.data;
             }
+
             return resp;
         });
 }
@@ -148,7 +150,7 @@ export function initFetch(url, ext = 'json', inDataParams = null) {
      * @returns {Promise} resolve or reject
      */
     function status( response ) {
-        log(response, 'response in fetch:');
+        //log(response, 'response in fetch:');
 
         if ( response.ok ) {
             return Promise.resolve( response );
@@ -178,7 +180,7 @@ export function initFetch(url, ext = 'json', inDataParams = null) {
 
 /**@description it utilizes FileReader methods to read the file / blob as DataURL;
  * @async
- * @param {blob} file Blob or File
+ * @param {blob | file} file Blob or File
  * @returns {string} base64 encoded URL format
  * */
 async function readFileAsDataUrl( file ) {
