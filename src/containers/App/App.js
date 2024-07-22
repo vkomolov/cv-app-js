@@ -11,6 +11,7 @@ import loadingIcon from '../../asset/img/loadingIcon.svg';
 import AsideBar from "../AsideBar/AsideBar";
 import ContentBar from "../ContentBar/ContentBar";
 import AlertBlock from "../../components/AlertBlock/AlertBlock";
+
 const filterOption = [
     'personal',
     'experience',
@@ -35,8 +36,6 @@ class App extends Component {
      * @param {string} props.attr.id - the id attribute of the given tag
      * @param {[[string, string]]} props.attr.dataParams - is used for dataset params of the given tag
      * dataParams is Array of arrays with [key, value] pairs for dataset[key]=value
-     * @param {string} props.attr.* - it sets any attribute name:
-     * the tag is set with dataset[*] = value
      * @param {((Component | HTMLElement | string | number)[] | (Component | HTMLElement | string | number)} props.innerHTML
      * - will be placed to innerHTML of HTMLElement
      */
@@ -104,15 +103,16 @@ class App extends Component {
          * it makes all columns of the page to be equal, corresponding to their content size
          * @param {...HTMLElement}
          */
-            //equalCols(...this._kids.map(kid => kid.getHTMLElem()));
+        //equalCols(...this._kids.map(kid => kid.getHTMLElem()));
 
-            if (!this._data) {
-                /**
-                 * if still no data loaded, then to dispatch alert with type='loading'
-                 */
-                this.dispatchAlert('loading', this._loadingIcon.getHTMLElem());
-            }
+        if (!this._data) {
+            /**
+             * if still no data loaded, then to dispatch alert with type='loading'
+             */
+            this.dispatchAlert('loading', this._loadingIcon.getHTMLElem());
+        }
     }
+
 ///////////////// END OF CONSTRUCTOR /////////////////
 
     /**@function
@@ -129,18 +129,18 @@ class App extends Component {
         };
     }
 
-/**@function
- * @description setFilter initiates 'setter' on 'filter'... it will be sent as the callback to the children
- * setter {@link filter} will re-render all appended elements with the new data... resembling 'state' changes...
- */
-    setFilter (value) {
+    /**@function
+     * @description setFilter initiates 'setter' on 'filter'... it will be sent as the callback to the children
+     * setter {@link filter} will re-render all appended elements with the new data... resembling 'state' changes...
+     */
+    setFilter(value) {
         this.filter = value;    //switching to the setter (set filter()), not this._filter directly...
     }
 
     /**@function getter
      * @returns {string} this._filter
      */
-    get filter () {
+    get filter() {
         return this._filter;
     }
 
@@ -150,7 +150,7 @@ class App extends Component {
      * @example
      * this.filter = 'personal' | 'experience' |'education'
      * **/
-    set filter (value) {
+    set filter(value) {
         if (this._filterOption.length && this._filterOption.includes(value)) {
             this._filter = value;
 
@@ -177,13 +177,13 @@ class App extends Component {
 
             }
             else {
-                console.error(`the data is empty:  ${this._data}`);
-                this.dispatchAlert('error', new Error(`the data is empty:  ${this._data}`));
+                console.error(`the data is empty:  ${ this._data }`);
+                this.dispatchAlert('error', new Error(`the data is empty:  ${ this._data }`));
             }
         }
         else {
-            console.error(`the filter ${value} is not in option...`);
-            this.dispatchAlert('error', new Error(`the filter ${value} is not in option...`));
+            console.error(`the filter ${ value } is not in option...`);
+            this.dispatchAlert('error', new Error(`the filter ${ value } is not in option...`));
         }
     }
 
@@ -191,7 +191,7 @@ class App extends Component {
      * if {@link this._alert.type} equals 'error', then to return {@link this._alert.contentArr} as the array of Errors
      * @returns {null|Error[]}
      */
-    get error () {
+    get error() {
         if (this._alert.type === 'error') {
             return this._alert.content;
         }
@@ -211,7 +211,7 @@ class App extends Component {
      * @example
      * dispatchAlert('error', new Error('too many comments for all this :)'), new Error('bla bla bla :)'));
      */
-    dispatchAlert (type, ...content) {
+    dispatchAlert(type, ...content) {
         if (this._alert.type && this._alert.type !== type) {
             this.alertClear();
         }
@@ -225,7 +225,7 @@ class App extends Component {
     /**@function
      * it removes the alert block from DOM, resetting {@link this._alert} properties to default values
      */
-    alertClear () {
+    alertClear() {
         document.body.style.overflow = 'auto';
         AlertBlock.getHTMLElem().remove();
         this._alert.type = null;
@@ -244,7 +244,7 @@ class App extends Component {
      * @param {string} attr.elementClass - className for the filters
      * @param {string[]} textContentArr - the array of filters which will be shown in the top bar
      */
-    listenForScroll({scrollPoint, attr, textContentArr}) {
+    listenForScroll({ scrollPoint, attr, textContentArr }) {
         /**
          * @type {Component} future wrapper in fixed position ,which will appear at scroll-down event
          */
@@ -264,7 +264,7 @@ class App extends Component {
          */
         let isLocked = false;
 
-        const {forScrollClass, onScrollEventClass, wrapperClass, elementClass} = attr;
+        const { forScrollClass, onScrollEventClass, wrapperClass, elementClass } = attr;
 
         /**
          * @type {(Component | HTMLElement)[]} - array of Components to show in the wrapper {@link this.barOnScroll}
@@ -279,22 +279,22 @@ class App extends Component {
 
         //CHECKING FOR ERRORS
         if (!+scrollPoint) {
-            errorsArr.push(new Error(`given scrollPoint: ${scrollPoint} is not of type 'number'...`));
+            errorsArr.push(new Error(`given scrollPoint: ${ scrollPoint } is not of type 'number'...`));
         }
         if (!forScrollClass) {
-            errorsArr.push(new Error(`given value: ${forScrollClass} is not found...`));
+            errorsArr.push(new Error(`given value: ${ forScrollClass } is not found...`));
         }
         if (!onScrollEventClass) {
-            errorsArr.push(new Error(`given onScrollEventClass: ${onScrollEventClass} is not found...`));
+            errorsArr.push(new Error(`given onScrollEventClass: ${ onScrollEventClass } is not found...`));
         }
         if (!wrapperClass) {
-            errorsArr.push(new Error(`given wrapperClass: ${wrapperClass} is not found...`));
+            errorsArr.push(new Error(`given wrapperClass: ${ wrapperClass } is not found...`));
         }
         if (!elementClass) {
-            errorsArr.push(new Error(`given elementSpecClass: ${elementClass} is not found...`));
+            errorsArr.push(new Error(`given elementSpecClass: ${ elementClass } is not found...`));
         }
         if (!textContentArr || !textContentArr.length) {
-            errorsArr.push(new Error(`given array: ${textContentArr} is not found or empty...`));
+            errorsArr.push(new Error(`given array: ${ textContentArr } is not found or empty...`));
         }
 
         if (errorsArr.length) {
@@ -309,7 +309,7 @@ class App extends Component {
             return new Component({
                 htmlTagName: 'span',
                 attr: {
-                    className: `${elementClass} ${specClass}`,
+                    className: `${ elementClass } ${ specClass }`,
                     dataParams: [
                         ['section', text],
                     ],
@@ -337,7 +337,7 @@ class App extends Component {
          * @example
          * this.filter = 'personal' | 'experience' |'education'
          */
-        this.barOnScroll.renderFilter = function(activeFilter) {
+        this.barOnScroll.renderFilter = function (activeFilter) {
             //clearing previous styles of the shown elements and applying with the current activeFilter
             [...this.getHTMLElem().children].forEach(el => {
                 el.classList.remove('specClass');
@@ -481,7 +481,7 @@ class App extends Component {
                         startTime = time;
                     }
                     //getting the percentage of time, passed from startTime...
-                    let progress = (time - startTime)/duration;   //from 0 to 1
+                    let progress = (time - startTime) / duration;   //from 0 to 1
                     if (progress > 1) {
                         progress = 1;
                     }
@@ -493,7 +493,8 @@ class App extends Component {
                     //recycling function till come to 100%
                     if (progress < 1) {
                         requestAnimationFrame(measure);
-                    } else {
+                    }
+                    else {
                         /**
                          * if fulfilled, then to replace the scrolling element to the initial not visible position
                          * only in case of isInfinite === true
@@ -574,6 +575,6 @@ class App extends Component {
 export default App;
 
 ///////////////// dev
-function log(it, comments='value: ') {
+function log(it, comments = 'value: ') {
     console.log(comments, it);
 }

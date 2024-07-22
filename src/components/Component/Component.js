@@ -14,18 +14,13 @@ export default class Component {
      * @param {string} props.attr.id - the id attribute of the given tag
      * @param {[[string, string]]} props.attr.dataParams - is used for dataset params of the given tag
      * dataParams is Array of arrays with [key, value] pairs for dataset[key]=value
-     * @param {string} props.attr.* - it sets any attribute name:
+     * {string} props.attr.* - it sets any attribute name:
      * the tag is set with dataset[*] = value
-     * @param {((Component | HTMLElement | string | number)[] | (Component | HTMLElement | string | number)} props.innerHTML
+     * @param {((Component | string | number)[] | (Component | string | number))} props.innerHTML
      * - will be placed to innerHTML of HTMLElement
      */
     constructor ({htmlTagName, ...props}) {
         if (typeof htmlTagName === 'string') {
-
-            /**
-             * @type {HTMLElement}
-             * @protected
-             */
             this._htmlElem = document.createElement(htmlTagName);
         } else {
             console.error(new Error('htmlTagName must be of type "string"...'));
