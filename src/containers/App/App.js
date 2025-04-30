@@ -1,6 +1,6 @@
 'use strict';
 
-import Component from "../../components/Component/Component";
+import Component from "../../components/Component/Component.js";
 import './App.scss';
 import { getAndStore } from '../../utils/services/userService';
 //import { equalCols } from '../../utils/services/index';
@@ -34,9 +34,9 @@ class App extends Component {
      * @param {Object} props.attr - attributes
      * @param {string} props.attr.className - the className attribute of the given tag
      * @param {string} props.attr.id - the id attribute of the given tag
-     * @param {[[string, string]]} props.attr.dataParams - is used for dataset params of the given tag
+     * @param {[string, string][]} [props.attr.dataParams] - is used for dataset params of the given tag
      * dataParams is Array of arrays with [key, value] pairs for dataset[key]=value
-     * @param {((Component | HTMLElement | string | number)[] | (Component | HTMLElement | string | number)} props.innerHTML
+     * @param {(Component|HTMLElement|string|number|Array<Component|HTMLElement|string|number>)} [props.innerHTML]
      * - will be placed to innerHTML of HTMLElement
      */
     constructor(props) {
@@ -573,8 +573,3 @@ class App extends Component {
 }
 
 export default App;
-
-///////////////// dev
-function log(it, comments = 'value: ') {
-    console.log(comments, it);
-}

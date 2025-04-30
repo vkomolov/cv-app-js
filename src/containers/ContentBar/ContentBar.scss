@@ -1,12 +1,10 @@
-@import "../../styles/scss/global_styles/_variables";
-@import "../../styles/scss/global_styles/_mixins";
-@import "../../styles/scss/global_styles/_animations";
+@use "../../styles/global_styles/root" as root;
 
 .contentBar {
   position: relative;
   flex-grow: 1;
   flex-basis: 30em;
-  color: $blue;
+  color: root.$blue;
   padding-left: 1.8em;
   padding-bottom: 2em;
 
@@ -18,10 +16,10 @@
 
   .heading {
     letter-spacing: 0.13em;
-    background: linear-gradient(90deg, $white, $foxy);
+    background: linear-gradient(90deg, root.$white, root.$foxy);
 
-    @include text-shadow(0.07em, 0.1em);
-    @include init-font(1.5em, 700);
+    @include root.text-shadow(0.07em, 0.1em);
+    @include root.init-font(1.5em, 700);
 
     padding: 0.9em 0;
   }
@@ -33,7 +31,7 @@
     width: 3em;
     margin: 0.5em 1em;
 
-    @include flex-box($flex-box-row-center...);
+    @include root.flex-box(row, center, center);
 
     img {
       width: 100%;
@@ -44,8 +42,8 @@
   .contentWrapper {
     position: relative; //for loading icon
 
-    @include scroll-init(5px, $blueDark, $foxyGrey);
-    @include flex-box($flex-box-row-left...);
+    @include root.scroll-init(5px, root.$blueDark, root.$foxyGrey);
+    @include root.flex-box(row, flex-start, center);
 
     align-items: flex-start;
     flex-wrap: nowrap;

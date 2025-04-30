@@ -46,8 +46,3 @@ AlertBlock.renderData = function (innData) {
 };
 
 export default AlertBlock;
-
-///////////////// dev
-function log(it, comments='value: ') {
-    console.log(comments, it);
-}

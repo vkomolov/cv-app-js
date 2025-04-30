@@ -1,62 +1,43 @@
 const path = require('path');
 const curMode = process.env.NODE_ENV || 'development';
-const isDev = curMode === 'development'; //to check the mode
+const isDev = curMode === 'development';
 
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-//const PostCssPresetEnvPlugin = require('postcss-preset-env');
 
 const target = isDev ? 'web' : 'browserslist';
-const devtool = isDev ? 'eval-source-map' : 'nosources-source-map';
-const filename = (ext) => isDev ? `[name].bundle.${ext}` : `[name].[contenthash:8].${ext}`;
-const cssLoaders = (...extraLoaderArr) => {
+const devtool = isDev ? 'eval-source-map' : 'source-map';
+const filename = (ext) => (isDev ? `[name].bundle.${ext}` : `[name].[contenthash:8].${ext}`);
+
+// CSS обработчики
+const cssLoaders = (extra) => {
     const loaders = [
-        //it injects styles to DOM
-        isDev ? 'style-loader' : {
-            loader: MiniCssExtractPlugin.loader,
-            // required for asset imports in CSS, such as url()
-            options: { publicPath: "" },
-        }, //turns css into js
+        isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
         'css-loader',
         {
-            //adds prefixes to css
             loader: 'postcss-loader',
             options: {
                 postcssOptions: {
-                    //plugins: [PostCssPresetEnvPlugin],
-                    plugins: {
-                        'postcss-preset-env': {
-                            browsers: 'last 3 versions',
-                        },
-                    },
+                    // Используем актуальный синтаксис для browserslist
+                    plugins: [
+                        ['postcss-preset-env', {
+                            browserslist: 'last 3 versions', // Можно использовать 'browserslist' или свой конфиг
+                        }]
+                    ]
                 }
             }
-        },
-    ]; //from right to left
+        }
+    ];
 
-    if (extraLoaderArr.length) {
-        extraLoaderArr.forEach(loader => loaders.push(loader));
-    }
-
+    if (extra) loaders.push(extra); // Для дополнительных настроек, например, для sass
     return loaders;
 };
-const babelOption = preset => {
-    const options = {
-        presets: [
-            '@babel/preset-env'
-        ],
-    };
-    if (preset) {
-        options.presets.push(preset);
-    }
 
-    return options;
-};
+// Оптимизация для разных режимов
 const optimization = () => {
     const config = {
         runtimeChunk: 'single',
@@ -70,59 +51,62 @@ const optimization = () => {
                         const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
                         return `npm.${packageName.replace('@', '')}`;
                     },
-                    chunks: "all",
+                    chunks: 'all'
                 }
             }
         },
         moduleIds: 'deterministic'
     };
+
     if (!isDev) {
         config.minimizer = [
             new CssMinimizerPlugin(),
-            new TerserWebpackPlugin(),
-        ]
+            new TerserWebpackPlugin()
+        ];
     }
+
     return config;
 };
 
+// Webpack конфигурация
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     mode: curMode,
     target,
     devtool,
     entry: {
-        main: path.join(__dirname, 'src', 'index.js'),
+        main: path.join(__dirname, 'src', 'index.js')
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: (pathData) => {
-            return pathData.chunk.name === 'main' ? filename('js') : `js/[name]/${filename('js')}`;
-        },
+        filename: (pathData) => (pathData.chunk.name === 'main' ? filename('js') : `js/[name]/${filename('js')}`),
         clean: true,
-        //asset which has no path in the loader settings
-        assetModuleFilename: 'asset/[hash][ext][query]',
+        assetModuleFilename: 'asset/[hash][ext][query]'
     },
     optimization: optimization(),
     devServer: {
         port: 9000,
-        open: true, //open browser
-        devMiddleware: {
-            writeToDisk: true, // pack files to write to disk
-        },
+        open: true,
         compress: true,
         hot: true,
+        static: {
+            directory: path.join(__dirname, 'public'),
+        },
+        devMiddleware: {
+            writeToDisk: isDev ? false : true, // Можно включить запись на диск только в режиме продакшн
+        }
     },
     watchOptions: {
-        ignored: /node_modules/,
+        ignored: /node_modules/
     },
     plugins: [
         new HTMLWebpackPlugin({
-            title: "cv",  //default title, will be overwritten
+            title: 'cv',
             template: path.resolve(__dirname, './src', 'index.html'),
             filename: 'index.html',
-            minify: {
-                removeComments: !isDev,
-                collapseWhitespace: !isDev,
+            minify: !isDev && {
+                removeComments: true,
+                collapseWhitespace: true
             }
         }),
         new CleanWebpackPlugin(),
@@ -132,81 +116,69 @@ module.exports = {
                     from: path.resolve(__dirname, 'src/asset'),
                     to: path.resolve(__dirname, 'dist/asset')
                 }
-            ],
+            ]
         }),
         new MiniCssExtractPlugin({
-            filename: 'styles/' + filename('css'),
-        }),
-        //new BundleAnalyzerPlugin(),
+            filename: 'styles/' + filename('css')
+        })
     ],
     module: {
         rules: [
             {
-                test: /\.txt$/i, // text
+                test: /\.txt$/i,
                 type: 'asset/source'
             },
-            //loading html
             {
                 test: /\.html$/i,
                 use: 'html-loader'
-
             },
-            //loading css
             {
                 test: /\.css$/i,
                 use: cssLoaders()
             },
-            //loading scss
             {
                 test: /\.s[ac]ss$/i,
-                use: cssLoaders("sass-loader" )
+                use: cssLoaders({
+                    loader: 'sass-loader',
+                    options: {
+                        implementation: require('sass'), // Указание правильной реализации sass
+                    }
+                })
             },
-            //loading js
             {
-                test:   /\.js$/,
+                test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: [
-                            babelOption()
-                        ],
-                        /**
-                         * From the docs: When set, the given directory will be used
-                         * to cache the results of the loader. Future webpack builds
-                         * will attempt to read from the cache to avoid needing to run
-                         * the potentially expensive Babel recompilation process on each run.
-                         */
-                        cacheDirectory: true,
-                    },
-                },
+                        presets: ['@babel/preset-env'],
+                        cacheDirectory: true
+                    }
+                }
             },
-            //loading images
             {
                 test: /\.(png|jpe?g|gif|webp)$/i,
                 type: 'asset',
                 parser: {
                     dataUrlCondition: {
-                        maxSize: 4096 // ограничение 4kb
+                        maxSize: 4096
                     }
                 },
                 generator: {
-                    filename: 'asset/img/[hash:8][ext][query]' // все изображения в dist/img
+                    filename: 'asset/img/[hash:8][ext][query]'
                 }
             },
-            //loading svg inline
             {
-                test: /\.svg/i,
-                type: 'asset/inline',
+                test: /\.svg$/i,
+                type: 'asset/inline'
             },
-            //loading fonts
             {
                 test: /\.(ttf|eot|woff|woff2)$/i,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'fonts/[name][ext]',
-                },
-            },
+                    filename: 'fonts/[name][ext]'
+                }
+            }
         ]
     }
 };

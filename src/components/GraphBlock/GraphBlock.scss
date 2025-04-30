@@ -1,14 +1,13 @@
-@import '../../styles/scss/global_styles/_variables';
-@import "../../styles/scss/global_styles/mixins";
+@use "../../styles/global_styles/root" as root;
 
 .graphBlock {
   height: 0.7em;
-  background-color: $blueDark;
+  background-color: root.$blueDark;
 
   .score {
     width: 0;
     height: 100%;
-    background-color: $white;
-    @include transition(all, 0.5s);
+    background-color: root.$white;
+    @include root.transition(all, 0.5s);
   }
 }
