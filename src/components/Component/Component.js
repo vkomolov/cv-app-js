@@ -2,7 +2,7 @@
 
 /**
  * @class
- * @classdesc this is the root class and all classes, which are to be rendered in DOM, extend from Component
+ * @classdesc Base class for all components that need to be rendered in the DOM.
  */
 export default class Component {
     /**
@@ -12,19 +12,19 @@ export default class Component {
      * @param {Object} props.attr - attributes
      * @param {string} props.attr.className - the className attribute of the given tag
      * @param {string} props.attr.id - the id attribute of the given tag
-     * @param {[[string, string]]} props.attr.dataParams - is used for dataset params of the given tag
+     * @param {[string, string][]} [props.attr.dataParams] - is used for dataset params of the given tag
      * dataParams is Array of arrays with [key, value] pairs for dataset[key]=value
      * {string} props.attr.* - it sets any attribute name:
      * the tag is set with dataset[*] = value
-     * @param {((Component | string | number)[] | (Component | string | number))} props.innerHTML
+     * @param {(Component|HTMLElement|string|number|Array<Component|HTMLElement|string|number>)} [props.innerHTML]
      * - will be placed to innerHTML of HTMLElement
      */
     constructor ({htmlTagName, ...props}) {
-        if (typeof htmlTagName === 'string') {
-            this._htmlElem = document.createElement(htmlTagName);
-        } else {
-            console.error(new Error('htmlTagName must be of type "string"...'));
+        if (!htmlTagName || typeof htmlTagName !== 'string') {
+            throw new Error('htmlTagName must be a non-empty string');
         }
+        // Create the HTML element
+        this._htmlElem = document.createElement(htmlTagName);
 
         if ('attr' in props) {
             if (typeof props['attr'] === 'object') {
@@ -75,7 +75,7 @@ export default class Component {
  * it is a protected Symbol property of the function, which appends the separate element to this._htmlElem
  * the following functions use this func: {@link this.setInnerHTML}, {@link append}
  * @protected is not used directly
- * @param {(HTMLElement | Component | string | number | null)} elem - will be appended to 'innerHTML'
+ * @param {(HTMLElement | Node | Component | string | number | null)} elem - will be appended to 'innerHTML'
  **/
  [Symbol.for("appendThis")](elem) {
      //can be null
@@ -133,7 +133,3 @@ export default class Component {
     }
 }
 
-////  dev  /////////////////////////////
-function log(it, comments="value: ") {
-    console.log(comments, it);
-}
