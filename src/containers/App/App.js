@@ -117,7 +117,7 @@ class App extends Component {
 
     /**@function
      * it adds additional properties to the data object which then will be sent by {@link renderData}
-     * @param {Object} data, taken from the LocalStorage or fetched...
+     * @param {Object} data - taken from the LocalStorage or fetched...
      * @returns {{data: Object, filterActive: string, setFilter: callback, dispatchAlert: callback}}
      */
     prepareData(data) {
@@ -206,7 +206,7 @@ class App extends Component {
      * to the existing at {@link this._alert.contentArr},
      * else to change this._alert.type to arguments['type'] and to overwrite the content of {@link this._alert.contentArr}
      * with the new content, given in arguments...
-     * @param {string} type: 'error', 'loading'... to be scaled
+     * @param {string} type 'error', 'loading'... to be scaled
      * @param {...(string | HTMLElement | Component | Error)} content
      * @example
      * dispatchAlert('error', new Error('too many comments for all this :)'), new Error('bla bla bla :)'));
